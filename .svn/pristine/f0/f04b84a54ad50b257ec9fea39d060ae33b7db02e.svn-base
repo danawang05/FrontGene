@@ -1,0 +1,41 @@
+.myQrcode_row{
+    padding: .8rem .4rem;
+}
+.myQrcode_content{
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: #ffffff;
+
+}
+.myQrcode_head{
+    height: 5rem;
+    width: 100%;
+    position: relative;
+    background-image: url('../../sources/ceshi.jpeg');
+    background-size: 100% 100%
+}
+.myQrcode_head_text{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    padding: 0 .4rem;
+    color: #f8f8fa;
+    font-size: .4rem;
+    background:rgba(70, 70, 70, .4);
+}
+.myQrcode_body{
+    padding: .8rem;
+    width: 100%
+}
+.myQrcode_body p{
+    font-size: .35rem;
+    color: #bebebe;
+    text-align: center;
+    line-height: 1rem;
+}
+.qrcode{
+    width: 76vw;
+    height: 76vw;
+}

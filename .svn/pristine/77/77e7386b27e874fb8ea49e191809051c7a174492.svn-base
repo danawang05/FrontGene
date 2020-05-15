@@ -1,0 +1,16 @@
+.followUp_head{
+    display: flex;
+    background: #ffffff
+}
+.followUp_head_one{
+    padding: .4rem;
+    color:#b2b2b2;
+    font-size: .4rem;
+}
+.followUp_head_one span{
+    color: #3a3a3a
+}
+.followUp_content{
+    margin-top: .4rem;
+    background: #ffffff
+}

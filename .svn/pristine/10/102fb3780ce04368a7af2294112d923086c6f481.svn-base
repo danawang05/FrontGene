@@ -1,0 +1,26 @@
+.gene_radio{
+    width: .4rem;
+    height: .4rem;
+    border-radius: .2rem;
+    border:.02rem solid #ffcb5c;
+}
+.gene_radio_inner{
+    margin-top: .08rem;
+    margin-left: .08rem;      
+    position: absolute;
+    width: .2rem;
+    height: .2rem;
+    border-radius: .1rem;
+    background-color: #ffcb5c;
+}
+.gene_radio_row{
+    font-size: .4rem
+}
+.gene_radio_text{
+     margin-left: .1rem;
+     line-height: 1.2rem
+}
+._radio{
+    height: 1.2rem;
+    padding-top: .4rem
+}

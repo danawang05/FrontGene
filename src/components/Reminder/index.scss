@@ -1,0 +1,24 @@
+.Reminder_bg_row{
+   padding: .2rem .4rem ;
+   width: 100%
+}
+.Reminder{
+    background: #ffffff;
+    height: 1rem;
+    border-radius: .5rem;
+    box-shadow: 0 0 40px rgba(204, 204, 204, 1)
+}
+.Reminder_img{
+    padding: .2rem;
+    width: 1rem;
+    margin-left: .2rem
+}
+.Reminder_img img{
+    height: .6rem;
+    width: .6rem;
+}
+.Reminder_msg{
+    line-height: 1rem;
+    font-size: .35rem;
+    margin-left: .2rem
+}

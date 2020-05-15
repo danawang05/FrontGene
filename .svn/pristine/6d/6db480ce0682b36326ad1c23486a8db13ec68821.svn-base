@@ -1,0 +1,30 @@
+html body {
+  padding: 0;
+  margin:0;
+  background: #fbfbfb;
+  color: #4a4a4a
+}
+body {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.am-tab-bar-bar{
+  padding-bottom: env(safe-area-inset-bottom);
+  height: calc(50px + env(safe-area-inset-bottom)) !important;
+}
+html{
+  font-size: 10vw
+}
+a {
+  color: #333;
+
+  &:hover {
+    color: #333;
+    text-decoration: underline;
+  }
+}
+.displays{
+  display: flex;
+}
+.am-list-line::after{
+  background-color: #fbfbfb
+}

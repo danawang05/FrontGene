@@ -1,0 +1,105 @@
+.marginTop4{
+    padding-top: .4rem
+}
+.reg_row{
+    padding: 0 .4rem .4rem .4rem;
+    background: #ffffff;
+    min-height: 100vh;
+}
+.reg_label{
+    line-height: 1rem;
+    font-size: .4rem;
+    padding: .4rem .2rem 0 .2rem;
+    color: #bbbbbb
+}
+.year_select{
+    height: 1.2rem;
+    line-height: 1.2rem;
+    font-size: .4rem;
+    border:1px solid #eeeeee;
+    border-radius: 3px;
+    display: flex;
+    color:#bbbbbb
+}
+.year_select_one{
+    flex: 1;
+    text-align: center
+}
+.year_select_line{
+    font-weight: 100
+}
+.gender_row{
+    margin-top: .8rem;
+    height: 2.5rem;
+}
+.gender{
+    height: 2.5rem;
+    border:1px solid #eeeeee;
+    width: 4rem;
+    border-radius: 3px;
+    padding-left: .6rem;
+    color: #bbbbbb;
+    position: relative;
+}
+.gender_select{
+    height: 2.5rem;
+    border:1px solid #ffcb5c;
+    width: 4rem;
+    border-radius: 3px; 
+    position: relative;
+    padding-left: .6rem;
+    color: #ffcb5c
+}
+.gender_select_icon{
+    position: absolute;
+    background: #ffcb5c;
+    border-bottom-left-radius: 3px ;
+    border-bottom-right-radius: 3px;
+    padding: .1rem;
+}
+.gender_text{
+    position: absolute;
+    bottom: 0;
+    height: 1.2rem;
+    line-height: 1.2rem;
+    font-size: .6rem;
+}
+.gender_select_icon img{
+    height: .7rem;
+}
+.floatLeft{
+    float: left;
+}
+.Drawer_content{
+    width: 100vw;
+    background: #fafafa;
+    height: 80vh;
+    bottom: 0;
+    overflow: hidden;
+    overflow-y: auto
+}
+.my-drawer {
+    position: relative;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+//   .my-drawer .am-drawer-sidebar {
+//     background-color: #fff;
+//     overflow: auto;
+//     -webkit-overflow-scrolling: touch;
+//   }
+//   .my-drawer .am-drawer-sidebar .am-list {
+//     width: 300px;
+//     padding: 0;
+//   }
+  .close_icon{
+      height: 10vh;
+      line-height: 10vh;
+      font-size: .5rem;
+      text-align: center;
+      color: #ffffff
+  }
+
+html:not([data-scale]) .am-button::before {
+    border: 0px
+}

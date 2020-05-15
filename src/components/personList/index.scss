@@ -1,0 +1,31 @@
+.personList_row{
+    padding: .4rem;
+    border: 1px solid #eeeeee;
+    font-size: .4rem;
+}
+.personList_line{
+    font-size: .6rem;
+    color: #d7d7d7;
+}
+.personList_name{
+    padding-right: .4rem;
+}
+.personList_name p{
+    color: #d7d7d7;
+    font-size: .35rem;
+    margin-bottom: 0
+}
+.personList_billName{
+    flex: 1;
+    padding: 0 .4rem
+}
+.personList_bnt{
+    width: 2rem;
+    font-size: .35rem;
+    color: #5586ef;
+    background: #d2defa;
+    height: .8rem;
+    line-height: .8rem;
+    border-radius: .4rem;
+    text-align: center
+}

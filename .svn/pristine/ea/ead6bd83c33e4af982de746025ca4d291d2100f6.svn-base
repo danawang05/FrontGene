@@ -1,0 +1,45 @@
+.myPage_row{
+    padding: 1rem .4rem 0 .4rem;
+    background: #ffffff;
+    min-height: 100vh;
+    width: 100vw; 
+}
+.myPage_headUrl{
+    height: 2rem;
+    width: 2rem;
+    margin: 0 auto;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+.myPage_headUrl img{
+    width: 100%;
+    height: 100%;
+}
+.myPage_name{
+    width: 100%;
+    line-height: .8rem;
+    text-align: center;
+    font-size: .4rem;
+}
+.myPage_update_icon{
+    color:  #a4b2c5;
+    font-size: .35rem;
+    margin-left: .1rem
+}
+.service_bnt{
+    flex:1;
+    text-align: center;
+    font-size: .3rem;
+    color: #a7a7a7
+}
+.service_bnt_img{
+    padding: .2rem 0;
+}
+.service_bnt img{
+    width: .6rem;
+    height: .6rem;
+    margin: 0 auto;
+}
+.marginTop2{
+    margin-top: .2rem
+}

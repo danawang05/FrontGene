@@ -1,0 +1,73 @@
+.my_row{
+    height: 100vh;
+    overflow: hidden;
+    // overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+.home_row{
+    // height: calc(100vh - 50px);
+    // overflow: hidden;
+    // overflow-y: scroll;
+    // -webkit-overflow-scrolling: touch;
+}
+.home_row{
+    height: calc(100vh - 50px);
+    overflow: hidden;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    background: #fbfbfb;
+    -webkit-overflow-scrolling: touch;
+}
+.my_row .space-carousel {
+    padding: .5rem 0 ;
+    // background: #DEF1E5;
+    overflow: hidden;
+    height: 5.8rem;
+}
+.home_row .space-carousel {
+    margin: .5rem 0 ;
+    // background: #DEF1E5;
+    // overflow: hidden;
+    height: 5.8rem;
+}
+.position_relative{
+    position: relative;
+}
+.home_bnt{
+    margin-top: .3rem;
+    border-top: 1px solid #ededed;
+}
+.special{
+    width: 100vw;
+    margin-top: .2rem;
+    padding: .6rem 0 .4rem 0;
+    background: #ffffff;
+    position: relative;
+    border: 1px solid #ededed;
+    overflow: hidden;
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+.special_icon{
+    position: absolute;
+    top: 0;
+    left: .2rem;
+    height: .8rem;
+    width: .8rem;
+    background: url('../../sources/xianshitejia.png');
+    background-size: 100% 100%;
+    z-index: 999
+}
+.type_bnt{
+    background: #ffffff;
+    padding: .3rem 0;
+    margin-top: .4rem;
+    border-top: 1px solid #ededed;
+    white-space: nowrap;
+    overflow: hidden;
+    overflow-x: scroll;
+}
+.content{
+    padding: 0 .4rem;
+    background: #ffffff
+}

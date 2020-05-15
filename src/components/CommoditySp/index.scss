@@ -1,0 +1,29 @@
+.commodity_img{
+    height: 3rem;
+    width: 6rem;
+    overflow: hidden;
+    border-radius: 5px;
+}
+.commodity_img img{
+    height: 100%;
+    width: 100%;
+}
+.commodity_text{
+    font-size: .45rem;
+    margin-left:5px;
+}
+.marginLeft0{
+    margin-left: 0
+}
+.marginLeft2{
+    margin-left: .4rem
+}
+.commodity_price{
+    margin-left:5px;
+    font-size: .4rem;
+}
+.text_line{
+    text-decoration:line-through;
+    color: #b5b5b5;
+    margin-left: 10px;
+}

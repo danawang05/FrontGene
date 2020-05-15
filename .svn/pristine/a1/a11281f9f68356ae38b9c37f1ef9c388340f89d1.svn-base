@@ -1,0 +1,88 @@
+.detail_row{
+
+}
+.detail_img{
+    width: 100vw;
+    height: 75vw;
+}
+.detail_img img{
+    height: 100%;
+    width: 100%
+}
+.detail_content{
+    padding:0 .4rem;
+    background: #ffffff
+}
+.add_address{
+    min-height: 1rem;
+    line-height: 1rem;
+    font-size: .35rem;
+    color: #000000;
+    border-bottom: 1px solid #ededed
+}
+.add_address_select{
+    color: #a2a2a2;
+    margin-left: 10px
+}
+.detail_message{
+    margin-top: 1rem;
+}
+.detail_message_bnt{
+    height: 1rem;
+    line-height: 1rem;
+    width: 3rem;
+    font-size: .35rem;
+    background: #f2f2f2;
+    color: #4a4a4a;
+    text-align: center
+}
+.detail_message_text{
+    padding: .4rem 0;
+}
+.detail_message_text img{
+    width: 100%
+}
+.height15{
+    height: 1.5rem;
+}
+.fooder_bnt{
+    position: fixed;
+    padding: 0 .2rem;
+    bottom: 0;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    width: 100vw;
+    background: #ffffff
+}
+.Collection{
+    width: 45vw;
+    height: 1.2rem;
+    line-height: 1.2rem;
+    font-size: .45rem;
+    color: #ffffff;
+    background: #0067f4;
+    border-radius: .6rem;
+    right: 0;
+    margin-top: .15rem;
+    text-align: center 
+}
+.sub_button{
+    width: 45vw;
+    height: 1.2rem;
+    line-height: 1.2rem;
+    font-size: .45rem;
+    color: #ffffff;
+    background: #ffcb5c;
+    border-radius: .6rem;
+    right: 0;
+    margin-top: .15rem;
+    text-align: center
+}
+.fooder_bnt_money_content{
+    color: #fb5c66;
+    font-size: .6rem;
+    flex: 1
+}
+.marginLeft1{
+    margin-left: .1rem
+}

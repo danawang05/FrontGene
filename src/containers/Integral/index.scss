@@ -1,0 +1,23 @@
+.integral_head{
+    width: 100vw;
+    height: 3.5rem;
+    background: #1374ef;
+    border-radius: 0 0 100% 100%  /50%;
+    line-height: 2.2rem;
+    color: #ffffff;
+    font-size: 1.2rem;
+    text-align: center
+}
+.integral_head span{
+    font-size: .35rem;
+    color: #bbbbbb
+}
+.integral_body{
+    background: #ffffff;
+    border-radius: 5px;
+    width: 90vw;
+    min-height: 2rem;
+    margin:  -1.3rem auto 0 auto;
+    padding: .4rem;
+
+}

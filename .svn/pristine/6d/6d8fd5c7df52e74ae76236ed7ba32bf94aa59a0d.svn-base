@@ -1,0 +1,36 @@
+.orderlist_one{
+    padding: .4rem .6rem;
+    border-bottom: 1px solid #ededed
+}
+.orderlist_one_name{
+    min-height: .8rem;
+    line-height: .8rem;
+    font-size: .4rem;
+}
+.orderlist_one_name_span{
+    font-size: .35rem;
+    color: #7a7a7a
+}
+.flex1{
+    flex: 1
+}
+.orderlist_one_msg{
+    min-height: 1.2rem;
+    line-height: 1.2rem
+}
+.orderlist_one_msg_money{
+    padding: 0 .1rem;
+    color: #ff5467
+}
+.orderlist_one_msg_text_one{
+    min-height: .6rem;
+    line-height: .6rem;
+    color: #9b9b9b;
+    font-size: .3rem
+}
+.orderlist_go{
+    color: #9b9b9b;
+    font-size: .4rem;
+    line-height: 2rem;
+    padding-left: .1rem;
+}

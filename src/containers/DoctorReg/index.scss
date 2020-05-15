@@ -1,0 +1,42 @@
+.headImg{
+    padding: .4rem 0 
+}
+.photoImg img{
+    height: 1.5rem;
+    width: 1.5rem;
+}
+.headImg_url{
+    height: 1.5rem;
+    width: 1.5rem;
+    border-radius: .75rem;
+    overflow: hidden;
+}
+.headImg_url img{
+    height: 100%;
+    width: 100%
+}
+.photoImg_upload{
+    height: 1.5rem;
+    width: 1.5rem;
+    border:1px solid #eeeeee;
+    line-height: 1.5rem;
+    font-size: .6rem;
+    color: #eeeeee;
+    text-align: center
+}
+.add-hosp{
+    font-size: .45rem;
+    text-align: center;
+    margin-top: 2.5rem;
+}
+.add-hosp span{
+    color: #0067f4;
+    margin-left: .2rem;
+
+}
+.addHosp-row{
+    min-height: 100vh;
+    width: 100vw;
+    background: #ffffff;
+    padding:0 .4rem
+}

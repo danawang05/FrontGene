@@ -1,0 +1,41 @@
+.confirm_order{
+    padding: 0 .4rem .4rem .4rem;
+    background: #ffffff;
+    min-height: 100vh;
+}
+.close_bnt{
+    color: #8198ae;
+    width: 30vw;
+    height: 1.2rem;
+    line-height: 1.2rem;
+    font-size: .35rem;
+    border-radius: .6rem;
+    right: 0;
+    margin-top: .15rem;
+    text-align: center;
+    border: 1px solid #eeeeee
+}
+.update_bnt{
+    color: #ffffff;
+    width: 30vw;
+    height: 1.2rem;
+    line-height: 1.2rem;
+    font-size: .35rem;
+    border-radius: .6rem;
+    right: 0;
+    margin-top: .15rem;
+    text-align: center;
+    border: 1px solid #ffcb5c;
+    background: #ffcb5c
+}
+.confirm_order_food{
+    padding: 0 .4rem;
+    background: #ffffff;
+    // z-index: 999;
+}
+.tips-title{
+    color: #8198ae;
+    font-size: .35rem;
+    height: .6rem;
+    line-height: .6rem
+}

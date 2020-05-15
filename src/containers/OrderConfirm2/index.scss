@@ -1,0 +1,75 @@
+.confirm_order{
+    padding: 0 .4rem .4rem .4rem;
+    background: #ffffff;
+    min-height: 100vh;
+}
+.close_bnt{
+    color: #8198ae;
+    width: 30vw;
+    height: 1.2rem;
+    line-height: 1.2rem;
+    font-size: .35rem;
+    border-radius: .6rem;
+    right: 0;
+    margin-top: .15rem;
+    text-align: center;
+    border: 1px solid #eeeeee
+}
+.update_bnt{
+    color: #ffffff;
+    width: 30vw;
+    height: 1.2rem;
+    line-height: 1.2rem;
+    font-size: .35rem;
+    border-radius: .6rem;
+    right: 0;
+    margin-top: .15rem;
+    text-align: center;
+    border: 1px solid #ffcb5c;
+    background: #ffcb5c
+}
+.confirm_order_food{
+    padding: 0 .4rem;
+    background: #ffffff;
+    // z-index: 999;
+}
+.tips-title{
+    color: #8198ae;
+    font-size: .35rem;
+    height: .6rem;
+    line-height: .6rem
+}
+.radio_info{
+    width: 100%;
+    height: auto;
+}
+.marginTop4_radio{
+    margin-top: .4rem;
+    border-bottom: 1px solid #eeeeee;
+}
+.radiostyle{
+    display: block;
+}
+.r_inputradiotype {
+    height: 1.2rem;
+    line-height: 1.2rem;
+    font-size: .4rem;
+    border-bottom: 1px solid #eeeeee;
+    background: #ffffff;
+    padding: 0 .2rem;
+    width: 30%;
+    display: inline-block;
+}
+.marginTop4_radiotype{
+    margin-top: .4rem;
+    // border-bottom: 1px solid #eeeeee;
+    margin-left: .4rem;
+}
+.marginBottom2{
+    margin-bottom: .4rem;
+}
+.order_tips{
+    font-size: 0.3rem;
+    color: #a7b3c2;
+    line-height: 0.5rem;
+}

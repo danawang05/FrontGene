@@ -1,0 +1,44 @@
+.r_input_label{
+    font-size: .35rem;
+    color: #010101
+}
+.r_input{
+    height: 1.2rem;
+    line-height: 1.2rem;
+    font-size: .4rem;
+    border-bottom: 1px solid #eeeeee;
+    background: #ffffff;
+    padding: 0 .2rem;
+}
+.r_input .am-list-item.am-input-item{
+    height: 1.2rem;
+    line-height: 1.2rem;
+    padding-left: 0;
+    flex: 1
+}
+.r_input .am-list-item .am-input-control input{
+    font-size: .4rem
+}
+.r_input .am-list-item{
+    height:1.2rem;
+    line-height: 1.2rem;
+    background-color:transparent;
+    padding-left: 0
+}
+.color_9b9b9b{
+    color: #9b9b9b
+}
+.color_FF6666{
+    color: #FF6666
+}
+// .r_input input{
+//     background-color:transparent;
+//     border: 0;
+// }
+// .r_input input::-webkit-input-placeholder {
+//     /* placeholder颜色  */
+//     color: #9f9f9f;
+// }
+.am-list-item .am-input-control input:disabled{
+    color: #7F7F7F
+}

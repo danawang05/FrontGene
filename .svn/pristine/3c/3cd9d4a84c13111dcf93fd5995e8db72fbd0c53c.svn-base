@@ -1,0 +1,33 @@
+.showImg_img{
+    padding: 1rem;
+   
+}
+.showImg{
+    min-height: 100vh;
+    background: #ffffff
+}
+.showImg_img img{
+    width: 8rem;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.showImgPdf_row{
+    height: 100vh;
+    overflow: hidden;
+}
+.showImgPdf{
+    min-height: 100vh;
+    background: #ffffff;
+    width: 100vw;
+}
+.showImgPdf iframe{
+    width: 100%;
+    min-height: 100vh;
+}
+.upload_img_one input{
+    position: absolute;
+    right: 0;
+    height: 1rem;
+    width: 100%;
+    opacity: 0;
+}

@@ -1,0 +1,71 @@
+.login_row{
+    padding: 1rem
+}
+.loginTitle_bnt{
+    color: #d9d9d9;
+    font-size: .8rem;
+}
+.loginTitle_bnt_one{
+    color: #313643
+}
+.marginTop20{
+    margin-top: 1.4rem
+}
+.marginTop10{
+    margin-top: .8rem
+}
+.loginTitle_input{
+    height: 1.56rem;
+    line-height: 1.56rem;
+    font-size: .4rem;
+    border-bottom: 1.5px solid #efefef
+}
+.qr_code{
+    color: #ffcb5c;
+    padding: 0 .2rem;
+    float: right;
+    width: 3rem;
+    text-align: center
+    // background: #ffffff;
+
+}
+.loginTitle_input_one {
+    flex: 1
+}
+.loginTitle_input_one .am-list-item.am-input-item{
+    height: 1.56rem;
+    padding-left: 0;
+}
+.loginTitle_input_one .am-list-item{
+    height:1.56rem;
+    background-color:transparent;
+    padding-left: 0
+}
+.loginTitle_input input{
+    background-color:transparent;
+    border: 0;
+}
+.loginTitle_input input::-webkit-input-placeholder {
+    /* placeholder颜色  */
+    color: #9f9f9f;
+}
+.login_bnt{
+    background: #ffcb5c;
+    color: #ffffff;
+    text-align: center;
+    font-size: .4rem;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    border-radius: 3px
+}
+.tishi_login{
+    font-size: .4rem;
+    color: #9f9f9f;
+    text-align: center
+}
+.tishi_login span{
+    color: #ffcb5c
+}
+.am-activity-indicator-content{
+    z-index: 9999;
+}

@@ -1,0 +1,70 @@
+.SelectDoctorList_row{
+    // height: 2.2rem;
+    height: 2.4rem;
+    padding: .4rem;
+    border-bottom: 1px solid #eeeeee
+}
+.SelectDoctorList_row_img{
+    height: 1.4rem;
+    width: 1.4rem;
+    border-radius: .7rem;
+    overflow: hidden;
+}
+.SelectDoctorList_row_img img{
+    height: 100%;
+    width: 100%
+}
+.SelectDoctorList_row_content{
+   height: 1.4rem;
+   margin-left: .4rem;
+   flex: 1
+}
+.SelectDoctorList_row_content_on{
+    // height: .8rem;
+    height: 1.3rem;
+    line-height: .6rem;
+    color: #ffcb5c;
+    font-size: .4rem;
+}
+.SelectDoctorList_row_content_on_my{
+    height: .8rem;
+    line-height: .8rem;
+    font-size: .4rem;
+}
+.SelectDoctorList_row_content_on_time{
+    font-size: .3rem;
+    float: right;
+    color: #cdcdcd
+}
+.SelectDoctorList_row_content_down{
+    height: .6rem;
+    line-height: .6rem;
+    font-size: .3rem;
+    color: #8a8a8a;
+}
+.show_click_bnt_row{
+    width: 1.5rem;
+    height: 100%;
+    overflow: hidden;
+    animation: showClickBnt .2s linear ; 
+}
+.show_click_bnt{
+    width: 1.5rem;
+    color:#fff;
+    background-color: #FF6666;
+    height: 100%;
+    font-size: .3rem;
+    line-height: 1.4rem;
+    text-align: center
+    
+}
+@keyframes showClickBnt{
+    0%{
+      width: 0;
+      opacity:.2;
+    }
+    100%{
+      width: 1.5rem; 
+      opacity: 1;  
+    }
+}

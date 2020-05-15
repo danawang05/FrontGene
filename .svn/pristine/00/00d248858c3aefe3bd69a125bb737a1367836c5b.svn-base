@@ -1,0 +1,36 @@
+import React, { Component } from 'react'
+import { Icon} from 'antd';
+import './index.scss'
+export default class OrderList extends Component {
+    render() {
+        return (
+            <div className="orderlist_one displays" onClick={this.props.onClick}>
+                <div className="flex1">
+                    <div className="orderlist_one_name">
+                        {this.props.name}
+                        
+                    </div>
+                    <div className="orderlist_one_name_span">
+                            <Icon className="color_00e37a" type="safety-certificate" />  付费时间：
+                            <span>{this.props.time}</span>
+                    </div>
+                    <div className="orderlist_one_msg displays">
+                        <div className="orderlist_one_msg_text flex1">
+                                <div className="orderlist_one_msg_text_one">
+                                    <div>检测公司：{this.props.company}</div>
+                                    <div>套餐代码：{this.props.code}</div>
+                                </div>
+                        </div>
+                        <div className="orderlist_one_msg_money">
+                            ¥{this.props.money}
+                        </div>
+                    </div>
+                </div>
+                <div className="orderlist_go">
+                  <Icon type="right" />
+                </div>
+                
+            </div>
+        )
+    }
+}

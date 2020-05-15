@@ -1,0 +1,120 @@
+.height1{
+    height: 1.5rem;
+}
+.submit_chat{
+    position: fixed;
+    bottom: 0;
+    min-height: 1.2rem;
+    padding: .2rem .4rem;
+    display: flex;
+    background: #ffffff;
+    width: 100vw;
+    border-top: 1px solid #f3f3f3
+}
+.chat_content{
+    min-height: calc(100vh - 12vw); 
+    // overflow-y:auto
+}
+.chat_input{
+    padding: .3rem .5rem;
+    padding-top: .4rem;
+    min-height: .6rem;
+    max-height: 1.8rem;
+    background: #eef2f8;
+    border-radius: 1rem;
+    overflow: hidden;
+    overflow-wrap:break-word;
+    overflow-y: auto;
+    font-size: .35rem;
+}
+.chat_input textarea{
+    width: 100%
+}
+.chat_add_img{
+    font-size: .4rem;
+    padding: 0 .2rem;
+    line-height: 1.22rem;
+    color: #feb300;
+    position: relative;
+    overflow: hidden;
+}
+.chat_add_img input{
+    position: absolute;
+    right: 0;
+    height:  1.22rem;
+    width: .8rem;
+    opacity: 0;
+}
+.submit_bnt{
+    line-height: 1.2rem;
+    font-size: .4rem;
+    color: #feb300;
+}
+.chat_input_div{
+    width: 100%
+}
+
+.chat_input .am-list-item.am-input-item{
+    
+    height: .8rem;
+    line-height:  .8rem;
+    background: #eef2f8;
+    padding-left: 0;
+    border-radius: .4rem;
+    flex: 1;
+    margin-top:.2rem;
+    padding-left: .4rem
+}
+.chat_input .am-list-item .am-input-control{
+    font-size: .35rem
+}
+.chat_input .am-list-item .am-input-control input{
+    font-size: .35rem
+}
+.chat_input .am-list-item{
+    height: .8rem;
+    line-height:  .8rem;
+    min-height:.8rem;
+    background-color:transparent;
+    padding-left: 0
+}
+
+// 测试使用的textarea
+// .textarea-wrapper {
+//     position: relative;
+//     display: block;
+//     width: 100%;
+//     padding: .1rem 0;
+//      .content-editable {
+//         position: relative;
+//         z-index: -1;
+//         opacity: 0;
+//         display: block;
+//         width: 100%;
+//         line-height: normal;
+//         font-size: .27rem;
+//         color: #999;
+//         white-space: pre;
+//     }
+//       .field-textarea {
+//         position: absolute;
+//         top: 0;
+//         left: 0;
+//         width: 100%;
+//         height: 100%;
+//         box-sizing: border-box;
+//         padding: .1rem 0;
+//         line-height: normal;
+//         font-size: .27rem;
+//         color: #464545;
+//         text-align: left;
+//         resize: none;
+//         overflow: hidden;
+//         background-color: transparent;
+//         &::-webkit-input-placeholder {
+//             text-align: left;
+//             font-size: .27rem;
+//             color: #999;
+//         }
+//     }
+// }

@@ -1,0 +1,26 @@
+.integralList_row{
+    padding: .3rem;
+    display: flex;
+    border-bottom: 1px solid #eeeeee
+}
+.integralList_content{
+    flex: 1
+}
+.integralList_content .one{
+    height: .8rem;
+    line-height: .8rem;
+    font-size: .4rem;
+}
+.integralList_content .two{
+    height: .6rem;
+    line-height: .6rem;
+    font-size: .3rem;
+    color: #aaaaaa;
+}
+.integralList_number{
+    line-height: 1.4rem;
+    font-size: .5rem;
+    color: #f8bf38;
+    text-align: center;
+    width: 2rem
+}

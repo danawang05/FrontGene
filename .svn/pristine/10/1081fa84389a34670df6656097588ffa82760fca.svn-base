@@ -1,0 +1,46 @@
+.OrderFinishPay_row{
+    min-height: 100vh;
+    background: #ffffff
+}
+.OrderFinishPay_row_title{
+    padding: .4rem;
+    border-bottom: 1px solid #f7f7f7
+}
+.color_00e37a{
+    color: #00e37a
+}
+.OrderFinishPay_row_title_money{
+    flex: 1;
+    text-align: right
+}
+.OrderFinishPay_row_title_name{
+    font-size: .45rem;
+    color: #4b4b4b;
+    min-height: .8rem;
+    line-height: .8rem;
+    font-weight: 500
+}
+.OrderFinishPay_row_title_msg{
+    font-size: .3rem;
+    color: #acacac
+}
+.height2{
+    height: 2rem;
+}
+.o_back{
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+}
+.back_bnt{
+    width: 2.5rem;
+    height: 1rem;
+    font-size: .4rem;
+    margin-top: .5rem;
+    color: #ffffff;
+    background: #ffcb5c;
+    text-align: center;
+    line-height: 1rem;
+    border-radius: .5rem;
+    margin-left:calc(50% - 1.25rem )  ;
+}

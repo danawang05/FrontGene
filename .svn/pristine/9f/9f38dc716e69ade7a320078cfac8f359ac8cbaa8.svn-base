@@ -1,0 +1,50 @@
+.placeholder {
+    background-color: #ebebef;
+    color: #bbb;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 5px
+}
+.flex-container {
+    margin: 0 15px;
+}
+.flex-container .inline {
+    width: 80px!important;
+    margin: 9px 9px 9px 0;
+  }
+  .flex-container .small {
+    height: 20px!important;
+    line-height: 20px!important;
+  }
+  .sub-title {
+    color: #888;
+    font-size: 14px;
+    padding: 30px 0 18px 0;
+  }
+  .data_show{
+      position: fixed;
+      background: #ffffff;
+      height:50vh ;
+      overflow-y: auto;
+      bottom: 0;
+      width: 100%
+  }
+  .height50{
+      height: 50vh;
+  }
+  pre {
+    min-height: 30px;
+    outline: 1px solid #ccc;
+    padding: 5px; 
+    margin: 5px; 
+    display: block;
+    font-family: -moz-fixed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+    .string { color: green; }
+    .number { color: darkorange; }
+    .boolean { color: blue; }
+    .null { color: magenta; }
+    .key { color: red; }

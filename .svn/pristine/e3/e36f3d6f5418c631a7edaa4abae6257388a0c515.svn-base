@@ -1,0 +1,27 @@
+.rightBorder{
+    border-left: 1px solid #ededed;
+}
+.homeBnt_row{
+    background: #ffffff;
+    flex: 1;
+    height: 2.7rem;
+    border-bottom: 1px solid #ededed;
+    padding: .6rem 0;
+}
+.homeBnt_img{
+    height: .8rem;
+    width: .8rem;
+    margin-left:50%;
+    left: -.4rem;
+}
+.homeBnt_img img {
+    height: 100%;
+    width: 100%;
+}
+.homeBnt_bnt{
+    height: .7rem;
+    line-height: .7rem;
+    font-size: .4rem;
+    text-align: center;
+    width: 100%
+}

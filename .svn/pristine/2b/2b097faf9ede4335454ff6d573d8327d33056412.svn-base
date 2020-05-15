@@ -1,0 +1,54 @@
+// .r_radio .ant-radio-checked .ant-radio-inner{
+//     border-color: #ffcb5c
+// }
+// .r_radio .ant-radio-inner::after{
+//     background-color:#ffcb5c;
+//     top: calc(.06rem - 1px);
+//     left: calc(.06rem - 1px);
+//     border-radius: .1rem;
+//     width:.2rem;
+//     height: .2rem;
+// }
+// .r_radio{
+//     font-size: .4rem
+// }
+// .r_radio .ant-radio{
+//     vertical-align: -0.05rem;
+// }
+// .r_radio .ant-radio-inner{
+//     width: .4rem;
+//     height: .4rem;
+//     border-radius: .2rem;
+//     border-color:#ffcb5c
+// }
+// .r_radio span.ant-radio + *{
+//     padding-top: .1rem
+// }
+// .bill_row{
+//     font-size: .4rem;
+// }
+// .my-radio .am-radio {
+//     padding: 2.5px;
+//     border: 1px solid #ccc;
+//     border-radius: 50%;
+//     margin-right: 5px;
+//   }
+.bill_row{
+    background: #ffffff;
+    min-height: 100vh;
+}
+.bill_row_text{
+    font-size: .35rem;
+    color: #9b9b9b;
+    padding: .2rem .4rem;
+}
+.bill_submit_content{
+    padding:0 .8rem .8rem .8rem;
+}
+.radio_List{
+    border-bottom: 1px solid #eeeeee;
+    padding:  0 .1rem ;
+}
+.radio_List_one{
+    flex: 1
+}

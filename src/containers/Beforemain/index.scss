@@ -1,0 +1,17 @@
+.new_fooder_bnt{
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+}
+.my_row_part {
+    h3,p{
+        width: 90%;
+        margin: 0 auto;
+    }
+}
+.my_row{
+    height: 100vh;
+    overflow: hidden;
+    // overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}

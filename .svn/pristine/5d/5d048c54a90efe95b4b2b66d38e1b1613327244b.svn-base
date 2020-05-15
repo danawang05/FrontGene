@@ -1,0 +1,17 @@
+.news_row{
+    background: #ffffff;
+    min-height: 100vh;
+    width: 100%; 
+}
+.news_row img{
+    width: 100%
+}
+.newsHead{
+    font-size: .6rem;
+    padding: .2rem 0 ;
+    text-align: center;
+}
+.content_news{
+    padding: 0 .4rem;
+    line-height: .7rem;
+}

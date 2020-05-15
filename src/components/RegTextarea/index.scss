@@ -1,0 +1,50 @@
+.r_textarea_label{
+    font-size: .35rem;
+    color: #010101
+}
+.r_textarea{
+    // height: 2.2rem;
+    line-height: 1.2rem;
+    font-size: .4rem;
+    border-bottom: 1px solid #eeeeee;
+    background: #ffffff;
+    padding: 0 .2rem;
+}
+.r_textarea .am-list-item.am-textarea-item{
+    // height: 2.2rem;
+    line-height: 1.2rem;
+    padding-left: 0;
+    flex: 1
+}
+.r_textarea .am-list-item .am-textarea-control textarea{
+    font-size: .4rem
+}
+.r_textarea .am-list-item{
+    // height:2.2rem;
+    line-height: 1.2rem;
+    background-color:transparent;
+    padding-left: 0
+}
+.color_9b9b9b{
+    color: #9b9b9b
+}
+.color_FF6666{
+    // color: #FF6666
+    background: #ffcb5c;
+    color:#fff;
+    border:1px solid #ffcb5c;
+    border-radius: 25px;
+    padding: 0 0.2rem;
+}
+// .r_input input{
+//     background-color:transparent;
+//     border: 0;
+// }
+// .r_input input::-webkit-input-placeholder {
+//     /* placeholder颜色  */
+//     color: #9f9f9f;
+// }
+.am-list-item .am-textarea-control textarea:disabled{
+    // color: #7F7F7F
+    color:#5f656b
+}

@@ -1,0 +1,70 @@
+.goodsList{
+    // height: 2.9rem;
+    border-bottom: 1px solid #ededed;
+    padding: .4rem;
+    background: #ffffff
+}
+.goodsList_img{
+    height: 2.1rem;
+    width: 2.8rem;
+    border-radius: 3px;
+    overflow: hidden;
+}
+.goodsList_img img{
+    height: 100%;
+    width: 100%
+}
+.goodsList_content{
+    flex:1;
+    margin-left: .4rem;
+    
+}
+.goodsList_content_name{
+    font-size: .45rem;
+    color: #3d4049;
+    min-height: .8rem;
+    line-height: .8rem;
+    text-align: left;
+}
+.youhui{
+    color: #ffffff;
+    background: #fb5c66;
+    min-width: .8rem;
+    font-size: .22rem;
+    text-align: center;
+    height: .4rem;
+    line-height: .4rem;
+    margin-top: .2rem;
+    border-radius: 1px;
+    margin-left: .2rem
+}
+.money_content{
+    color: #fb5c66;
+    text-align: right;
+    flex: 1;
+    font-size: .6rem;
+}
+.money_content_icon{
+    font-size: .5rem
+}
+.no_code{
+    min-height: .4rem;
+    line-height: .4rem;
+    font-size: .4rem;
+    color: #5f656b;
+    text-align: left;
+    word-wrap: break-word;
+    word-break: break-all;
+    margin-right: 1rem;
+}
+.goodsList_keyword{}
+.goodsList_keyword_one{
+    height: .6rem;
+    line-height: .6rem;
+    font-size: .3rem;
+    color: #f6c04d;
+    background: #f9f5dd;
+    border-radius: .4rem;
+    padding: 0 .3rem;
+    margin-top: .15rem;
+}
