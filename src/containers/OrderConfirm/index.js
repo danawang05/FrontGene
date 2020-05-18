@@ -63,7 +63,7 @@ class Login extends React.Component {
       addressee:'',
       addressPhone:'',
       address:'',
-      
+      birthNum:'',
       valuejisong:'1',
       valuechuzhi: '',
       valueback:'',
@@ -519,6 +519,7 @@ class Login extends React.Component {
   componentDidMount() {
 
   }
+
   phone(phone) {
     let phoneText = /^1[2345789]\d{9}$/
     if ((phoneText.test(phone))) {
@@ -657,10 +658,10 @@ class Login extends React.Component {
       Toast.fail('请输入受检人姓名', 2)
       return false
     }
-    if (!this.state.form.Birthday && !localStorage.getItem('Birthday')) {
-      Toast.fail('请选择出生日期', 2)
-      return false
-    }
+    // if (!this.state.form.Birthday && !localStorage.getItem('Birthday')) {
+    //   Toast.fail('请选择出生日期', 2)
+    //   return false
+    // }
     if (!this.state.gender && !localStorage.getItem('gender')) {
       Toast.fail('请选择性别', 2)
       return false
@@ -777,6 +778,7 @@ class Login extends React.Component {
   rulesthree() {
     let reg = new RegExp("^[0-9]*$");
 
+    // console.log(birthNum)
     if ((!(this.state.form.hzProvince+this.state.form.hzCity+this.state.form.hzRegion) || !(this.state.addressdetail)) && (!localStorage.getItem('addr2') ||!(this.state.addressdetail))){
       Toast.fail('请输入取样地址', 2)
       return false
@@ -859,7 +861,49 @@ class Login extends React.Component {
   } else {
       return {result:true};
   }
-};    
+};
+  analyzeIDCard = (IDCard) => {
+    let sexAndAge = {};
+    //获取用户身份证号码
+    let userCard = IDCard;
+    //如果身份证号码为undefind则返回空
+    if(!userCard){
+      return sexAndAge;
+    }
+    //获取性别
+    if(parseInt(userCard.substr(16,1)) % 2 == 1){
+      sexAndAge.sex = '1（男）'
+    }else{
+      sexAndAge.sex = '0（女）'
+    }
+    //获取出生年月日
+    //userCard.substring(6,10) + "-" + userCard.substring(10,12) + "-" + userCard.substring(12,14);
+    let yearBirth = userCard.substring(6,10);
+    let monthBirth = userCard.substring(10,12);
+    let dayBirth = userCard.substring(12,14);
+    //获取当前年月日并计算年龄
+    let myDate = new Date();
+    let monthNow = myDate.getMonth() + 1;
+    let dayNow = myDate.getDay();
+    let age = myDate.getFullYear() - yearBirth;
+    if(monthNow < monthBirth || (monthNow == monthBirth && dayNow < dayBirth)){
+      age--;
+    }
+    //得到年龄
+    sexAndAge.age = age;
+    //返回性别和年龄
+    return sexAndAge;
+  };
+  StringToDate =(str) =>{
+    let strDate = str.split(" ");
+
+    let strDatepart = strDate[0].split("-");
+
+    var dtDate = new Date(strDatepart[0],strDatepart[1]-1,strDatepart[2]);
+
+    return dtDate;
+  };
+
   goNext() {
     const { actions } = this.props
     // if (!this.rules()) {
@@ -1058,7 +1102,9 @@ class Login extends React.Component {
           packageCode:this.props.geneDetail.code,      //'套餐代码'
           name:this.state.name,              //'受检人姓名'
           gender:this.state.gender,            //'性别0女，1男'
-          birthday:this.formatTime(this.state.form.Birthday).indexOf('0NaN')=='-1'? this.formatTime(this.state.form.Birthday):(this.formatTime(localStorage.getItem('Birthday')).indexOf('0NaN')=='-1'?this.formatTime(localStorage.getItem('Birthday')):''),
+          birthday:this.formatTime(this.StringToDate(this.state.idNum.substring(6,10) + "-" + this.state.idNum.substring(10,12) + "-" + this.state.idNum.substring(12,14))),
+          //birthday:this.state.idNum.substring(6,10) + "-" + this.state.idNum.substring(10,12) + "-" + this.state.idNum.substring(12,14),
+          //birthday:this.formatTime(this.state.form.Birthday).indexOf('0NaN')=='-1'? this.formatTime(this.state.form.Birthday):(this.formatTime(localStorage.getItem('Birthday')).indexOf('0NaN')=='-1'?this.formatTime(localStorage.getItem('Birthday')):''),
           //birthday:this.formatTime(this.state.form.Birthday).indexOf('0NaN')=='-1'? this.formatTime(this.state.form.Birthday):(this.formatTime(this.getCookie('Birthday'))?this.formatTime(this.getCookie('Birthday')):''),          //'年龄'
           idNum:this.state.idNum,             //'身份证号'
           phone:this.state.phone,             //'电话'
@@ -1159,7 +1205,10 @@ class Login extends React.Component {
           packageCode:this.props.geneDetail.code,      //'套餐代码'
           name:this.state.name,              //'受检人姓名'
           gender:this.state.gender,            //'性别0女，1男'
-          birthday:this.formatTime(this.state.form.Birthday).indexOf('0NaN')=='-1'? this.formatTime(this.state.form.Birthday):(this.formatTime(localStorage.getItem('Birthday')).indexOf('0NaN')=='-1'?this.formatTime(localStorage.getItem('Birthday')):''), 
+          birthday:this.formatTime(this.StringToDate(this.state.idNum.substring(6,10) + "-" + this.state.idNum.substring(10,12) + "-" + this.state.idNum.substring(12,14))),
+          //birthday:this.StringToDate(this.state.birthNum),
+          //birthday:this.state.idNum.substring(6,10) + "-" + this.state.idNum.substring(10,12) + "-" + this.state.idNum.substring(12,14),
+          //birthday:this.formatTime(this.state.form.Birthday).indexOf('0NaN')=='-1'? this.formatTime(this.state.form.Birthday):(this.formatTime(localStorage.getItem('Birthday')).indexOf('0NaN')=='-1'?this.formatTime(localStorage.getItem('Birthday')):''),
           //birthday:this.formatTime(this.state.form.Birthday)? this.formatTime(this.state.form.Birthday):this.getCookie('Birthday'),          //'年龄'
           idNum:this.state.idNum,             //'身份证号'
           phone:this.state.phone,             //'电话'
@@ -1271,7 +1320,10 @@ class Login extends React.Component {
           packageCode:this.props.geneDetail.code,      //'套餐代码'
           name:this.state.name,              //'受检人姓名'
           gender:this.state.gender,            //'性别0女，1男'
-          birthday:this.formatTime(this.state.form.Birthday).indexOf('0NaN')=='-1'? this.formatTime(this.state.form.Birthday):(this.formatTime(localStorage.getItem('Birthday')).indexOf('0NaN')=='-1'?this.formatTime(localStorage.getItem('Birthday')):''), 
+          birthday:this.formatTime(this.StringToDate(this.state.idNum.substring(6,10) + "-" + this.state.idNum.substring(10,12) + "-" + this.state.idNum.substring(12,14))),
+          //birthday:this.StringToDate(this.state.birthNum),
+          //birthday:this.state.idNum.substring(6,10) + "-" + this.state.idNum.substring(10,12) + "-" + this.state.idNum.substring(12,14),
+          //birthday:this.formatTime(this.state.form.Birthday).indexOf('0NaN')=='-1'? this.formatTime(this.state.form.Birthday):(this.formatTime(localStorage.getItem('Birthday')).indexOf('0NaN')=='-1'?this.formatTime(localStorage.getItem('Birthday')):''),
           //birthday:this.formatTime(this.state.form.Birthday)? this.formatTime(this.state.form.Birthday):this.getCookie('Birthday'),          //'年龄'
           idNum:this.state.idNum,             //'身份证号'
           phone:this.state.phone,             //'电话'
@@ -1380,7 +1432,10 @@ class Login extends React.Component {
           packageCode:this.props.geneDetail.code,      //'套餐代码'
           name:this.state.name,              //'受检人姓名'
           gender:this.state.gender,            //'性别0女，1男'
-          birthday:this.formatTime(this.state.form.Birthday).indexOf('0NaN')=='-1'? this.formatTime(this.state.form.Birthday):(this.formatTime(localStorage.getItem('Birthday')).indexOf('0NaN')=='-1'?this.formatTime(localStorage.getItem('Birthday')):''), 
+          birthday:this.formatTime(this.StringToDate(this.state.idNum.substring(6,10) + "-" + this.state.idNum.substring(10,12) + "-" + this.state.idNum.substring(12,14))),
+          //birthday:this.StringToDate(this.state.birthNum),
+          //birthday:this.state.idNum.substring(6,10) + "-" + this.state.idNum.substring(10,12) + "-" + this.state.idNum.substring(12,14),
+          //birthday:this.formatTime(this.state.form.Birthday).indexOf('0NaN')=='-1'? this.formatTime(this.state.form.Birthday):(this.formatTime(localStorage.getItem('Birthday')).indexOf('0NaN')=='-1'?this.formatTime(localStorage.getItem('Birthday')):''),
           //birthday:this.formatTime(this.state.form.Birthday)? this.formatTime(this.state.form.Birthday):this.getCookie('Birthday'),          //'年龄'
           idNum:this.state.idNum,             //'身份证号'
           phone:this.state.phone,             //'电话'
@@ -1487,7 +1542,10 @@ class Login extends React.Component {
           packageCode:this.props.geneDetail.code,      //'套餐代码'
           name:this.state.name,              //'受检人姓名'
           gender:this.state.gender,            //'性别0女，1男'
-          birthday:this.formatTime(this.state.form.Birthday).indexOf('0NaN')=='-1'? this.formatTime(this.state.form.Birthday):(this.formatTime(localStorage.getItem('Birthday')).indexOf('0NaN')=='-1'?this.formatTime(localStorage.getItem('Birthday')):''), 
+          birthday:this.formatTime(this.StringToDate(this.state.idNum.substring(6,10) + "-" + this.state.idNum.substring(10,12) + "-" + this.state.idNum.substring(12,14))),
+          //birthday:this.StringToDate(this.state.birthNum),
+          //birthday:this.state.idNum.substring(6,10) + "-" + this.state.idNum.substring(10,12) + "-" + this.state.idNum.substring(12,14),
+          //birthday:this.formatTime(this.state.form.Birthday).indexOf('0NaN')=='-1'? this.formatTime(this.state.form.Birthday):(this.formatTime(localStorage.getItem('Birthday')).indexOf('0NaN')=='-1'?this.formatTime(localStorage.getItem('Birthday')):''),
           //birthday:this.formatTime(this.state.form.Birthday)? this.formatTime(this.state.form.Birthday):this.getCookie('Birthday'),          //'年龄'
           idNum:this.state.idNum,             //'身份证号'
           phone:this.state.phone,             //'电话'
@@ -2652,6 +2710,7 @@ autoFocusInst
   let oldcheckeddrug5=localStorage.getItem('checkeddrug5')
   let oldaddress=sessionStorage.getItem('address')
   let olddiagnosticCancer = sessionStorage.getItem('diagnosticCancer')
+
   const {cityListqy, form,cityListbill,cityListlakuai} = this.state
   const {volunteer,contacts,contactsPhonee,volunteerList,showName} = this.state
   const { getFieldProps } = this.props.form;
@@ -3427,6 +3486,7 @@ const wuliu9 = [[
                       value:'18:00-19:00',
                     },
                     ]];
+
     return(
       <div>
       {
@@ -3439,57 +3499,57 @@ const wuliu9 = [[
                 position='bottom'
       >
       <div className="confirm_order">
-        
+
       <div className="orderconfirm_title">基本信息</div>
       <div className="orderconfirm_subtitle">（申请单中*号项为必填项）</div>
-      <GoodsListtwo 
-        padding=".4rem 0" 
-        marginLeft="0" 
-        disPlayImg={true} 
-        redTab={genes.tab||''} 
-        no_code={genes.code||""} 
-        type='1' 
-        name={genes.title||""} 
+      <GoodsListtwo
+        padding=".4rem 0"
+        marginLeft="0"
+        disPlayImg={true}
+        redTab={genes.tab||''}
+        no_code={genes.code||""}
+        type='1'
+        name={genes.title||""}
         mchId={genes.mchId||''}
         mchKey={genes.mchKey||''}
-        money={genes.price} 
+        money={genes.price}
         keyWord={genes.yellowTab&&genes.yellowTab.split('-|-')||[]
     } />
-    <Rinput 
+    <Rinput
                 label="优惠券"
-                icon="text" 
+                icon="text"
                 text={this.state.isUse?"已使用优惠券":"点击使用优惠券"}
                 color={this.state.isUse?"#9b9b9b":"#fff"}
                 background={this.state.isUse?"#fff":"#ffcb5c"}
-                value={this.state.coupon} 
+                value={this.state.coupon}
                 onClick={this.useCoupon.bind(this)}
                 className="marginTop4"
-                onChange={this.changeInput.bind(this, 'coupon')} 
-                placeholder="如有，请输入优惠券代码" 
-          /> 
+                onChange={this.changeInput.bind(this, 'coupon')}
+                placeholder="如有，请输入优惠券代码"
+          />
      <Rinput label="*受检人姓名" value={this.state.name} onChange={this.changeInput.bind(this, 'name')} className="marginTop4" placeholder="请输入受检人姓名" onBlur={this.onBlurName.bind(this,this.state.name)}/>
-  
-      <div className="reg_label">*出生日期</div>
-        <DatePicker
-            mode="date"
-            minDate={new Date(1900, 1, 1, 0, 0, 0)}
-            value={this.state.form.Birthday}
-            format="YYYY-MM-DD"
-            onChange={date => {
-                this.setState(Object.assign(this.state.form, { ['Birthday']: date }))
-                // console.log(date)
-                // this.setCookie("Birthday", this.formatTime(this.state.form.Birthday), 30);
-                // localStorage.setItem('BirthdayH',this.formatTime(this.state.form.Birthday).slice(11,13))
-                // localStorage.setItem('BirthdayM',this.formatTime(this.state.form.Birthday).slice(14,16))
-                // localStorage.setItem('cd',this.formatTime(new Date()).slice(0,10))
-                // localStorage.setItem('ch',this.formatTime(new Date()).slice(11,13))
-                // localStorage.setItem('cm',this.formatTime(new Date()).slice(14,16))
-            }
-          }
-            
-        >
-         <CustomChildrenbir />
-        </DatePicker>
+
+      {/*<div className="reg_label">*出生日期</div>*/}
+        {/*<DatePicker*/}
+            {/*mode="date"*/}
+            {/*minDate={new Date(1900, 1, 1, 0, 0, 0)}*/}
+            {/*value={this.state.form.Birthday}*/}
+            {/*format="YYYY-MM-DD"*/}
+            {/*onChange={date => {*/}
+                {/*this.setState(Object.assign(this.state.form, { ['Birthday']: date }))*/}
+                {/*// console.log(date)*/}
+                {/*// this.setCookie("Birthday", this.formatTime(this.state.form.Birthday), 30);*/}
+                {/*// localStorage.setItem('BirthdayH',this.formatTime(this.state.form.Birthday).slice(11,13))*/}
+                {/*// localStorage.setItem('BirthdayM',this.formatTime(this.state.form.Birthday).slice(14,16))*/}
+                {/*// localStorage.setItem('cd',this.formatTime(new Date()).slice(0,10))*/}
+                {/*// localStorage.setItem('ch',this.formatTime(new Date()).slice(11,13))*/}
+                {/*// localStorage.setItem('cm',this.formatTime(new Date()).slice(14,16))*/}
+            {/*}*/}
+          {/*}*/}
+            {/**/}
+        {/*>*/}
+         {/*<CustomChildrenbir />*/}
+        {/*</DatePicker>*/}
         {/* <DatePicker
             mode="datetime"
             extra="出生日期"
@@ -3512,9 +3572,9 @@ const wuliu9 = [[
         {/*<Rinput label="*联系电话" value={this.state.phone} onChange={this.changeInput.bind(this, 'phone')} className="marginTop4" placeholder="请输入联系电话" />*/}
         <RinputDoc style={{color:'#333'}} label="*就诊医院" value={this.state.form.ysHospitalName} className="marginTop4" placeholder="请点击并搜索就诊医院" disabled={false} onClick={this.onOpenChange}/>
         {/*<Rinput label="*就诊科室" value={this.state.form.department} onChange={this.changeInput.bind(this, 'department')} className="marginTop4" placeholder="请输入科室" />*/}
-        <Picker 
+        <Picker
           value={this.state.form.department}
-          style={{color:'#333'}} 
+          style={{color:'#333'}}
           data={keshi}
           cascade={false}
           onOk={
@@ -3524,23 +3584,23 @@ const wuliu9 = [[
           localStorage.setItem('department',this.state.form.department)
           }
         }
-            
+
          //onOk={e=>this.setState({extra:e[0]})}
         //  onOk={v =>this.setState({level:v[0]})}
           //onChange={e=>console.log('dpname',e)}
           onChange={e=>{console.log('extra',this.state.extra)
-          
+
           //this.setCookie("extra", this.state.extra, 30)
-          
+
         }}
           onDismiss={e => console.log('dismiss', e)}
         >
         <SelectBox5 />
         </Picker>
         <Rinput style={{color:'#333'}}  label="*主治医生" value={this.state.doctor} onChange={this.changeInput.bind(this, 'doctor')} className="marginTop4" placeholder="请输入主治医生姓名" onBlur={this.onBlurDoctor.bind(this,this.state.doctor)}/>
-        
+
       </div>
-      
+
   <div className="height15"></div>
         <div className="fooder_bnt displays confirm_order_food">
           <div style={{ flex: '1' }}></div>
@@ -3564,14 +3624,14 @@ const wuliu9 = [[
             {
                 this.state.stepbnt==2?<div>
                 {/*这一块写第二页的代码*/}
-                
+
                 <div className="confirm_order">
                 <div className="orderconfirm_title">样本信息</div>
                 <div className="orderconfirm_subtitle">（申请单中*号项为必填项）</div>
                 <div className="reg_label">样本类型</div>
                 {/* <Radio.Group onChange={this.onChangeRadio} value={this.state.valuetype} className="radio_info"> */}
                 <Radio.Group onChange={this.onChangeRadio} value={this.state.sampleType} className="radio_info">
-                
+
         <Radio className="radio_info marginTop4_radio" value={'1'}>
           *血液
           {this.state.sampleType === '1' ?
@@ -3592,7 +3652,7 @@ const wuliu9 = [[
                         //this.setCookie("sampleTime", this.formatTime(this.state.form.sampleTime), 30);
                         //localStorage.setItem('sampleTime',this.formatTime(this.state.form.sampleTime))
                     }}
-                    
+
                 >
                  <CustomChildrenblood />
                 </DatePicker>
@@ -3610,7 +3670,7 @@ const wuliu9 = [[
     </DatePicker> */}
             </div>
             : null}
-          
+
         </Radio>
         <Radio className="radio_info marginTop4_radio" value={'2'}>
           *组织
@@ -3671,7 +3731,7 @@ const wuliu9 = [[
               </Radio>
               <Radio  className="radiostyle marginTop4_radiotype" value={'2'}>
                 蜡&nbsp;&nbsp;&nbsp;&nbsp;块
-                
+
                 {this.state.tissueSampleType === '2' ?
           <div>
             <div className="reg_label">*蜡块采样日期</div>
@@ -3692,18 +3752,18 @@ const wuliu9 = [[
             <Rinput type="number" value={this.state.sampleNum} onChange={this.changeInput.bind(this, 'sampleNum')} className="marginTop4 r_inputradiotype" placeholder="" onBlur={this.onBlursampleNum.bind(this,this.state.sampleNum)}/>
                 <span>块（数量）</span>
           <div style={{marginLeft:'0.4rem'}}>
-                <div className="reg_label">蜡块是否需要返还</div> 
+                <div className="reg_label">蜡块是否需要返还</div>
         <Radio.Group onChange={this.onChangeback}  value={this.state.valueback} style={{width:'100%'}}>
         <Radio name="value" value={'1'} style={{display:'block'}}>
         是
         {this.state.valueback === '1' ?
           <div>
-          <Picker 
+          <Picker
         data={cityListlakuai}
         onOk={e => {this.setState(Object.assign(this.state.form,{
             lakuaiProvince:e[0],
             lakuaiCity:e[1],
-            lakuaiRegion:e[2], 
+            lakuaiRegion:e[2],
         }))
         localStorage.setItem('addr1',this.state.form.lakuaiProvince+this.state.form.lakuaiCity+this.state.form.lakuaiRegion)
         //this.setCookie("addr1", this.state.form.lakuaiProvince+this.state.form.lakuaiCity+this.state.form.lakuaiRegion, 30);
@@ -3717,20 +3777,20 @@ const wuliu9 = [[
           <Rinput  value={this.state.address} onChange={this.changeInput.bind(this, 'address')} className="marginTop4" placeholder="请输入详细地址,精准到门牌号" onBlur={this.onBluraddress.bind(this,this.state.address)}/>
           <Rinput  value={this.state.addressee} onChange={this.changeInput.bind(this, 'addressee')} className="marginTop4" placeholder="请输入收件人" onBlur={this.onBluraddressee.bind(this,this.state.addressee)}/>
           <Rinput  type="number" value={this.state.addressPhone} onChange={this.changeInput.bind(this, 'addressPhone')} className="marginTop4" placeholder="请输入电话" onBlur={this.onBluraddressPhone.bind(this,this.state.addressPhone)}/>
-          
+
           </div>
           : null}
         </Radio>
         <Radio name="value" value={'0'} style={{display:'block'}}>
         否
         </Radio>
-      
+
         </Radio.Group>
-                
+
                 </div>
           </div>
           : null}
-                
+
               </Radio>
               <Radio className="radiostyle marginTop4_radiotype" value={'3'}>
                 蜡&nbsp;&nbsp;&nbsp;&nbsp;卷
@@ -3755,7 +3815,7 @@ const wuliu9 = [[
           <span>卷（数量）</span>
           </div>
           : null}
-               
+
               </Radio>
               <Radio className="radiostyle marginTop4_radiotype" value={'4'}>
                 新鲜组织
@@ -3780,7 +3840,7 @@ const wuliu9 = [[
           <span>条（数量）</span>
           </div>
           : null}
-               
+
               </Radio>
               {/* <Radio className="radiostyle marginTop4_radiotype" value={'4'}>
                 胸腹水
@@ -3793,8 +3853,8 @@ const wuliu9 = [[
               </Radio>
               <Radio className="radiostyle marginTop4_radiotype marginBottom2 otherwidth" value={'5'}>
                 其&nbsp;&nbsp;&nbsp;&nbsp;它
-                
-                
+
+
                 {this.state.sample === '5' ?
           <div className="otherwidth">
           <Rinput value={this.state.sampleNum} onChange={this.changeInput.bind(this, 'sampleNum')} className="otherwidth marginTop4 r_inputradiotype" placeholder="请输入" onBlur={this.onBlursampleNum.bind(this,this.state.sampleNum)}/>
@@ -3802,11 +3862,11 @@ const wuliu9 = [[
           : null}
                 </Radio> */}
             </Radio.Group>
-        
+
             </div>
             : null}
-          </Radio> 
-          
+          </Radio>
+
           <Radio className="radio_info marginTop4_radio" value={'3'}>
           *胸腹水
           {this.state.sampleType === '3' ?
@@ -3826,14 +3886,14 @@ const wuliu9 = [[
                         //this.setCookie("sampleTime", this.formatTime(this.state.form.sampleTime), 30);
                         //localStorage.setItem('sampleTime',this.formatTime(this.state.form.sampleTime))
                     }}
-                    
+
                 >
                  <CustomChildrenxiongfushui />
                 </DatePicker>
-                
+
             </div>
             : null}
-          
+
         </Radio>
         <Radio className="radio_info marginTop4_radio" value={'5'}>
           *脑脊液
@@ -3854,14 +3914,14 @@ const wuliu9 = [[
                         //this.setCookie("sampleTime", this.formatTime(this.state.form.sampleTime), 30);
                         //localStorage.setItem('sampleTime',this.formatTime(this.state.form.sampleTime))
                     }}
-                    
+
                 >
                  <CustomChildrennaojiye />
                 </DatePicker>
-                
+
             </div>
             : null}
-          
+
         </Radio>
         <Radio className="radio_info marginTop4_radio" value={'4'}>
           *其它
@@ -3883,14 +3943,14 @@ const wuliu9 = [[
                         //this.setCookie("sampleTime", this.formatTime(this.state.form.sampleTime), 30);
                         //localStorage.setItem('sampleTime',this.formatTime(this.state.form.sampleTime))
                     }}
-                    
+
                 >
                  <CustomChildrenother />
                 </DatePicker>
-                
+
             </div>
             : null}
-          
+
         </Radio>
       </Radio.Group>
       <div className="orderconfirm_titletwo">*病理诊断</div>
@@ -3934,7 +3994,7 @@ const wuliu9 = [[
                         }}
                       >
                       <CustomChildrendiagnosticTime/>
-                </DatePicker> 
+                </DatePicker>
                 {/* <DatePicker
             mode="datetime"
             extra="确诊日期"
@@ -3953,11 +4013,11 @@ const wuliu9 = [[
       <Radio value={'1'}>
         是
         {this.state.valuechuzhi === '1' ?
-          <div> 
+          <div>
             <div>
             <Rinput value={this.state.targetDrugName} onChange={this.changeInput.bind(this, 'targetDrugName')} className="marginTop4 r_inputradiotype_other" placeholder="请输入靶向药物名称" />
             </div>
-            <div className="reg_label">*靶向治疗是否耐药</div> 
+            <div className="reg_label">*靶向治疗是否耐药</div>
                   <Radio.Group onChange={this.onChangetki} value={this.state.resistance} style={{width:'100%'}}>
                     <Radio value={'1'} style={{width:'50%'}}>
                       是
@@ -3966,24 +4026,24 @@ const wuliu9 = [[
                       否
                     </Radio>
           </Radio.Group>
-          
+
           </div>: null}
       </Radio>
       <Radio value={'0'} style={{position:'absolute',left:'3rem'}}>
         否
       </Radio>
-      
+
     </Radio.Group>
     <div className="reg_label">治疗方案 </div>
-          
+
           <Checkbox.Group style={{ width: '100%' }} onChange={this.onChangeChecks} value={this.state.drug}>
-          
+
                 <Col span={8}>
                   <Checkbox  value="1"
                   checked={this.state.checkeddrug1}
                   onChange={this.onChangedrug1}
                   >化疗</Checkbox>
-                  
+
                 </Col>
                 <Col span={8}>
                   <Checkbox  value="2"
@@ -3996,7 +4056,7 @@ const wuliu9 = [[
                   checked={this.state.checkeddrug3}
                   onChange={this.onChangedrug3}
                   >靶向治疗</Checkbox>
-                 
+
                 </Col>*/}
                 <Col span={8}>
                   <Checkbox  value="4"
@@ -4004,7 +4064,7 @@ const wuliu9 = [[
                   onChange={this.onChangedrug4}
                   >免疫治疗</Checkbox>
                 </Col>
-                
+
               <Row>
               <Row>
               <Col span={12}>
@@ -4017,7 +4077,7 @@ const wuliu9 = [[
                 <Row>
                 <Col span={12}>
                 <div>
-                {this.state.checkeddrug5 && oldcheckeddrug5? 
+                {this.state.checkeddrug5 && oldcheckeddrug5?
                   <div>
                   <Rinput value={this.state.otherDrugName} onChange={this.changeInput.bind(this, 'otherDrugName')} className="marginTop4 r_inputradiotype_other" placeholder="其它治疗方案" />
                   </div>
@@ -4027,13 +4087,13 @@ const wuliu9 = [[
                 </Row>
               </Row>
           </Checkbox.Group>
-      {/* <div className="reg_label">*是否接受过治疗</div> 
+      {/* <div className="reg_label">*是否接受过治疗</div>
       <Radio.Group onChange={this.onChangechuzhi} value={this.state.valuechuzhi}>
       <Radio value={'1'}>
         是
         {this.state.valuechuzhi === '1' ?
           <div>
-            <div className="reg_label">是否耐药</div> 
+            <div className="reg_label">是否耐药</div>
                   <Radio.Group onChange={this.onChangetki} value={this.state.resistance} style={{width:'100%'}}>
                     <Radio value={'1'} style={{width:'50%'}}>
                       是
@@ -4042,17 +4102,17 @@ const wuliu9 = [[
                       否
                     </Radio>
                     </Radio.Group>
-                    <Rinput value={this.state.bloodNum} onChange={this.changeInput.bind(this, 'bloodNum')} className="marginTop4 r_inputradiotypeblock" placeholder="请输入药物名称" onBlur={this.onBlurbloodNum.bind(this,this.state.bloodNum)}/> 
+                    <Rinput value={this.state.bloodNum} onChange={this.changeInput.bind(this, 'bloodNum')} className="marginTop4 r_inputradiotypeblock" placeholder="请输入药物名称" onBlur={this.onBlurbloodNum.bind(this,this.state.bloodNum)}/>
           <div className="reg_label">*治疗方案 </div>
-          
+
           <Checkbox.Group style={{ width: '100%' }} onChange={this.onChangeChecks} value={this.state.drug}>
-          
+
                 <Col span={8}>
                   <Checkbox  value="1"
                   checked={this.state.checkeddrug1}
                   onChange={this.onChangedrug1}
                   >化疗</Checkbox>
-                  
+
                 </Col>
                 <Col span={8}>
                   <Checkbox  value="2"
@@ -4065,7 +4125,7 @@ const wuliu9 = [[
                   checked={this.state.checkeddrug3}
                   onChange={this.onChangedrug3}
                   >靶向治疗</Checkbox>
-                 
+
                 </Col>
                 <Col span={8}>
                   <Checkbox  value="4"
@@ -4082,9 +4142,9 @@ const wuliu9 = [[
                 <Row>
                 <Col span={12}>
                 <div>
-                {this.state.checkeddrug3 && oldcheckeddrug3 ? 
+                {this.state.checkeddrug3 && oldcheckeddrug3 ?
                   <div>
-                  <div className="reg_label">*靶向治疗是否耐药</div> 
+                  <div className="reg_label">*靶向治疗是否耐药</div>
                   <Radio.Group onChange={this.onChangetki} value={this.state.resistance} style={{width:'100%'}}>
                     <Radio value={'1'} style={{width:'50%'}}>
                       是
@@ -4102,7 +4162,7 @@ const wuliu9 = [[
                 <Row>
                 <Col span={12}>
                 <div>
-                {this.state.checkeddrug5 && oldcheckeddrug5? 
+                {this.state.checkeddrug5 && oldcheckeddrug5?
                   <div>
                   <Rinput value={this.state.otherDrugName} onChange={this.changeInput.bind(this, 'otherDrugName')} className="marginTop4 r_inputradiotype_other" placeholder="其它治疗方案" />
                   </div>
@@ -4112,13 +4172,13 @@ const wuliu9 = [[
                 </Row>
               </Row>
           </Checkbox.Group>
-          
+
           </div>: null}
       </Radio>
       <Radio value={'0'} style={{position:'absolute',left:'3rem'}}>
         否
       </Radio>
-      
+
     </Radio.Group> */}
     </div>
     <div className="height15"></div>
@@ -4144,9 +4204,10 @@ const wuliu9 = [[
                 this.state.stepbnt==3?<div>
 
                 {/*//这一块写第三页的代码*/}
-                
+
+
                 <div className="confirm_order">
-                
+
                 <div className="orderconfirm_title">物流信息</div>
                 <div className="orderconfirm_subtitle">（申请单中*号项为必填项）</div>
                 {/* <div className="reg_label">*物流寄送方式</div>  */}
@@ -4155,8 +4216,8 @@ const wuliu9 = [[
         平台寄送
         {this.state.valuejisong === '1' ?
           <div>
-            
-          
+
+
           </div>: null}
       </Radio>
       <Radio value={'0'} style={{position:'absolute',left:'3rem'}}>
@@ -4166,16 +4227,16 @@ const wuliu9 = [[
 
           </div>:null}
       </Radio>
-      
+
     </Radio.Group> */}
     <div className="reg_label">*取样地址</div>
-                <Picker 
-                        style={{color:'#333'}} 
+                <Picker
+                        style={{color:'#333'}}
                         data={cityListqy}
                         onOk={e => {this.setState(Object.assign(this.state.form,{
                             hzProvince:e[0],
                             hzCity:e[1],
-                            hzRegion:e[2], 
+                            hzRegion:e[2],
                         }))
                         //this.setCookie("addr2", this.state.form.hzProvince+this.state.form.hzCity+this.state.form.hzRegion, 30);
                         localStorage.setItem('addr2',this.state.form.hzProvince+this.state.form.hzCity+this.state.form.hzRegion)
@@ -4206,16 +4267,16 @@ const wuliu9 = [[
                 >
                  <CustomChildrensamplingTime/>
                 </DatePicker>
-                
+
                 <Picker
           value={this.state.form.wuliutime}
-          style={{color:'#333'}} 
+          style={{color:'#333'}}
           // data={wuliu}
           data={(()=>{
             switch(this.wuliuchoose()){
                 case '1':return wuliu8;
                 case '8':return wuliu8;
-                case '9':return wuliu9; 
+                case '9':return wuliu9;
                 case '10':return wuliu10;
                 case '11':return wuliu11;
                 case '12':return wuliu12;
@@ -4237,42 +4298,42 @@ const wuliu9 = [[
           localStorage.setItem('wuliu',this.state.form.wuliutime)
           }
         }
-            
+
          //onOk={e=>this.setState({extra:e[0]})}
         //  onOk={v =>this.setState({level:v[0]})}
           //onChange={e=>console.log('dpname',e)}
           onChange={e=>{console.log('wuliutime',this.state.form.wuliutime)
-          
+
           //this.setCookie("wuliu", this.state.extra, 30)
-          
+
         }}
           onDismiss={e => console.log('dismiss', e)}
         >
         <SelectBoxtimezone />
         </Picker>
-    <Rinput label="*取样联系人" value={this.state.samplingUser} onChange={this.changeInput.bind(this, 'samplingUser')} className="marginTop4" placeholder="请输入取样联系人姓名" onBlur={this.onBlursamplingUser.bind(this,this.state.samplingUser)}/>   
-    <Rinput type="number" label="*联系人电话" value={this.state.samplingPhone} onChange={this.changeInput.bind(this, 'samplingPhone')} className="marginTop4" placeholder="请输入联系人电话" onBlur={this.onBlurqyphone.bind(this,this.state.samplingPhone)}/>            
-    {/* <Rinput 
+    <Rinput label="*取样联系人" value={this.state.samplingUser} onChange={this.changeInput.bind(this, 'samplingUser')} className="marginTop4" placeholder="请输入取样联系人姓名" onBlur={this.onBlursamplingUser.bind(this,this.state.samplingUser)}/>
+    <Rinput type="number" label="*联系人电话" value={this.state.samplingPhone} onChange={this.changeInput.bind(this, 'samplingPhone')} className="marginTop4" placeholder="请输入联系人电话" onBlur={this.onBlurqyphone.bind(this,this.state.samplingPhone)}/>
+    {/* <Rinput
                 label="优惠券"
-                icon="text" 
+                icon="text"
                 text={this.state.isUse?"已使用优惠券":"使用优惠券"}
                 color={this.state.isUse?'#9b9b9b':"#ff6666"}
-                value={this.state.coupon} 
+                value={this.state.coupon}
                 onClick={this.useCoupon.bind(this)}
-                className="marginTop4" 
-                onChange={this.changeInput.bind(this, 'coupon')} 
-                placeholder="如有，请输入优惠券代码" 
+                className="marginTop4"
+                onChange={this.changeInput.bind(this, 'coupon')}
+                placeholder="如有，请输入优惠券代码"
           /> */}
     <div>
     <div style={{display: this.state.displaypaper}}>
-    <div className="reg_label">*纸质报告及发票寄送地址</div> 
-    
-    <Picker 
+    <div className="reg_label">*纸质报告及发票寄送地址</div>
+
+    <Picker
         data={cityListbill}
         onOk={e => {this.setState(Object.assign(this.state.form,{
             billProvince:e[0],
             billCity:e[1],
-            billRegion:e[2], 
+            billRegion:e[2],
         }))
         //this.setCookie("addr3", this.state.form.billProvince+this.state.form.billCity+this.state.form.billRegion, 30);
         localStorage.setItem('addr3',this.state.form.billProvince+this.state.form.billCity+this.state.form.billRegion)
@@ -4284,7 +4345,7 @@ const wuliu9 = [[
     <Rinput value={this.state.paperAddr} onChange={this.changeInput.bind(this, 'paperAddr')} className="marginTop4" placeholder="请输入详细地址,精准到门牌号" onBlur={this.onBlurpaperAddr.bind(this,this.state.paperAddr)}/>
     <Rinput value={this.state.paperUser} onChange={this.changeInput.bind(this, 'paperUser')} className="marginTop4" placeholder="请输入收件人姓名" onBlur={this.onBlurpaperUser.bind(this,this.state.paperUser)}/>
     <Rinput  type="number" value={this.state.paperPhone} onChange={this.changeInput.bind(this, 'paperPhone')} className="marginTop4" placeholder="请输入电话" onBlur={this.onBlurpaperPhone.bind(this,this.state.paperPhone)}/>
-    
+
     <div className="reg_label" style={{color:'#b30000',lineHeight:'0.4rem'}}>温馨提示：发票抬头默认为受检者姓名。请填写正确寄送地址，以免寄送失败，影响您的接收。</div>
     </div>
 {/*<Radio.Group onChange={this.onChangepaper} value={this.state.valuepaper} style={{width:'100%'}}>
@@ -4295,12 +4356,12 @@ const wuliu9 = [[
     <Rinput  value={this.state.paperUser} onChange={this.changeInput.bind(this, 'paperUser')} className="marginTop4" placeholder="请输入收件人" />
     <Rinput  value={this.state.paperPhone} onChange={this.changeInput.bind(this, 'paperPhone')} className="marginTop4" placeholder="请输入电话" />
     {/*<Rinput  value={this.state.paperAddr} onChange={this.changeInput.bind(this, 'paperAddr')} className="marginTop4" placeholder="请输入地址" />
-    <Picker 
+    <Picker
         data={cityListbill}
         onOk={e => this.setState(Object.assign(this.state.form,{
             billProvince:e[0],
             billCity:e[1],
-            billRegion:e[2], 
+            billRegion:e[2],
         }))}
         onDismiss={e => console.log('dismiss', e)}
     >
@@ -4333,27 +4394,28 @@ const wuliu9 = [[
           size="large"
           text={this.state.text}
           animating={this.state.animating}
-        />                
+        />
 </div>:null
             }
             {
                 this.state.stepbnt==4?<div>
                 {/*这一块写第四页的代码*/}
-                
+
                 <div className="confirm_order">
-                
+
       <div className="orderconfirm_title">请检查您的申请单信息,提交后无法更改</div>
       <div className="orderconfirm_title">如需修改请点击上一步进行修改</div>
       <div className="order_cinfo"><span className="order_title">姓名:</span>  <span className="order_content">{this.state.name}</span></div>
-      <div className="order_cinfo"><span className="order_title">出生日期:</span>  <span className="order_content">{this.formatTime(this.state.form.Birthday).slice(0,10)}</span></div>
+      {/*<div className="order_cinfo"><span className="order_title">出生日期:</span>  <span className="order_content">{this.formatTime(this.state.form.Birthday).slice(0,10)}</span></div>*/}
+
       <div className="order_cinfo"><span className="order_title">性别:</span>  <span className="order_content">{this.state.gender==1?'男':'女'}</span></div>
       <div className="order_cinfo"><span className="order_title">身份证号:</span>  <span className="order_content">{this.state.idNum}</span></div>
-      
+      <div className="order_cinfo"><span className="order_title">年龄:</span>  <span className="order_content">{(this.analyzeIDCard(this.state.idNum)).age}岁(以身份证信息为准)</span></div>
       <div className="order_cinfo"><span className="order_title">就诊医院:</span>  <span className="order_content">{this.state.form.ysHospitalName}</span></div>
       <div className="order_cinfo"><span className="order_title">科室:</span> <span className="order_content">{(()=>{
          switch(localStorage.getItem('department')){
              case '1':return '呼吸科';
-             case '2':return '胸外科'; 
+             case '2':return '胸外科';
              case '3':return '肿瘤科';
              case '4':return '放疗科';
              case '5':return '其它';
@@ -4368,7 +4430,7 @@ const wuliu9 = [[
     <div className="order_cinfo"><span className="order_title">样本类型:</span>  <span className="order_content">{(()=>{
          switch(this.state.sampleType){
              case '1':return '血液';
-             case '2':return '组织'; 
+             case '2':return '组织';
              case '3':return '胸腹水';
              case '4':return '其它';
              case '5':return '脑脊液';
@@ -4446,12 +4508,12 @@ const wuliu9 = [[
         }
     )()}
     </div>
-    
-    
+
+
     <div className="order_cinfo"><span className="order_title">病理诊断:</span>  <span className="order_content">{(()=>{
       switch(this.state.diagnosticCancer){
           case '1':return '肺鳞癌';
-          case '2':return '肺腺癌'; 
+          case '2':return '肺腺癌';
           case '3':return '小细胞癌';
           case '4':return '大细胞癌';
           case '5':return '腺鳞癌';
@@ -4472,13 +4534,13 @@ const wuliu9 = [[
         <div className="order_cinfo"><span className="order_title">靶向治疗是否耐药:</span>  <span className="order_content">{(()=>{
           switch(this.state.resistance){
               case '0':return '否';
-              case '1':return '是' 
+              case '1':return '是'
               default:return null;
           }
         }
         )()}
         </span>
-        
+
         </div>
         <div className="order_cinfo"><span className="order_title">治疗方案:</span>  {(()=>{
           switch(localStorage.getItem('drug')){
@@ -4663,7 +4725,7 @@ const wuliu9 = [[
          }
         )()}
         </div>
-        </div>; 
+        </div>;
       default:return null;
    }
  }
@@ -4679,18 +4741,18 @@ const wuliu9 = [[
 <div className="order_cinfo"><span className="order_title">纸质报告收件人姓名:</span>  <span className="order_content">{this.state.paperUser}</span></div>
 <div className="order_cinfo"><span className="order_title">纸质报告收件人电话:</span>  <span className="order_content">{this.state.paperPhone}</span></div>
 </div>
-<GoodsListthree 
-padding=".4rem 0" 
-marginLeft="0" 
-disPlayImg={true} 
-redTab={genes.tab||''} 
-no_code={genes.code||""} 
-type='1' 
-name={genes.title||""} 
-money={genes.price} 
+<GoodsListthree
+padding=".4rem 0"
+marginLeft="0"
+disPlayImg={true}
+redTab={genes.tab||''}
+no_code={genes.code||""}
+type='1'
+name={genes.title||""}
+money={genes.price}
 keyWord={genes.yellowTab&&genes.yellowTab.split('-|-')||[]
 } />
-      
+
           <Rinputt style={{color:'#333'}}  label="备注信息（选填）" value={this.state.remark} onChange={this.changeInput.bind(this, 'remark')} className="marginTop4" placeholder="请输入备注信息(100字内)"/>
           {/*<List renderHeader={() => '备注'}>
             <TextareaItem
@@ -4700,17 +4762,17 @@ keyWord={genes.yellowTab&&genes.yellowTab.split('-|-')||[]
             },
             console.log('tag', ...getFieldProps)
             )
-            
+
           }
-          
+
             rows={5}
             count={100}
           />
-          
+
         </List>*/}
-      <div className="reg_label">温馨提示</div> 
+      <div className="reg_label">温馨提示</div>
 <div className="order_tips">1.检测完成后发票同纸质报告会寄送到您输入的指定地址，发票默认为个人发票</div>
-<div className="order_tips">2.检测完成后可在“查看报告”里查看电子报告单</div> 
+<div className="order_tips">2.检测完成后可在“查看报告”里查看电子报告单</div>
 <div className="order_tips">3.为保证血液新鲜度提高检测准确度，采血时间距物流取样时间最长不超过24小时，建议确认好取样时间后确定采血</div>
 <div className="order_tips">4.纸质报告、发票、蜡块需要返样时如收件人填写不规范，收件人姓名将会更改为受检人姓名</div>
       </div>
@@ -4733,9 +4795,9 @@ keyWord={genes.yellowTab&&genes.yellowTab.split('-|-')||[]
         />
                 </div>:null
             }
-            
+
         </div>
-          
+
     )
   
     }
