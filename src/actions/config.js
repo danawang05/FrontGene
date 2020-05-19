@@ -1,7 +1,7 @@
 
 if(process.env.NODE_ENV =='development'){
     module.exports = {
-        imgUrl:'http://jianai.sagacityidea.cn/',                  //正式 
+        imgUrl:'http://jianai.sagacityidea.cn/',                  //正式
         urlNoApi:"http://jianai.sagacityidea.cn/gene-api/",      //正式
         url:'http://jianai.sagacityidea.cn/gene-api/api',        //正式
         // imgUrl:'http://jiyin-test.sagacityidea.cn/',                //测试
@@ -30,7 +30,7 @@ if(process.env.NODE_ENV =='development'){
 }else{
     // 1400253983
     module.exports = {
-        imgUrl:'http://jianai.sagacityidea.cn/',                  //正式 
+        imgUrl:'http://jianai.sagacityidea.cn/',                  //正式
         urlNoApi:"http://jianai.sagacityidea.cn/gene-api/",      //正式
         url:'http://jianai.sagacityidea.cn/gene-api/api',        //正式
         // imgUrl:'http://jiyin-test.sagacityidea.cn/',                //测试

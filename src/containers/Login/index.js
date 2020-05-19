@@ -324,7 +324,7 @@ class Login extends React.Component {
     }
   }
   phone(phone) {
-    let phoneText = /^1[345789]\d{9}$/
+    let phoneText = /^1[123456789]\d{9}$/
     if ((phoneText.test(phone))) {
       return { result: true }
     } else {

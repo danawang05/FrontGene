@@ -521,7 +521,7 @@ class Login extends React.Component {
   }
 
   phone(phone) {
-    let phoneText = /^1[2345789]\d{9}$/
+    let phoneText = /^1[123456789]\d{9}$/
     if ((phoneText.test(phone))) {
       return { result: true }
     } else {
@@ -704,36 +704,41 @@ class Login extends React.Component {
     //     return false
     //   }
     // }
-    if(this.state.sampleType=='1'){
-      if (!this.state.form.sampleTime && !localStorage.getItem('sampleTime')) {
-        Toast.fail('请选择血液采样时间', 2)
+      if(!this.state.sampleType){
+        Toast.fail('请选择样本类型', 2)
         return false
       }
-    }
-    if(this.state.sampleType=='2'){
-      if (!this.state.form.sampleTime && !localStorage.getItem('sampleTime')) {
-        Toast.fail('请选择样本采样时间', 2)
-        return false
+      if (this.state.sampleType == '1') {
+        if (!this.state.form.sampleTime && !localStorage.getItem('sampleTime')) {
+          Toast.fail('请选择血液采样时间', 2)
+          return false
+        }
       }
-    }
-    if(this.state.sampleType=='3'){
-      if (!this.state.form.sampleTime && !localStorage.getItem('sampleTime')) {
-        Toast.fail('请选择胸腹水采样时间', 2)
-        return false
+      if (this.state.sampleType == '2') {
+        if (!this.state.form.sampleTime && !localStorage.getItem('sampleTime')) {
+          Toast.fail('请选择样本采样时间', 2)
+          return false
+        }
       }
-    }
-    if(this.state.sampleType=='4'){
-      if (!this.state.form.sampleTime && !localStorage.getItem('sampleTime')) {
-        Toast.fail('请选择其他样本采样时间', 2)
-        return false
+      if (this.state.sampleType == '3') {
+        if (!this.state.form.sampleTime && !localStorage.getItem('sampleTime')) {
+          Toast.fail('请选择胸腹水采样时间', 2)
+          return false
+        }
       }
-    }
-    if(this.state.sampleType=='5'){
-      if (!this.state.form.sampleTime && !localStorage.getItem('sampleTime')) {
-        Toast.fail('请选择脑脊液样本采样时间', 2)
-        return false
+      if (this.state.sampleType == '4') {
+        if (!this.state.form.sampleTime && !localStorage.getItem('sampleTime')) {
+          Toast.fail('请选择其他样本采样时间', 2)
+          return false
+        }
       }
-    }
+      if (this.state.sampleType == '5') {
+        if (!this.state.form.sampleTime && !localStorage.getItem('sampleTime')) {
+          Toast.fail('请选择脑脊液样本采样时间', 2)
+          return false
+        }
+      }
+
     if (!this.state.diagnosticCancer) {
       Toast.fail('请选择您的病理诊断', 2)
       return false
@@ -4531,7 +4536,7 @@ const wuliu9 = [[
       case '1':return <div>
       <span className="order_content" style={{position:'absolute',top:'16%',left:'26%'}}>是</span>
       <div className="order_cinfo"><span className="order_title">药物名称:</span>  <span className="order_content">{this.state.targetDrugName}</span></div>
-        <div className="order_cinfo"><span className="order_title">靶向治疗是否耐药:</span>  <span className="order_content">{(()=>{
+        <div className="order_cinfo" style={{borderBottom:'none'}}><span className="order_title">靶向治疗是否耐药:</span>  <span className="order_content">{(()=>{
           switch(this.state.resistance){
               case '0':return '否';
               case '1':return '是'
@@ -4542,195 +4547,196 @@ const wuliu9 = [[
         </span>
 
         </div>
-        <div className="order_cinfo"><span className="order_title">治疗方案:</span>  {(()=>{
-          switch(localStorage.getItem('drug')){
-              case "1":return <span className="order_content">化疗</span>
-              case "1,2":return <span className="order_content">化疗,放疗</span>
-              case "2,1":return <span className="order_content">化疗,放疗</span>
-              case "1,2,4":return <span className="order_content">化疗,放疗,免疫治疗</span>
-              case "1,4,2":return <span className="order_content">化疗,放疗,免疫治疗</span>
-              case "4,2,1":return <span className="order_content">化疗,放疗,免疫治疗</span>
-              case "4,1,2":return <span className="order_content">化疗,放疗,免疫治疗</span>
-              case "2,1,4":return <span className="order_content">化疗,放疗,免疫治疗</span>
-              case "2,4,1":return <span className="order_content">化疗,放疗,免疫治疗</span>
-              case "1,4,5":return <div>
-              <span className="order_content">化疗,免疫治疗</span>
-              <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-            </div>;
-              case "1,2,5":return <div>
-              <span className="order_content">化疗,放疗</span>
-              <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-            </div>;
-              case "2,4,5":return <div>
-              <span className="order_content">放疗,免疫治疗</span>
-              <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-            </div>;
-              case "1,2,4,5":return <div>
-              <span className="order_content">化疗,放疗,免疫治疗</span>
-              <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-              </div>;
-              case "1,2,5,4":return <div>
-              <span className="order_content">化疗,放疗,免疫治疗</span>
-              <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-              </div>;
-              case "1,5,2,4":return <div>
-              <span className="order_content">化疗,放疗,免疫治疗</span>
-              <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-              </div>;
-              case "1,5,4,2":return <div>
-              <span className="order_content">化疗,放疗,免疫治疗</span>
-              <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-              </div>;
-              case "1,4,2,5":return <div>
-              <span className="order_content">化疗,放疗,免疫治疗</span>
-              <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-              </div>;
-              case "1,4,5,2":return <div>
-              <span className="order_content">化疗,放疗,免疫治疗</span>
-              <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-              </div>;
-              case "2,1,4,5":return <div>
-              <span className="order_content">化疗,放疗,免疫治疗</span>
-              <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-              </div>;
-              case "2,1,5,4":return <div>
-              <span className="order_content">化疗,放疗,免疫治疗</span>
-              <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-              </div>;
-              case "2,4,1,5":return <div>
-              <span className="order_content">化疗,放疗,免疫治疗</span>
-              <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-              </div>;
-              case "2,4,5,1":return <div>
-              <span className="order_content">化疗,放疗,免疫治疗</span>
-              <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-              </div>;
-              case "2,5,4,1":return <div>
-              <span className="order_content">化疗,放疗,免疫治疗</span>
-              <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-              </div>;
-              case "2,5,1,4":return <div>
-              <span className="order_content">化疗,放疗,免疫治疗</span>
-              <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-              </div>;
-              case "4,2,5,1":return <div>
-              <span className="order_content">化疗,放疗,免疫治疗</span>
-              <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-              </div>;
-              case "4,1,5,2":return <div>
-              <span className="order_content">化疗,放疗,免疫治疗</span>
-              <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-              </div>;
-              case "4,5,2,1":return <div>
-              <span className="order_content">化疗,放疗,免疫治疗</span>
-              <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-              </div>;
-              case "4,5,1,2":return <div>
-              <span className="order_content">化疗,放疗,免疫治疗</span>
-              <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-              </div>;
-              case "4,1,2,5":return <div>
-              <span className="order_content">化疗,放疗,免疫治疗</span>
-              <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-              </div>;
-              case "4,2,1,5":return <div>
-              <span className="order_content">化疗,放疗,免疫治疗</span>
-              <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-              </div>;
-              case "5,2,4,1":return <div>
-              <span className="order_content">化疗,放疗,免疫治疗</span>
-              <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-              </div>;
-              case "5,2,1,4":return <div>
-              <span className="order_content">化疗,放疗,免疫治疗</span>
-              <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-              </div>;
-              case "5,1,2,4":return <div>
-              <span className="order_content">化疗,放疗,免疫治疗</span>
-              <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-              </div>;
-              case "5,1,4,2":return <div>
-              <span className="order_content">化疗,放疗,免疫治疗</span>
-              <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-              </div>;
-              case "5,4,2,1":return <div>
-              <span className="order_content">化疗,放疗,免疫治疗</span>
-              <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-              </div>;
-              case "5,4,5,1":return <div>
-              <span className="order_content">化疗,放疗,免疫治疗</span>
-              <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-              </div>;
-              case "2":return <span className="order_content">放疗</span>
-              case "2,4":return <span className="order_content">放疗,免疫治疗</span>
-              case "4,2":return <span className="order_content">放疗,免疫治疗</span>
-              case "1,5,4":return <div>
-              <span className="order_content">化疗,免疫治疗</span>
-              <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-            </div>;
-            case "1,5":return <div>
-            <span className="order_content">化疗</span>
-            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-            </div>;
-            case "1,4":return <div>
-            <span className="order_content">化疗,免疫治疗</span>
-            </div>;
-            case "4,1":return <div>
-            <span className="order_content">化疗,免疫治疗</span>
-            </div>;
-            case "2,5":return <div>
-            <span className="order_content">放疗</span>
-            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-            </div>;
-            case "5，2":return <div>
-            <span className="order_content">放疗</span>
-            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-            </div>;
-            case "5,1":return <div>
-            <span className="order_content">化疗</span>
-            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-            </div>;
-              case "2,5,4":return <div>
-              <span className="order_content">放疗,免疫治疗</span>
-              <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-            </div>;
-              case "4,2,5":return <div>
-              <span className="order_content">放疗,免疫治疗</span>
-              <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-            </div>;
-              case "4,5,2":return <div>
-              <span className="order_content">放疗,免疫治疗</span>
-              <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-            </div>;
-              case "5,4,2":return <div>
-              <span className="order_content">放疗,免疫治疗</span>
-              <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-            </div>;
-              case "5,2,4":return <div>
-              <span className="order_content">放疗,免疫治疗</span>
-              <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-            </div>;
-              case "4":return <span className="order_content">免疫治疗</span>;
-              case "4,5":return <div>
-              <span className="order_content">免疫治疗</span>
-              <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-            </div>;
-              case "5,4":return <div>
-              <span className="order_content">免疫治疗</span>
-              <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-            </div>;
-              case "5":return <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
-              default:return null;
-           }
-         }
-        )()}
-        </div>
+
         </div>;
       default:return null;
    }
  }
 )()}
 </div>
+                  <div className="order_cinfo"><span className="order_title">治疗方案:</span>  {(()=>{
+                        switch(localStorage.getItem('drug')){
+                          case "1":return <span className="order_content">化疗</span>
+                          case "1,2":return <span className="order_content">化疗,放疗</span>
+                          case "2,1":return <span className="order_content">化疗,放疗</span>
+                          case "1,2,4":return <span className="order_content">化疗,放疗,免疫治疗</span>
+                          case "1,4,2":return <span className="order_content">化疗,放疗,免疫治疗</span>
+                          case "4,2,1":return <span className="order_content">化疗,放疗,免疫治疗</span>
+                          case "4,1,2":return <span className="order_content">化疗,放疗,免疫治疗</span>
+                          case "2,1,4":return <span className="order_content">化疗,放疗,免疫治疗</span>
+                          case "2,4,1":return <span className="order_content">化疗,放疗,免疫治疗</span>
+                          case "1,4,5":return <div>
+                            <span className="order_content">化疗,免疫治疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "1,2,5":return <div>
+                            <span className="order_content">化疗,放疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "2,4,5":return <div>
+                            <span className="order_content">放疗,免疫治疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "1,2,4,5":return <div>
+                            <span className="order_content">化疗,放疗,免疫治疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "1,2,5,4":return <div>
+                            <span className="order_content">化疗,放疗,免疫治疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "1,5,2,4":return <div>
+                            <span className="order_content">化疗,放疗,免疫治疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "1,5,4,2":return <div>
+                            <span className="order_content">化疗,放疗,免疫治疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "1,4,2,5":return <div>
+                            <span className="order_content">化疗,放疗,免疫治疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "1,4,5,2":return <div>
+                            <span className="order_content">化疗,放疗,免疫治疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "2,1,4,5":return <div>
+                            <span className="order_content">化疗,放疗,免疫治疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "2,1,5,4":return <div>
+                            <span className="order_content">化疗,放疗,免疫治疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "2,4,1,5":return <div>
+                            <span className="order_content">化疗,放疗,免疫治疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "2,4,5,1":return <div>
+                            <span className="order_content">化疗,放疗,免疫治疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "2,5,4,1":return <div>
+                            <span className="order_content">化疗,放疗,免疫治疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "2,5,1,4":return <div>
+                            <span className="order_content">化疗,放疗,免疫治疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "4,2,5,1":return <div>
+                            <span className="order_content">化疗,放疗,免疫治疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "4,1,5,2":return <div>
+                            <span className="order_content">化疗,放疗,免疫治疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "4,5,2,1":return <div>
+                            <span className="order_content">化疗,放疗,免疫治疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "4,5,1,2":return <div>
+                            <span className="order_content">化疗,放疗,免疫治疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "4,1,2,5":return <div>
+                            <span className="order_content">化疗,放疗,免疫治疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "4,2,1,5":return <div>
+                            <span className="order_content">化疗,放疗,免疫治疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "5,2,4,1":return <div>
+                            <span className="order_content">化疗,放疗,免疫治疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "5,2,1,4":return <div>
+                            <span className="order_content">化疗,放疗,免疫治疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "5,1,2,4":return <div>
+                            <span className="order_content">化疗,放疗,免疫治疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "5,1,4,2":return <div>
+                            <span className="order_content">化疗,放疗,免疫治疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "5,4,2,1":return <div>
+                            <span className="order_content">化疗,放疗,免疫治疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "5,4,5,1":return <div>
+                            <span className="order_content">化疗,放疗,免疫治疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "2":return <span className="order_content">放疗</span>
+                          case "2,4":return <span className="order_content">放疗,免疫治疗</span>
+                          case "4,2":return <span className="order_content">放疗,免疫治疗</span>
+                          case "1,5,4":return <div>
+                            <span className="order_content">化疗,免疫治疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "1,5":return <div>
+                            <span className="order_content">化疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "1,4":return <div>
+                            <span className="order_content">化疗,免疫治疗</span>
+                          </div>;
+                          case "4,1":return <div>
+                            <span className="order_content">化疗,免疫治疗</span>
+                          </div>;
+                          case "2,5":return <div>
+                            <span className="order_content">放疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "5，2":return <div>
+                            <span className="order_content">放疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "5,1":return <div>
+                            <span className="order_content">化疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "2,5,4":return <div>
+                            <span className="order_content">放疗,免疫治疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "4,2,5":return <div>
+                            <span className="order_content">放疗,免疫治疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "4,5,2":return <div>
+                            <span className="order_content">放疗,免疫治疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "5,4,2":return <div>
+                            <span className="order_content">放疗,免疫治疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "5,2,4":return <div>
+                            <span className="order_content">放疗,免疫治疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "4":return <span className="order_content">免疫治疗</span>;
+                          case "4,5":return <div>
+                            <span className="order_content">免疫治疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "5,4":return <div>
+                            <span className="order_content">免疫治疗</span>
+                            <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          </div>;
+                          case "5":return <span className="order_content">其它  治疗方案:{this.state.otherDrugName}</span>
+                          default:return null;
+                        }
+                      }
+                  )()}
+                  </div>
 <div className="order_cinfo"><span className="order_title">取样地址:</span>  <span className="order_content">{this.state.form.hzProvince+this.state.form.hzCity+this.state.form.hzRegion+this.state.addressdetail}</span></div>
 <div className="order_cinfo"><span className="order_title">取样人姓名:</span>  <span className="order_content">{this.state.samplingUser}</span></div>
 <div className="order_cinfo"><span className="order_title">取样联系人电话:</span>  <span className="order_content">{this.state.samplingPhone}</span></div>
