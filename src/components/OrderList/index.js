@@ -32,7 +32,8 @@ export default class OrderList extends Component {
                             ¥{this.props.money}
                         </div>
                     </div>
-                    <div className="orderlist_tips_alert">为保证电子申请单信息可以和样本进行绑定，请点击“去扫码”扫描样本袋内条形码，并将条形码黏贴在采血管或玻璃片盒</div>
+                    {/*<div className="orderlist_tips_alert">为保证电子申请单信息可以和样本进行绑定，请点击“去扫码”扫描样本袋内条形码，并将条形码黏贴在采血管或玻璃片盒</div>*/}
+                    <div className="orderlist_tips_alert">请点击此处 并点击“去扫码”扫描样本袋内条形码，使电子申请单信息可以和样本进行绑定，并将条形码黏贴在采血管或玻璃片盒</div>
                 </div>
                 <div className="orderlist_go">
                   <Icon type="right" />
