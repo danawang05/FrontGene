@@ -1479,7 +1479,8 @@ class Login extends React.Component {
           resistance:this.state.resistance,         //'1：是，有影像检测证明疾病进展；2：是，仅为经验判断；3：否'
           paperUser:this.state.displaypaper=='block'?this.state.paperUser:'',       //'纸质报告收件人',
           paperPhone:this.state.displaypaper=='block'?this.state.paperPhone:'',      //'纸质报告收件检点',
-          paperAddr:this.state.displaypaper=='block'?((this.state.form.billProvince+this.state.form.billCity+this.state.form.billRegion+this.state.paperAddr).indexOf('0NaN')=='-1'?this.state.form.billProvince+this.state.form.billCity+this.state.form.billRegion+this.state.paperAddr:''):'',
+          paperAddr:this.state.displaypaper=='block'? ((this.state.form.billProvince+this.state.form.billCity+this.state.form.billRegion+this.state.paperAddr).indexOf('0NaN')=='-1'?this.state.form.billProvince+this.state.form.billCity+this.state.form.billRegion+this.state.paperAddr:''):'',
+          //paperAddr:this.state.displaypaper=='block'?((this.state.form.billProvince+this.state.form.billCity+this.state.form.billRegion+this.state.paperAddr).indexOf('0NaN')=='-1'?this.state.form.billProvince+this.state.form.billCity+this.state.form.billRegion+this.state.paperAddr:''):'',
           //paperAddr:(this.state.form.billProvince+this.state.form.billCity+this.state.form.billRegion+this.state.paperAddr).indexOf('0NaN')=='-1'?this.state.form.billProvince+this.state.form.billCity+this.state.form.billRegion+this.state.paperAddr:'',
           samplingAddress:(this.state.form.hzProvince+this.state.form.hzCity+this.state.form.hzRegion+this.state.addressdetail).indexOf('0NaN')=='-1'?this.state.form.hzProvince+this.state.form.hzCity+this.state.form.hzRegion+this.state.addressdetail:'',    //'取样地址',
           //paperAddr:localStorage.getItem('addr3')?localStorage.getItem('addr3')+this.state.paperAddr:localStorage.getItem('addr1')+this.state.paperAddr,    //'纸质报告接受地址',
@@ -1540,25 +1541,25 @@ class Login extends React.Component {
       })
     }
     if(this.state.sampleType=='5'){
-      actions.saveOrder({
-        form:{
-          email:this.state.email,
-          packageName:this.props.geneDetail.title,       //'套餐名称'
-          packageCode:this.props.geneDetail.code,      //'套餐代码'
-          name:this.state.name,              //'受检人姓名'
-          gender:this.state.gender,            //'性别0女，1男'
-          birthday:this.formatTime(this.StringToDate(this.state.idNum.substring(6,10) + "-" + this.state.idNum.substring(10,12) + "-" + this.state.idNum.substring(12,14))),
-          //birthday:this.StringToDate(this.state.birthNum),
-          //birthday:this.state.idNum.substring(6,10) + "-" + this.state.idNum.substring(10,12) + "-" + this.state.idNum.substring(12,14),
-          //birthday:this.formatTime(this.state.form.Birthday).indexOf('0NaN')=='-1'? this.formatTime(this.state.form.Birthday):(this.formatTime(localStorage.getItem('Birthday')).indexOf('0NaN')=='-1'?this.formatTime(localStorage.getItem('Birthday')):''),
-          //birthday:this.formatTime(this.state.form.Birthday)? this.formatTime(this.state.form.Birthday):this.getCookie('Birthday'),          //'年龄'
-          idNum:this.state.idNum,             //'身份证号'
-          phone:this.state.phone,             //'电话'
-          doctor:this.state.doctor,            //'医生姓名'
-          hospital:this.state.form.ysHospitalName,          //'医院名'
-          //department:JSON.stringify(this.state.form.department),        //'科室'
-          department:this.state.form.department[0], 
-          // sampleType:this.state.valuetype,    //血液，组织类型
+        actions.saveOrder({
+          form:{
+            email:this.state.email,
+            packageName:this.props.geneDetail.title,       //'套餐名称'
+            packageCode:this.props.geneDetail.code,      //'套餐代码'
+            name:this.state.name,              //'受检人姓名'
+            gender:this.state.gender,            //'性别0女，1男'
+            birthday:this.formatTime(this.StringToDate(this.state.idNum.substring(6,10) + "-" + this.state.idNum.substring(10,12) + "-" + this.state.idNum.substring(12,14))),
+            //birthday:this.StringToDate(this.state.birthNum),
+            //birthday:this.state.idNum.substring(6,10) + "-" + this.state.idNum.substring(10,12) + "-" + this.state.idNum.substring(12,14),
+            //birthday:this.formatTime(this.state.form.Birthday).indexOf('0NaN')=='-1'? this.formatTime(this.state.form.Birthday):(this.formatTime(localStorage.getItem('Birthday')).indexOf('0NaN')=='-1'?this.formatTime(localStorage.getItem('Birthday')):''),
+            //birthday:this.formatTime(this.state.form.Birthday)? this.formatTime(this.state.form.Birthday):this.getCookie('Birthday'),          //'年龄'
+            idNum:this.state.idNum,             //'身份证号'
+            phone:this.state.phone,             //'电话'
+            doctor:this.state.doctor,            //'医生姓名'
+            hospital:this.state.form.ysHospitalName,          //'医院名'
+            //department:JSON.stringify(this.state.form.department),        //'科室'
+            department:this.state.form.department[0],
+            // sampleType:this.state.valuetype,    //血液，组织类型
           sampleType:this.state.sampleType,
           // bloodNum:this.state.bloodNum,          //'血液数量（管）'
           // bloodSampleTime:this.state.form.bloodSampleTime==''?this.formatTime(this.state.form.bloodSampleTime):'',   //'血液采样时间'
@@ -1586,9 +1587,12 @@ class Login extends React.Component {
           otherDrugName:this.state.otherDrugName,     //'其他药名称'
           initial:this.state.valuechuzhi,           //'是否是初始患者0：否；1：是'
           resistance:this.state.resistance,         //'1：是，有影像检测证明疾病进展；2：是，仅为经验判断；3：否'
-          paperUser:this.state.paperUser,       //'纸质报告收件人',
-          paperPhone:this.state.paperPhone,      //'纸质报告收件检点',
-          paperAddr:(this.state.form.billProvince+this.state.form.billCity+this.state.form.billRegion+this.state.paperAddr).indexOf('0NaN')=='-1'?this.state.form.billProvince+this.state.form.billCity+this.state.form.billRegion+this.state.paperAddr:'',
+          paperUser:this.state.displaypaper=='block'?this.state.paperUser:'',       //'纸质报告收件人',
+          paperPhone:this.state.displaypaper=='block'?this.state.paperPhone:'',      //'纸质报告收件检点',
+          paperAddr:this.state.displaypaper=='block'? ((this.state.form.billProvince+this.state.form.billCity+this.state.form.billRegion+this.state.paperAddr).indexOf('0NaN')=='-1'?this.state.form.billProvince+this.state.form.billCity+this.state.form.billRegion+this.state.paperAddr:''):'',
+          // paperUser:this.state.paperUser,       //'纸质报告收件人',
+          // paperPhone:this.state.paperPhone,      //'纸质报告收件检点',
+          // paperAddr:(this.state.form.billProvince+this.state.form.billCity+this.state.form.billRegion+this.state.paperAddr).indexOf('0NaN')=='-1'?this.state.form.billProvince+this.state.form.billCity+this.state.form.billRegion+this.state.paperAddr:'',
           samplingAddress:(this.state.form.hzProvince+this.state.form.hzCity+this.state.form.hzRegion+this.state.addressdetail).indexOf('0NaN')=='-1'?this.state.form.hzProvince+this.state.form.hzCity+this.state.form.hzRegion+this.state.addressdetail:'',    //'取样地址',
           //paperAddr:localStorage.getItem('addr3')?localStorage.getItem('addr3')+this.state.paperAddr:localStorage.getItem('addr1')+this.state.paperAddr,    //'纸质报告接受地址',
           //paperAddr:this.state.form.billProvince+this.state.form.billCity+this.state.form.billRegion+this.state.paperAddr,    //'纸质报告接受地址',
@@ -2073,10 +2077,11 @@ subHosp = () => {
         this.setState({
           displaypaper: 'none',
         });
+        console.log(this.state.displaypaper)
       }
       console.log(this.state.coupon)
       console.log((this.state.coupon).slice(0,1))
-      
+      console.log(this.state.displaypaper)
     }
     if(!this.state.coupon){
       Toast.success('请输入优惠券代码', 2)
