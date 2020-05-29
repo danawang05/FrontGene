@@ -79,6 +79,7 @@ class Login extends React.Component {
       hospList: [],
       hospId:'',
       displaypaper: 'block',
+      displaycode: 'block',
       // samplingUser:sessionStorage.getItem('addressee')?sessionStorage.getItem('addressee'):'',
       // samplingPhone:sessionStorage.getItem('addressPhone')?sessionStorage.getItem('addressPhone'):'',
       // addressdetail:sessionStorage.getItem('address')?sessionStorage.getItem('address'):'',
@@ -347,6 +348,14 @@ class Login extends React.Component {
   }
   componentWillMount() {
     this.height = window.screen.height;
+    if(this.props.geneDetail.code=='003' ||this.props.geneDetail.code=='005' ||this.props.geneDetail.code=='006' ){
+
+        this.setState({
+          displaycode: 'none',
+        });
+
+    }
+    console.log('code',this.props.geneDetail.code)
     console.log('000',this.formatTime(this.state.form.Birthday))
     console.log('111',this.state.form.Birthday)
   console.log('222',localStorage.getItem('Birthday'))
@@ -3641,7 +3650,7 @@ const wuliu9 = [[
                 <div className="reg_label">样本类型</div>
                 {/* <Radio.Group onChange={this.onChangeRadio} value={this.state.valuetype} className="radio_info"> */}
                 <Radio.Group onChange={this.onChangeRadio} value={this.state.sampleType} className="radio_info">
-
+                  <div style={{display: this.state.displaycode}}>
         <Radio className="radio_info marginTop4_radio" value={'1'}>
           *血液
           {this.state.sampleType === '1' ?
@@ -3682,6 +3691,7 @@ const wuliu9 = [[
             : null}
 
         </Radio>
+         </div>
         <Radio className="radio_info marginTop4_radio" value={'2'}>
           *组织
           {this.state.sampleType === '2' ?
@@ -3905,6 +3915,7 @@ const wuliu9 = [[
             : null}
 
         </Radio>
+         <div style={{display: this.state.displaycode}}>
         <Radio className="radio_info marginTop4_radio" value={'5'}>
           *脑脊液
           {this.state.sampleType === '5' ?
@@ -3933,6 +3944,7 @@ const wuliu9 = [[
             : null}
 
         </Radio>
+         </div>
         <Radio className="radio_info marginTop4_radio" value={'4'}>
           *其它
           {this.state.sampleType === '4' ?

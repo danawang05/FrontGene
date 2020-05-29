@@ -40,7 +40,7 @@ import LogisticsReport from './../containers/LogisticsReport'
 import patientDetail from './../containers/patientDetail'
 import NoMatch from './../components/NoMatch';
 import DocFollowUp from '../containers/DocFollowUp';
-
+import Orderform from '../containers/Orderform';
 const AppRouter = () => (
   <Router>
     <div>
@@ -67,6 +67,7 @@ const AppRouter = () => (
         <Route path="/bill/:orderId" exact component={Bill}/>
         <Route path="/report" exact component={Report}/>
         <Route path="/report/:orderid" exact component={Report}/>
+        <Route path="/orderform/:orderid" exact component={Orderform}/>
         <Route path="/orderList" exact component={OrderList}/>
         <Route path="/reportList" exact component={ReportList}/>
         {/*<Route path="/consultation" exact component={Consultation}/>*/}
