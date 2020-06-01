@@ -348,7 +348,7 @@ class Login extends React.Component {
   }
   componentWillMount() {
     this.height = window.screen.height;
-    if(this.props.geneDetail.code=='003' ||this.props.geneDetail.code=='005' ||this.props.geneDetail.code=='006' ){
+    if(this.props.geneDetail.code=='003' ||this.props.geneDetail.code=='005' ||this.props.geneDetail.code=='006'){
 
         this.setState({
           displaycode: 'none',

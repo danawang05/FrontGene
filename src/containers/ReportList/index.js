@@ -257,9 +257,9 @@ nextPage(item){
                   }
 
                 </div>
-                <div className="checkwuliu">
-                <OrderListBnt onClick={this.nextPage.bind(this,item.id)} icon="3" text="纸质报告及发票物流信息" msg="请点击后查看信息" bntText="查询信息" />
-                </div>
+                {/*<div className="checkwuliu">*/}
+                {/*<OrderListBnt onClick={this.nextPage.bind(this,item.id)} icon="3" text="纸质报告及发票物流信息" msg="请点击后查看信息" bntText="查询信息" />*/}
+                {/*</div>*/}
                 
                 <div className="color_9b9b9b" style={{marginTop:'0.3rem'}}>安卓手机点击报告后将会跳转至浏览器，请下载后查看</div> 
               </ReportListOne>
