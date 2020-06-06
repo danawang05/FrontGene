@@ -227,7 +227,97 @@ export const getCode = (query) => (dispatch) => {
     request_type: 'POST'
   })
 }
+//获取IP
+// export const getIP = (query) => (dispatch) => {
+//   axiosRequest({
+//     dispatch: dispatch,
+//     request_name: 'GET_IP',
+//     request_api: `${url}/gene/geneorder/ip`,
+//     request_param: query,
+//     request_type: 'POST'
+//   })
+// }
+// export const getIP = (query) => (dispatch) => {
+//   console.log('2222222222222222222222222222')
+//   dispatch({
+//     type: 'GET_GETIP',
+//     status: 'pending'
+//   })
+//   axios.get(`${url}/gene/geneorder/ip`).then(({ data }) => {
+//     if (data.code == 0) {
+//       console.log('1111',data.data)
+//       sessionStorage.setItem("getIP", data.data)
 
+//       dispatch({
+//         type: `GET_GETIP_FAILED`,
+//         getIP: data.data,
+//         status: 'failed'
+//       })
+//     } else {
+//       dispatch({
+//         type: `GET_GETIP_FAILED`,
+//         msg: data.msg,
+//         status: 'failed'
+//       })
+//     }
+//     if(data.code==successCode){
+//       // sessionStorage.setItem("token",data.data.token)
+//       // sessionStorage.setItem("openId",data.data.user.wxOpenId)
+//       sessionStorage.setItem("getIP",data.data)
+//       // sessionStorage.setItem("gene_user_type",data.data.user.type)
+//       // sessionStorage.setItem("gene_user_type",1)
+//       dispatch({
+//         type: `GET_GETIP_SUCCESS`,
+//         data:data.data,
+//         status: 'succ'
+//       })
+//     }else{
+
+
+//      }
+//     console.log('', '')
+//   })
+  
+// }
+export const getIp = (query) => (dispatch) => {
+  dispatch({
+    type: 'GET_GETIP',
+    status: 'pending'
+  })
+  axios.get(`${url}/gene/geneorder/ip`).then(({ data }) => {
+    if (data.code == 0) {
+      console.log(data.data)
+      sessionStorage.setItem("getIp", data.data)
+
+      dispatch({
+        type: `GET_GETIP_FAILED`,
+        getIp: data.data,
+        status: 'failed'
+      })
+    } else {
+      dispatch({
+        type: `GET_GETIP_FAILED`,
+        msg: data.msg,
+        status: 'failed'
+      })
+    }
+    if(data.code==successCode){
+      // sessionStorage.setItem("token",data.data.token)
+      // sessionStorage.setItem("openId",data.data.user.wxOpenId)
+      sessionStorage.setItem("getIp",data.data)
+      dispatch({
+        type: `GET_GETIP_SUCCESS`,
+        data:data.data,
+        status: 'succ'
+      })
+    }else{
+
+
+    }
+    console.log('', '')
+  })
+  
+}
 //登陆 /api/register
 export const login = (query) => (dispatch) => {
   axiosRequest({
@@ -543,6 +633,24 @@ export const genecompanyId = (query) => (dispatch) => {
     let mchId=sessionStorage.setItem('mchId',data.data.mchId)
     let mchKey=sessionStorage.setItem('mchKey',data.data.mchKey)
   })
+}
+/**
+ *
+ * 订单回显
+ * api/gene/geneorder/getOrderAndForm/{orderId}
+ */
+export const getOrderAndForm = (query) => (dispatch) => {
+    axiosRequest({
+        dispatch: dispatch,
+        request_name: 'GENE_GENEORDERANDFORM',
+        request_api: `${url}/gene/geneorder/getOrderAndForm/${query.orderId}`,
+        request_param: "",
+        request_type: 'GET'
+    },function(data){
+        console.log('callback', data)
+        
+        sessionStorage.setItem('1',data.data.createrTime)
+    })
 }
 
 /**
@@ -902,6 +1010,7 @@ export const saveOrder = (query) => (dispatch) => {
     let sign_type = "MD5"
     let mch_id=sessionStorage.getItem('mchId')
     let mch_Key=sessionStorage.getItem('mchKey')
+    let getIP = sessionStorage.getItem('getIp')
     let weChatParams = {
       appid:appId,
       body,
@@ -912,8 +1021,8 @@ export const saveOrder = (query) => (dispatch) => {
       openid,
       sign_type, 
       total_fee:amount,
-      spbill_create_ip:window.ciyunIp, 
-      out_trade_no ,
+      spbill_create_ip:getIP, 
+      out_trade_no,
       trade_type
     }
     wxPay(weChatParams,function(callbackData){

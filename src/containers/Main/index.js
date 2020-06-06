@@ -49,7 +49,7 @@ class Main extends React.Component {
             isSearch:false,
             userId: "",//用户id
             token:'',
-
+            getIp:''
         }
     }
     componentWillReceiveProps(nextprops) {
@@ -153,9 +153,9 @@ class Main extends React.Component {
         //}
   }
     componentWillMount(){
-     
       const { match,actions} = this.props;
       const { params: { userId } } = match;
+      
       this.setState({
         userId:userId
       })
@@ -195,12 +195,13 @@ class Main extends React.Component {
           
           code:theRequest.code
         })
+        
         console.log('code', theRequest.code)
         sessionStorage.setItem("code",theRequest.code)
-       
+        
         
       }
-      
+      actions.getIp({})
       document.title = '基因检测'
         if(localStorage.getItem('token')){
             this.getUserInfo()
@@ -215,6 +216,7 @@ class Main extends React.Component {
         actions.findForPids({
           pid:[GENE_TYPE ,SAMPLE_TYPE,CANCER_SPECIES ]
         })
+        
         actions.genecompany({})
         window.wx.ready(function(){
           window.wx.hideMenuItems({

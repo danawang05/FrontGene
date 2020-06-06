@@ -82,7 +82,7 @@ const AppRouter = () => (
         <Route path="/reportChat" exact component={reportChat}/>
         <Route path="/myPatient" exact component={myPatient}/>
         <Route path="/integral" exact component={integral}/>
-        {/* <Route path="/test" exact component={test}/> */}
+        <Route path="/test" exact component={test}/>
         <Route path="/docShareText/:docId" exact component={DocShareText}/>
         <Route path="/logistics/:oId" exact component={Logistics}/>
         <Route path="/logisticsreport/:id" exact component={LogisticsReport}/>

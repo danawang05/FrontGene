@@ -1107,7 +1107,7 @@ class Login extends React.Component {
     //     }
     //   })
     // }
-
+    
     if(this.state.sampleType=='1'){
       actions.saveOrder({
         form:{

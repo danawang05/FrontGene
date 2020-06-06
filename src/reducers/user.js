@@ -100,7 +100,10 @@ const initState = {
   doc_reg_Detail:{},
   getDocDetail:'',
   mchId:'',
-  mchKey:''
+  mchKey:'',
+  getIp:'',
+  getOrderAndFormState:'',
+  getOrderAndForm:{}
 } 
 
 export default function user (state = initState, action) {
@@ -109,7 +112,11 @@ export default function user (state = initState, action) {
     case 'GET_OPENID_SUCCESS':
     case 'GET_OPENID_FAILED':
       return Object.assign({}, state, { getOpenidState: action.status,user:action.data || {}, openid: action.openiId || "", msg: action.msg || '' })
-    case 'GET_CODE':
+      case 'GET_GETID':
+      case 'GET_GETIP_SUCCESS':
+      case 'GET_GETIP_FAILED':
+      return Object.assign({}, state, { getIpState: action.status,user:action.data || {}, getIp: action.getIp || "", msg: action.msg || '' })
+      case 'GET_CODE':
     case 'GET_CODE_SUCCESS':
     case 'GET_CODE_FAILED':
       return Object.assign({}, state, { getCodestate: action.status,  msg: action.msg || '' })
@@ -225,6 +232,10 @@ export default function user (state = initState, action) {
     case 'GENE_COMPANY_SUCCESS':
     case 'GENE_COMPANY_FAILED':
           return Object.assign({}, state, { geneCompanyState: action.status,geneCompany:action.data, msg: action.msg || '' })
+    case 'GENE_GENEORDERANDFORM':
+    case 'GENE_GENEORDERANDFORM_SUCCESS':
+    case 'GENE_GENEORDERANDFORM_FAILED':
+      return Object.assign({}, state, { getOrderAndFormState: action.status,getOrderAndForm:action.data, msg: action.msg || '' })
     case 'WX_PAY':
     case 'WX_PAY_SUCCESS':
     case 'WX_PAY_FAILED':

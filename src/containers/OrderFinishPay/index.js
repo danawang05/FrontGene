@@ -158,7 +158,7 @@ class OrderFinishPay extends React.Component {
           {/*<OrderListBnt onClick = {this.showYangben} icon="1" text="拍照上传样本检测申请照片" msg="拍照上传样本照片、检测申请单的正面及反面照片(备注：PDL1检测需要上传病理报告照片及EGFR、ALK基因检测报告照片)" bntText="拍照上传"/>*/}
           <OrderListBnt isNotShow={order.barcodeNumber||codeSuccess} showText="已绑定" onClick = {this.ceshi} icon="2" text="扫描申请单条形码" msg="扫描物料包中的条形码进行订单绑定" bntText="去扫码"/>
           <OrderListBnt onClick={this.nextPage.bind(this,2)} icon="3" text="查询物流信息" msg="样本发出后可在平台查询到物流运输情况" bntText="查询信息"/>
-          {/*<OrderListBnt onClick={this.nextPage.bind(this,6)} icon="6" text="查看电子申请单信息" msg="点击查看订单 不可修改信息 如信息有误 请拨打客服电话进行修改" bntText="订单信息"/>*/}
+           <OrderListBnt onClick={this.nextPage.bind(this,6)} icon="6" text="查看电子申请单信息" msg="点击查看订单 不可修改信息 如信息有误 请拨打客服电话进行修改" bntText="订单信息"/>
           {/*<OrderListBnt onClick={this.nextPage.bind(this,4)} icon="4" text="开具发票" msg="电子版发票，发票开具方为【聚身边（北京）科技有限公司】，发票内容为【咨询服务费】" bntText="开发票"/>*/}
           {/*<OrderListBnt onClick={this.nextPage.bind(this,5)} isNotShow={order.isPaper == '1'} showText="已填写" icon="5" text="纸质报告" msg="填写真实有效的纸质报告接收地址" bntText="纸质报告" />*/}
           <div className="height2"></div>
