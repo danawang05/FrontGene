@@ -80,6 +80,7 @@ class Login extends React.Component {
       hospId:'',
       displaypaper: 'block',
       displaycode: 'block',
+      disappear:'none',
       // samplingUser:sessionStorage.getItem('addressee')?sessionStorage.getItem('addressee'):'',
       // samplingPhone:sessionStorage.getItem('addressPhone')?sessionStorage.getItem('addressPhone'):'',
       // addressdetail:sessionStorage.getItem('address')?sessionStorage.getItem('address'):'',
@@ -2085,6 +2086,7 @@ subHosp = () => {
       if((this.state.coupon).slice(0,1)=='M'){
         this.setState({
           displaypaper: 'none',
+          disappear:'block'
         });
         console.log(this.state.displaypaper)
       }
@@ -4346,6 +4348,9 @@ const wuliu9 = [[
                 onChange={this.changeInput.bind(this, 'coupon')}
                 placeholder="如有，请输入优惠券代码"
           /> */}
+    <div style={{display: this.state.disappear}}>
+      <div className="reg_label">该检测为免费检测，实验室仅提供电子报告，如需纸质报告请自行彩色打印</div>
+    </div>
     <div>
     <div style={{display: this.state.displaypaper}}>
     <div className="reg_label">*纸质报告及发票寄送地址</div>
