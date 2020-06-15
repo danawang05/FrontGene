@@ -1173,6 +1173,8 @@ class Login extends React.Component {
           hospId:this.state.form.ysHospital,      //'医院名称',
           pickupStartTime:(localStorage.getItem('wuliu').slice(0,5)).toString(),
           pickupEndTime:(localStorage.getItem('wuliu').slice(6,11)).toString(),
+          province:this.state.form.hzProvince,
+          city:this.state.form.hzCity
         },
         order:{
           number:this.props.geneDetail.code,      //'套餐号',
@@ -1282,6 +1284,8 @@ class Login extends React.Component {
           hospId:this.state.form.ysHospital,
           pickupStartTime:(localStorage.getItem('wuliu').slice(0,5)).toString(),
           pickupEndTime:(localStorage.getItem('wuliu').slice(6,11)).toString(),
+          province:this.state.form.hzProvince,
+          city:this.state.form.hzCity
         },
         order:{
           number:this.props.geneDetail.code,      //'套餐号',
@@ -1394,6 +1398,8 @@ class Login extends React.Component {
           hospId:this.state.form.ysHospital,
           pickupStartTime:(localStorage.getItem('wuliu').slice(0,5)).toString(),
           pickupEndTime:(localStorage.getItem('wuliu').slice(6,11)).toString(),
+          province:this.state.form.hzProvince,
+          city:this.state.form.hzCity
         },
         order:{
           number:this.props.geneDetail.code,      //'套餐号',
@@ -1505,6 +1511,8 @@ class Login extends React.Component {
           hospId:this.state.form.ysHospital,
           pickupStartTime:(localStorage.getItem('wuliu').slice(0,5)).toString(),
           pickupEndTime:(localStorage.getItem('wuliu').slice(6,11)).toString(),
+          province:this.state.form.hzProvince,
+          city:this.state.form.hzCity
         },
         order:{
           number:this.props.geneDetail.code,      //'套餐号',
@@ -1616,6 +1624,8 @@ class Login extends React.Component {
           hospId:this.state.form.ysHospital,
           pickupStartTime:(localStorage.getItem('wuliu').slice(0,5)).toString(),
           pickupEndTime:(localStorage.getItem('wuliu').slice(6,11)).toString(),
+          province:this.state.form.hzProvince,
+          city:this.state.form.hzCity
         },
         order:{
           number:this.props.geneDetail.code,      //'套餐号',
@@ -4760,6 +4770,8 @@ const wuliu9 = [[
                   )()}
                   </div>
 <div className="order_cinfo"><span className="order_title">取样地址:</span>  <span className="order_content">{this.state.form.hzProvince+this.state.form.hzCity+this.state.form.hzRegion+this.state.addressdetail}</span></div>
+<div className="order_cinfo"><span className="order_title">取样省市:</span>  <span className="order_content">{this.state.form.hzProvince}</span></div>
+<div className="order_cinfo"><span className="order_title">取样城市:</span>  <span className="order_content">{this.state.form.hzCity}</span></div>
 <div className="order_cinfo"><span className="order_title">取样人姓名:</span>  <span className="order_content">{this.state.samplingUser}</span></div>
 <div className="order_cinfo"><span className="order_title">取样联系人电话:</span>  <span className="order_content">{this.state.samplingPhone}</span></div>
 <div className="order_cinfo"><span className="order_title">取样日期:</span>  <span className="order_content">{this.formatTime(this.state.form.samplingTime).slice(0,10)}</span></div>
