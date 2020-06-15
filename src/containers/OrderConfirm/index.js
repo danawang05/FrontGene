@@ -869,13 +869,18 @@ class Login extends React.Component {
         return {result:true};
     }
 };
- isChinese = (value) => {     
-  var myregg= /^[^\d.]+$/;
-  if (!myregg.test(value)) {
-      return {result:false};
-  } else {
-      return {result:true};
-  }
+ isChinese = (value) => {
+     if(!value){
+         return {result:false};
+     }
+         var myregg= /^[^\d.]+$/;
+         if (!myregg.test(value)) {
+             return {result:false};
+         } else {
+             return {result:true};
+         }
+
+
 };
   analyzeIDCard = (IDCard) => {
     let sexAndAge = {};
@@ -4770,8 +4775,8 @@ const wuliu9 = [[
                   )()}
                   </div>
 <div className="order_cinfo"><span className="order_title">取样地址:</span>  <span className="order_content">{this.state.form.hzProvince+this.state.form.hzCity+this.state.form.hzRegion+this.state.addressdetail}</span></div>
-<div className="order_cinfo"><span className="order_title">取样省市:</span>  <span className="order_content">{this.state.form.hzProvince}</span></div>
-<div className="order_cinfo"><span className="order_title">取样城市:</span>  <span className="order_content">{this.state.form.hzCity}</span></div>
+{/*<div className="order_cinfo"><span className="order_title">取样省市:</span>  <span className="order_content">{this.state.form.hzProvince}</span></div>*/}
+{/*<div className="order_cinfo"><span className="order_title">取样城市:</span>  <span className="order_content">{this.state.form.hzCity}</span></div>*/}
 <div className="order_cinfo"><span className="order_title">取样人姓名:</span>  <span className="order_content">{this.state.samplingUser}</span></div>
 <div className="order_cinfo"><span className="order_title">取样联系人电话:</span>  <span className="order_content">{this.state.samplingPhone}</span></div>
 <div className="order_cinfo"><span className="order_title">取样日期:</span>  <span className="order_content">{this.formatTime(this.state.form.samplingTime).slice(0,10)}</span></div>
