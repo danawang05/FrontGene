@@ -105,9 +105,11 @@ componentWillMount() {
                 sessionStorage.setItem("callbackUrl",`/orderConfirm/${packageId}`)
                 this.props.history.replace('/login')
                 sessionStorage.removeItem('fcodeToken')
+                console.log(!localStorage.getItem('token'))
         }else{
                 this.props.history.push(`/orderConfirm/${packageId}`)
                 sessionStorage.removeItem('scodeToken')
+                console.log(!localStorage.getItem('token'))
               }
         
     }

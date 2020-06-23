@@ -792,9 +792,11 @@ class Login extends React.Component {
   }
   rulesthree() {
     let reg = new RegExp("^[0-9]*$");
-
+    let reg1= /.*[\u4e00-\u9fa5]+.*$/;  //是否有中文
+    let reg2= /^[\u4E00-\u9FA5]+$/;  //是否全部是中文
     // console.log(birthNum)
-    if ((!(this.state.form.hzProvince+this.state.form.hzCity+this.state.form.hzRegion) || !(this.state.addressdetail)) && (!localStorage.getItem('addr2') ||!(this.state.addressdetail))){
+    // if ((!(this.state.form.hzProvince+this.state.form.hzCity+this.state.form.hzRegion) || !(this.state.addressdetail)) && (!localStorage.getItem('addr2') ||!(this.state.addressdetail)) && (!reg2.test(this.state.form.hzProvince+this.state.form.hzCity+this.state.form.hzRegion))){
+    if ((!(this.state.form.hzProvince+this.state.form.hzCity+this.state.form.hzRegion) || !(this.state.addressdetail))&& ((!reg2.test(this.state.form.hzProvince+this.state.form.hzCity+this.state.form.hzRegion))|| !(this.state.addressdetail))){
       Toast.fail('请输入取样地址', 2)
       return false
     }
@@ -810,7 +812,7 @@ class Login extends React.Component {
       Toast.fail('请选择物流预约时间',2)
       return false
     }
-    if (!this.isChinese(this.state.samplingUser).result) {
+    if (!this.isChinese(this.state.samplingUser).result || !this.state.samplingUser) {
       Toast.fail('请输入取样人中文姓名', 2)
       return false
     }
@@ -824,7 +826,7 @@ class Login extends React.Component {
       return false
     }
     if(this.state.displaypaper=='block'){
-    if (!this.isChinese(this.state.paperUser).result) {
+    if (!this.isChinese(this.state.paperUser).result || !this.state.paperUser) {
       Toast.fail('请输入纸质报告收件人中文姓名', 2)
       return false
     }
@@ -833,7 +835,8 @@ class Login extends React.Component {
       return false
     }
     
-    if ((!(this.state.paperAddr) || !(this.state.form.billProvince+this.state.form.billCity+this.state.form.billRegion))&& (!localStorage.getItem('addr3') ||!(this.state.paperAddr))) {
+    //if ((!(this.state.paperAddr) || !(this.state.form.billProvince+this.state.form.billCity+this.state.form.billRegion))&& (!localStorage.getItem('addr3') ||!(this.state.paperAddr))) {
+      if ((!(this.state.form.billProvince+this.state.form.billCity+this.state.form.billRegion) || !(this.state.paperAddr))&& ((!reg2.test(this.state.form.billProvince+this.state.form.billCity+this.state.form.billRegion))|| !(this.state.paperAddr))){
       Toast.fail('请输入纸质报告收件人地址', 2)
       return false
     }
@@ -2183,23 +2186,40 @@ subHosp = () => {
       valuetest: e.target.value,
     });
   };
+
+  // if(!localStorage.getItem('token')){
+  //   console.log(localStorage.getItem('token'))
+  //   sessionStorage.setItem("callbackUrl",`/orderConfirm/${sessionStorage.getItem('packageId')}`)
+  //   this.props.history.replace('/login')
+  // }
+
   changeStep(stepbnt){
     switch (stepbnt) {
+
       case 2:
+
         if (!this.rulesone()) {
+
           return
         }
+
         break;
       case 3:
+
         if (!this.rulestwo()) {
           let newDateblood = new Date();
+
           return
         }
+
         break;
       case 4:
+
         if (!this.rulesthree()) {
+
           return
         }
+
         break;
       
       
@@ -4770,8 +4790,8 @@ const wuliu9 = [[
                   )()}
                   </div>
 <div className="order_cinfo"><span className="order_title">取样地址:</span>  <span className="order_content">{this.state.form.hzProvince+this.state.form.hzCity+this.state.form.hzRegion+this.state.addressdetail}</span></div>
-<div className="order_cinfo"><span className="order_title">取样省市:</span>  <span className="order_content">{this.state.form.hzProvince}</span></div>
-<div className="order_cinfo"><span className="order_title">取样城市:</span>  <span className="order_content">{this.state.form.hzCity}</span></div>
+{/*<div className="order_cinfo"><span className="order_title">取样省市:</span>  <span className="order_content">{this.state.form.hzProvince}</span></div>*/}
+{/*<div className="order_cinfo"><span className="order_title">取样城市:</span>  <span className="order_content">{this.state.form.hzCity}</span></div>*/}
 <div className="order_cinfo"><span className="order_title">取样人姓名:</span>  <span className="order_content">{this.state.samplingUser}</span></div>
 <div className="order_cinfo"><span className="order_title">取样联系人电话:</span>  <span className="order_content">{this.state.samplingPhone}</span></div>
 <div className="order_cinfo"><span className="order_title">取样日期:</span>  <span className="order_content">{this.formatTime(this.state.form.samplingTime).slice(0,10)}</span></div>
