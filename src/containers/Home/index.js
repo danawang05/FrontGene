@@ -69,6 +69,7 @@ class Home extends React.Component {
     componentWillMount() {
         const {actions} = this.props
         actions.mainList({})
+        actions.userInfotoken({})
         // 获取页面滚动提示
         actions.pubhometips({
             page:1,
@@ -78,7 +79,10 @@ class Home extends React.Component {
     componentDidMount() {
 
     }
-
+    componentWillUnmount() {
+        sessionStorage.removeItem('scodeToken')
+        sessionStorage.removeItem('fcodeToken')
+}
     changeBnt(index){
         const {actions} = this.props
         actions.newsPage({
@@ -99,22 +103,41 @@ class Home extends React.Component {
             sessionStorage.setItem("main_type","shop")
           }
           if(index==1){
-              if(!localStorage.getItem('token')){
-                sessionStorage.setItem("callbackUrl",'/orderList')
-                this.props.history.push('/login')
+              // if(!localStorage.getItem('token')){
+              //   sessionStorage.setItem("callbackUrl",'/orderList')
+              //   this.props.history.push('/login')
+              // }else{
+              //   this.props.history.push('/orderList')
+              // }
+              if(sessionStorage.getItem('fcodeToken')){
+                  sessionStorage.setItem("callbackUrl",'/orderList')
+                  this.props.history.replace('/login')
+                  sessionStorage.removeItem('fcodeToken')
+                  console.log(!localStorage.getItem('token'))
               }else{
-                this.props.history.push('/orderList')
+                  this.props.history.push('/orderList')
+                  sessionStorage.removeItem('scodeToken')
+                  console.log(!localStorage.getItem('token'))
               }
             
           }
           if(index==2){
-            if(!localStorage.getItem('token')){
-                sessionStorage.setItem("callbackUrl",'/reportList')
-                this.props.history.push('/login')
+            // if(!localStorage.getItem('token')){
+            //     sessionStorage.setItem("callbackUrl",'/reportList')
+            //     this.props.history.push('/login')
+            //   }else{
+            //     this.props.history.push('/reportList')
+            //   }
+              if(sessionStorage.getItem('fcodeToken')){
+                  sessionStorage.setItem("callbackUrl",'/reportList')
+                  this.props.history.replace('/login')
+                  sessionStorage.removeItem('fcodeToken')
+                  console.log(!localStorage.getItem('token'))
               }else{
-                this.props.history.push('/reportList')
+                  this.props.history.push('/reportList')
+                  sessionStorage.removeItem('scodeToken')
+                  console.log(!localStorage.getItem('token'))
               }
-            
             // this.props.history.push('/login')  //这个对应查看报告那个按钮
           }
           if(index==3){
