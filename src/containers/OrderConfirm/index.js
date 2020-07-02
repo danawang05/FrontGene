@@ -872,13 +872,18 @@ class Login extends React.Component {
         return {result:true};
     }
 };
- isChinese = (value) => {     
-  var myregg= /^[^\d.]+$/;
-  if (!myregg.test(value)) {
-      return {result:false};
-  } else {
-      return {result:true};
-  }
+ isChinese = (value) => {
+     if(!value){
+         return {result:false};
+     }
+         var myregg= /^[^\d.]+$/;
+         if (!myregg.test(value)) {
+             return {result:false};
+         } else {
+             return {result:true};
+         }
+
+
 };
   analyzeIDCard = (IDCard) => {
     let sexAndAge = {};
