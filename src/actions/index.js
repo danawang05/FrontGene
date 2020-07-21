@@ -978,10 +978,14 @@ export const saveOrder = (query) => (dispatch) => {
     request_type: 'POST'
   }, function ({ data }) {
     // api/gene/geneorder/isPay/{id}
+    console.log("=======",{ data })
+    console.log("=======",data)
     if(!data){
       return
     }
     if(query.order.orderMoney == 0){
+
+      console.log("11111")
       if(data){
         axiosRequest({
           dispatch: dispatch,
@@ -992,6 +996,7 @@ export const saveOrder = (query) => (dispatch) => {
         })
       }
     }else{
+      console.log("22222")
       console.log(data)
     dispatch({
       type: 'WX_PAY',

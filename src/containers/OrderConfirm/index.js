@@ -2101,7 +2101,7 @@ subHosp = () => {
       return
     }
     if(this.state.coupon){
-      if((this.state.coupon).slice(0,1)=='M'){
+      if(((this.state.coupon).slice(0,1)=='M') || ((this.state.coupon).slice(0,1)=='F')){
         this.setState({
           displaypaper: 'none',
           disappear:'block'
