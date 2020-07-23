@@ -269,7 +269,7 @@ class Login extends React.Component {
         animating:false,
         conponPrice:this.state.price*(nextprops.conpon.coupon/100)
       })
-      console.log("【优惠券参数】",this.state.price,nextprops.conpon.coupon/100,)
+      console.log("【优惠券参数】",this.state.price,nextprops.conpon.coupon/100,this.state.coupon,nextprops.conpon.coupon,this.state.conponPrice)
       Toast.success("使用成功，折扣价："+this.state.price*(nextprops.conpon.coupon/100), 2)
     }
     if(this.props.geneConponState!=nextprops.geneConponState&&nextprops.geneConponState=='failed'){
@@ -1210,7 +1210,7 @@ class Login extends React.Component {
           isDel:'',         //'0'  '删除标识',
           createDate:'',
           payTime:'',       //'付费时间',
-          orderMoney:this.state.conponPrice,  //'订单金额',
+          orderMoney:this.state.coupon? this.state.conponPrice:this.state.price,  //'订单金额',
           geneCompany:this.props.geneDetail.testingCompany,      //'检测公司',
           isUploadReport:'',  //'0'  '是否上传了检测报告',
           
@@ -1326,7 +1326,8 @@ class Login extends React.Component {
           isDel:'',         //'0'  '删除标识',
           createDate:'',
           payTime:'',       //'付费时间',
-          orderMoney:this.state.conponPrice,  //'订单金额',
+          // orderMoney:this.state.conponPrice,  //'订单金额',
+          orderMoney:this.state.coupon? this.state.conponPrice:this.state.price,
           geneCompany:this.props.geneDetail.testingCompany,      //'检测公司',
           isUploadReport:'',  //'0'  '是否上传了检测报告',
           
@@ -1440,7 +1441,8 @@ class Login extends React.Component {
           isDel:'',         //'0'  '删除标识',
           createDate:'',
           payTime:'',       //'付费时间',
-          orderMoney:this.state.conponPrice,  //'订单金额',
+          // orderMoney:this.state.conponPrice,  //'订单金额',
+          orderMoney:this.state.coupon? this.state.conponPrice:this.state.price,
           geneCompany:this.props.geneDetail.testingCompany,      //'检测公司',
           isUploadReport:'',  //'0'  '是否上传了检测报告',
           
@@ -1553,7 +1555,8 @@ class Login extends React.Component {
           isDel:'',         //'0'  '删除标识',
           createDate:'',
           payTime:'',       //'付费时间',
-          orderMoney:this.state.conponPrice,  //'订单金额',
+          // orderMoney:this.state.conponPrice,  //'订单金额',
+          orderMoney:this.state.coupon? this.state.conponPrice:this.state.price,
           geneCompany:this.props.geneDetail.testingCompany,      //'检测公司',
           isUploadReport:'',  //'0'  '是否上传了检测报告',
           
@@ -1666,7 +1669,8 @@ class Login extends React.Component {
           isDel:'',         //'0'  '删除标识',
           createDate:'',
           payTime:'',       //'付费时间',
-          orderMoney:this.state.conponPrice,  //'订单金额',
+          // orderMoney:this.state.conponPrice,  //'订单金额',
+          orderMoney:this.state.coupon? this.state.conponPrice:this.state.price,
           geneCompany:this.props.geneDetail.testingCompany,      //'检测公司',
           isUploadReport:'',  //'0'  '是否上传了检测报告',
           
@@ -2096,11 +2100,17 @@ subHosp = () => {
   //     });
   //   }
   // }
+  handelforceUpdate = (displaypaper,disappear) => {
+    this.state.displaypaper = displaypaper;
+    this.state.disappear = disappear;
+    this.forceUpdate();
+  }
   useCoupon(){
     if(this.state.isUse){
       return
     }
     if(this.state.coupon){
+
       if(((this.state.coupon).slice(0,1)=='M') || ((this.state.coupon).slice(0,1)=='F')){
         this.setState({
           displaypaper: 'none',
@@ -2202,7 +2212,24 @@ subHosp = () => {
     switch (stepbnt) {
 
       case 2:
+        if(!this.state.coupon){
 
+          this.handelforceUpdate('block','none')
+
+          console.log("【优惠券清空价格】",this.state.price,this.state.coupon,this.state.conponPrice)
+          console.log("displaypaper",this.state.displaypaper)
+          console.log("disappear",this.state.disappear)
+        }
+        if(this.state.coupon){
+
+          if(((this.state.coupon).slice(0,1)=='M') || ((this.state.coupon).slice(0,1)=='F')){
+            this.handelforceUpdate('none','block')
+            console.log(this.state.displaypaper)
+          }
+          console.log(this.state.coupon)
+          console.log((this.state.coupon).slice(0,1))
+          console.log(this.state.displaypaper)
+        }
         if (!this.rulesone()) {
 
           return
@@ -2210,7 +2237,16 @@ subHosp = () => {
 
         break;
       case 3:
-
+        // if(!this.state.coupon){
+        //   this.setState({
+        //     displaypaper:'block',
+        //     disappear:'none'
+        //   });
+        //   console.log("【优惠券清空价格】",this.state.price,this.state.coupon,this.state.conponPrice)
+        //   console.log("displaypaper",this.state.displaypaper)
+        //   console.log("disappear",this.state.disappear)
+        // }
+        console.log("【优惠券清空价格】",this.state.price,this.state.coupon,this.state.conponPrice)
         if (!this.rulestwo()) {
           let newDateblood = new Date();
 
@@ -2219,7 +2255,7 @@ subHosp = () => {
 
         break;
       case 4:
-
+        console.log("【优惠券清空价格】",this.state.price,this.state.coupon,this.state.conponPrice)
         if (!this.rulesthree()) {
 
           return
