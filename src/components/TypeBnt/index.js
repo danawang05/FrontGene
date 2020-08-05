@@ -9,6 +9,7 @@ export default class index extends Component {
             <div onClick={this.props.onClick} className={this.props.selectBnt?type_bnt_row_select:'type_bnt_row'}> 
                 {this.props.name}
             </div>
+
         )
     }
 }

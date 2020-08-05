@@ -45,7 +45,10 @@ class Login extends React.Component {
     }
     componentWillMount(){
         const {actions} = this.props
-        actions.mainList({})
+         //actions.mainList({})
+        actions.newsPage1({
+
+        })
     }
     componentDidMount(){
        
@@ -96,20 +99,28 @@ class Login extends React.Component {
     console.log(_content,content)
     return (
       <div className="science_row">
-                <SearchBar searchBnt = {this.search} onChange={this.changeSearch.bind(this,'search')} value={search} backgroundColor="#ffffff" placeholder="输入关键字检索" />
-                {
-                    !hide?<div className="type_bnt displays" style={{marginTop:'0',height:"1.8rem"}}>
+                {/*<SearchBar searchBnt = {this.search} onChange={this.changeSearch.bind(this,'search')} value={search} backgroundColor="#ffffff" placeholder="输入关键字检索" />*/}
+                {/*{*/}
+                    {/*!hide?<div className="type_bnt displays" style={{marginTop:'0',height:"1.8rem"}}>*/}
                         {/*{*/}
                             {/*_fenye.map((item,index)=>{*/}
                                 {/*return <TypeBnt key={index} onClick={this.changeBnt.bind(this,item.id)}  selectBnt={this.state.typeBnt==item.id} name={item.dictName}/>*/}
                             {/*})*/}
                         {/*}*/}
-                        <TypeBnt key={'0'} onClick={this.changeBnt.bind(this,'1232828549282414594')}  selectBnt={this.state.typeBnt=='1232828549282414594'} name={'送检指引'}/>
-                        <TypeBnt key={'1'} onClick={this.changeBnt.bind(this,'1230458724301348866')}  selectBnt={this.state.typeBnt=='1230458724301348866'} name={'肿瘤科普'}/>
+                        {/**/}
+                    {/*</div>:null*/}
+                {/*}*/}
+          {
+              !hide?<div className="type_bnt displays" style={{marginTop:'0',height:"1.8rem"}}>
+                  {/*{*/}
+                      {/*_fenye.map((item,index)=>{*/}
+                          {/*return */}
+                      {/*})*/}
+                  {/*}*/}
+                  <TypeBnt key={'2'} onClick={this.changeBnt.bind(this,'1290621277424242690')}  selectBnt={this.state.typeBnt=='1290621277424242690'} name={'检爱援助'}/>
+              </div>:null
+          }
 
-                    </div>:null
-                }
-                
                 <div className="content">
                 {
                         _content.map((item,index)=>{

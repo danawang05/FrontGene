@@ -40,7 +40,9 @@ import LogisticsReport from './../containers/LogisticsReport'
 import patientDetail from './../containers/patientDetail'
 import NoMatch from './../components/NoMatch';
 import DocFollowUp from '../containers/DocFollowUp';
-import Orderform from '../containers/Orderform';
+import Orderform from '../containers/Orderform'
+import Support from '../containers/Support'
+import Classroom from '../containers/Classroom'
 const AppRouter = () => (
   <Router>
     <div>
@@ -86,6 +88,8 @@ const AppRouter = () => (
         <Route path="/docShareText/:docId" exact component={DocShareText}/>
         <Route path="/logistics/:oId" exact component={Logistics}/>
         <Route path="/logisticsreport/:id" exact component={LogisticsReport}/>
+        <Route path="/support" exact component={Support}/>
+        <Route path="/classroom" exact component={Classroom}/>
         <Route component={NoMatch}/>
       </Switch>
     </div>

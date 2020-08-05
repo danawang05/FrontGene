@@ -27,6 +27,10 @@ import pat4 from '../../sources/yonghu.png'
 import pat5 from '../../sources/dushu.png'
 import pat6 from '../../sources/fangke-2.png'
 import pat7 from '../../sources/yiyaoxiang.png'
+import pat8 from '../../sources/menzhen.png'
+import pat9 from '../../sources/classroom.png'
+import pat10 from '../../sources/songjian.png'
+import pat11 from '../../sources/support.png'
 import doc1 from '../../sources/ranseti.png'
 import doc2 from '../../sources/yisheng.png'
 import doc3 from '../../sources/bingchuang.png'
@@ -155,6 +159,14 @@ class Home extends React.Component {
             
             window.location.href = 'http://h5.yihu365.com/page/index.jsp?sid=88000000014'
           }
+        if(index==7){
+
+            this.props.history.push('/support')
+        }
+        if(index==8){
+
+            this.props.history.push('/classroom')
+        }
     }
     goNextPageDoc(index){
         if(index== 0){
@@ -291,8 +303,17 @@ class Home extends React.Component {
                         </div>
                         <div className="displays">
                             {/*<HomeBnt src={pat4} badge={this.props.msgNumber.msgNumber?true:0} onClick={this.goNextPage.bind(this,3)} name="报告咨询"/>*/}
-                            <HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,4)} src={pat5} name="肿瘤科普"/>
+                            {/*<HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,4)} src={pat5} name="肿瘤科普"/>*/}
+                            <HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,4)} src={pat10} name="送检指引"/>
                             <HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,6)} src={pat7} name="上门采血"/>
+                            {/*<HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,5)} src={pat11} name="检爱援助"/>*/}
+                            <HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,7)} src={pat11} name="检爱援助"/>
+                        </div>
+                        <div className="displays">
+                            {/*<HomeBnt src={pat4} badge={this.props.msgNumber.msgNumber?true:0} onClick={this.goNextPage.bind(this,3)} name="报告咨询"/>*/}
+                            {/*<HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,8)} src={pat9} name="检爱课堂"/>*/}
+                            <HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,5)} src={pat9} name="检爱课堂"/>
+                            <HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,5)} src={pat8} name="检爱门诊"/>
                             <HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,5)} src={pat6} name="更多"/>
                         </div>
                     </div>
@@ -313,12 +334,16 @@ class Home extends React.Component {
                 } */}
                 
                 <div className="type_bnt displays">
-                    {
-                        _fenye.map((item,index)=>{
-                            return <TypeBnt key={index} onClick={this.changeBnt.bind(this,item.id)}  selectBnt={this.state.typeBnt==item.id} name={item.dictName}/>
-                        })
-                    }
-                   
+                    {/*{*/}
+                        {/*_fenye.map((item,index)=>{*/}
+                            {/*return <TypeBnt key={index} onClick={this.changeBnt.bind(this,item.id)}  selectBnt={this.state.typeBnt==item.id} name={item.dictName}/>*/}
+                        {/*})*/}
+                    {/*}*/}
+                    <TypeBnt key={'0'} onClick={this.changeBnt.bind(this,'1232828549282414594')}  selectBnt={this.state.typeBnt=='1232828549282414594'} name={'送检指引'}/>
+                    <TypeBnt key={'1'} onClick={this.changeBnt.bind(this,'1230458724301348866')}  selectBnt={this.state.typeBnt=='1230458724301348866'} name={'肿瘤科普'}/>
+
+
+
                 </div>
                 <div className="content">
                     {
@@ -328,12 +353,11 @@ class Home extends React.Component {
                                         key={index} 
                                         src={item.img[0]&&item.img[0].fileUrl||""} 
                                         contentName={item.title} 
-                                        contentPresent={item.introduction} 
+                                        // contentPresent={item.introduction}
                                         shareBnt = {this.shareParent.bind(this,item.id)}
                                     />
                         })
                     }
-                    
                 </div>
             </div>
         );

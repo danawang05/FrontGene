@@ -1,0 +1,21 @@
+.type_bnt_row{
+  margin: 0 .4rem;
+  height: 1rem;
+  line-height: 1rem;
+  background: #f2f2f2;
+  padding: 0 .6rem;
+  border-radius: .5rem
+}
+.type_bnt_row_select{
+  margin: 0 .4rem;
+  height: 1rem;
+  line-height: 1rem;
+  background: #ffcb5c;
+  color: #fff;
+  padding: 0 .6rem;
+  border-radius: .5rem;
+  -webkit-animation: showTypeBnt .5s linear ;
+  -moz-animation: showTypeBnt .5s linear ;
+  -o-animation: showTypeBnt .5s linear ;
+  animation: showTypeBnt .5s linear ;
+}

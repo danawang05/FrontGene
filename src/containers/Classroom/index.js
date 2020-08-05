@@ -12,6 +12,7 @@ import ceshi from '../../sources/ceshi.jpeg'
 import './index.scss';
 import * as actions from './../../actions';
 import 'antd-mobile/dist/antd-mobile.css';
+import './index.scss'
 const FormItem = Form.Item;
 
 /* Populated by react-webpack-redux:reducer */
@@ -45,7 +46,14 @@ class Login extends React.Component {
     }
     componentWillMount(){
         const {actions} = this.props
-        actions.mainList({})
+        // actions.mainList({})
+        actions.newsPage2({
+
+        })
+        actions.userInfo({})
+        actions.wxuserinfo({
+            openid:sessionStorage.getItem('openId')
+        })
     }
     componentDidMount(){
        
@@ -83,6 +91,17 @@ class Login extends React.Component {
     shareParent(id){
         this.props.history.push(`/shareParent/${id}`)
     }
+    clicked(param,event){
+        const {actions} = this.props
+        actions.saveuserinfo({
+            openId:sessionStorage.getItem('openId'),
+            nickname:sessionStorage.getItem('nickname'),
+            headImgUrl:sessionStorage.getItem('headImgUrl'),
+            userId:sessionStorage.getItem('userId')
+        })
+        window.location.href='http://jianai-zhibo.sagacityidea.cn/weixin/live/live-action.jhtml'
+        console.log(event.target.value) //按钮
+    }
   render() {
     const {search,showSelect,content,hide} = this.state
     let _fenye =  (this.props.mainListState=='succ'&&this.props.mainList.fenlei)||[]
@@ -96,7 +115,7 @@ class Login extends React.Component {
     console.log(_content,content)
     return (
       <div className="science_row">
-                <SearchBar searchBnt = {this.search} onChange={this.changeSearch.bind(this,'search')} value={search} backgroundColor="#ffffff" placeholder="输入关键字检索" />
+                {/*<SearchBar searchBnt = {this.search} onChange={this.changeSearch.bind(this,'search')} value={search} backgroundColor="#ffffff" placeholder="输入关键字检索" />*/}
                 {
                     !hide?<div className="type_bnt displays" style={{marginTop:'0',height:"1.8rem"}}>
                         {/*{*/}
@@ -104,9 +123,9 @@ class Login extends React.Component {
                                 {/*return <TypeBnt key={index} onClick={this.changeBnt.bind(this,item.id)}  selectBnt={this.state.typeBnt==item.id} name={item.dictName}/>*/}
                             {/*})*/}
                         {/*}*/}
-                        <TypeBnt key={'0'} onClick={this.changeBnt.bind(this,'1232828549282414594')}  selectBnt={this.state.typeBnt=='1232828549282414594'} name={'送检指引'}/>
-                        <TypeBnt key={'1'} onClick={this.changeBnt.bind(this,'1230458724301348866')}  selectBnt={this.state.typeBnt=='1230458724301348866'} name={'肿瘤科普'}/>
-
+                        <TypeBnt key={'3'} onClick={this.changeBnt.bind(this,'1290621406860464129')}  selectBnt={this.state.typeBnt=='1290621406860464129'} name={'肿瘤百科'}/>
+                        <TypeBnt key={'4'} onClick={this.changeBnt.bind(this,'1290621470819405826')}  selectBnt={this.state.typeBnt=='1290621470819405826'} name={'医生讲堂'}/>
+                        <span className={this.state.selectBnt?'type_bnt_row_select':'type_bnt_row'} onClick={(event)=>this.clicked(sessionStorage.getItem('openId'),event)}>医生直播</span>
                     </div>:null
                 }
                 

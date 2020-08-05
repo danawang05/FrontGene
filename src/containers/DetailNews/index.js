@@ -36,8 +36,13 @@ class Login extends React.Component {
           id:newsId
       })
     }
+    clicked(param,event){
+        window.location.href=param+'' //hello world
+        console.log(event.target.value) //按钮
+    }
   render() {
       const news = this.props.newsInfo
+      const goto = news.introduction
     return (
       <div className="news_row">
           <div className="newsHead">
@@ -45,6 +50,16 @@ class Login extends React.Component {
           </div>
           <div className="content_news" id="content_news">
 
+          </div>
+          <div className="" className={news.classfly==='1290621277424242690'?"fooder_bnt displays":"support_none"}>
+
+              <p className="fooder_bnt_money_content">
+                  <span className=" marginLeft1"></span>
+                  <span></span>
+              </p>
+              <div className="sub_button" onClick={(event)=>this.clicked(news.introduction,event)}>
+                    立即申请
+              </div>
           </div>
       </div>
       );

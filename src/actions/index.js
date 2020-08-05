@@ -341,6 +341,7 @@ export const userInfo = (query) => (dispatch) => {
       sessionStorage.setItem("userId", data.data.entity.id)
       // sessionStorage.setItem("gene_user_type", data.data.entity.type)
       sessionStorage.setItem("gene_user_type", 1)
+      console.log("====",data.data)
       dispatch({
         type: `LOGIN_SUCCESS`,
         data: data.data,
@@ -832,6 +833,64 @@ export const newsPage = (query) => (dispatch) => {
     request_api: `${url}/demo/news/page?page=${query.page}&limit=${query.limit}&title=${query.title || ""}&classfly=${query.classfly || ""}`,
     request_param: "",
     request_type: 'GET'
+  })
+}
+export const newsPage1 = (query) => (dispatch) => {
+  axiosRequest({
+    dispatch: dispatch,
+    request_name: 'NEWS_PAGE',
+    request_api: `${url}/demo/news/page?page=1&limit=9000&title=&classfly=1290621277424242690`,
+    request_param: "",
+    request_type: 'GET'
+  })
+}
+export const newsPage2 = (query) => (dispatch) => {
+  axiosRequest({
+    dispatch: dispatch,
+    request_name: 'NEWS_PAGE',
+    request_api: `${url}/demo/news/page?page=1&limit=9000&title=&classfly=1290621406860464129`,
+    request_param: "",
+    request_type: 'GET'
+  })
+}
+
+//获取微信用户信息 api/user/wxuserinfo
+export const wxuserinfo = (query) => (dispatch) => {
+  dispatch({
+    type: 'WXUSERINFO',
+    status: 'pending'
+  })
+  axios.get(`${url}/wxuserinfo/${query.openid}`).then(({ data }) => {
+    if (data.code == successCode) {
+      // sessionStorage.setItem("openId",data.data.entity.wxOpenId)
+      sessionStorage.setItem("headImgUrl", data.headImgUrl)
+      console.log("headImgUrl", data.headImgUrl)
+      // sessionStorage.setItem("gene_user_type", data.data.entity.type)
+      sessionStorage.setItem("nickname", data.nickname)
+      console.log("====",data)
+      dispatch({
+        type: `LOGIN_SUCCESS`,
+        data: data.data,
+        status: 'succ'
+      })
+
+    } else {
+      dispatch({
+        type: `LOGIN_FAILED`,
+        msg: data.msg,
+        status: 'failed'
+      })
+    }
+  })
+}
+
+export const saveuserinfo = (query) => (dispatch) => {
+  axiosRequest({
+    dispatch: dispatch,
+    request_name: 'SAVE_USER_INFO',
+    request_api: `http://jianai-zhibo.sagacityidea.cn/weixin/live/live-action.jhtml`,
+    request_param: query,
+    request_type: 'POST'
   })
 }
 /**
