@@ -5,7 +5,7 @@ import { wxPay } from './wxPay'
 // import { } from './../apis';
 // let mchId=''
 // const { url, appId ,mchId,urlNoApi} = require('./config.js')
-const { url, appId ,urlNoApi} = require('./config.js')
+const { aurl,url, appId ,urlNoApi} = require('./config.js')
 // let url  = "/api"
 let recentSessMap = {}
 let abc = 20
@@ -855,44 +855,95 @@ export const newsPage2 = (query) => (dispatch) => {
 }
 
 //获取微信用户信息 api/user/wxuserinfo
-export const wxuserinfo = (query) => (dispatch) => {
+// export const wxuserinfo = (query) => (dispatch) => {
+//   dispatch({
+//     type: 'WXUSERINFO',
+//     status: 'pending'
+//   })
+//   axios.get(`${url}/wxuserinfo/${query.openid}`).then(({data}) => {
+//     return
+//     console.log('111111')
+//     console.log("headImgUrl", data.headImgUrl)
+//     // if (data.code == successCode) {
+//     //   // sessionStorage.setItem("openId",data.data.entity.wxOpenId)
+//     //   sessionStorage.setItem("headImgUrl", data.headImgUrl)
+//     //   console.log("headImgUrl", data.headImgUrl)
+//     //   // sessionStorage.setItem("gene_user_type", data.data.entity.type)
+//     //   sessionStorage.setItem("nickname", data.nickname)
+//     //   console.log("====",data)
+//     //   dispatch({
+//     //     type: `LOGIN_SUCCESS`,
+//     //     data: data.data,
+//     //     status: 'succ'
+//     //   })
+//     //
+//     // } else {
+//     //   dispatch({
+//     //     type: `LOGIN_FAILED`,
+//     //     msg: data.msg,
+//     //     status: 'failed'
+//     //   })
+//     // }
+//   })
+// }
+
+export const wxuserinfo = (query) => (dispatch)=> {
   dispatch({
     type: 'WXUSERINFO',
     status: 'pending'
   })
   axios.get(`${url}/wxuserinfo/${query.openid}`).then(({ data }) => {
-    if (data.code == successCode) {
-      // sessionStorage.setItem("openId",data.data.entity.wxOpenId)
-      sessionStorage.setItem("headImgUrl", data.headImgUrl)
-      console.log("headImgUrl", data.headImgUrl)
-      // sessionStorage.setItem("gene_user_type", data.data.entity.type)
-      sessionStorage.setItem("nickname", data.nickname)
-      console.log("====",data)
-      dispatch({
-        type: `LOGIN_SUCCESS`,
-        data: data.data,
-        status: 'succ'
-      })
-
-    } else {
-      dispatch({
-        type: `LOGIN_FAILED`,
-        msg: data.msg,
-        status: 'failed'
-      })
-    }
+    // if (data.code == 8001) {
+    //   console.log(data.data.openId)
+    //   sessionStorage.setItem("openId", data.data.openId)
+    //
+    //   dispatch({
+    //     type: `GET_OPENID_FAILED`,
+    //     openId: data.data.openId,
+    //     status: 'failed'
+    //   })
+    // } else {
+    //   dispatch({
+    //     type: `GET_OPENID_FAILED`,
+    //     msg: data.msg,
+    //     status: 'failed'
+    //   })
+    // }
+    // if(data.code==successCode){
+    //   // sessionStorage.setItem("token",data.data.token)
+    //   // sessionStorage.setItem("openId",data.data.user.wxOpenId)
+    //   sessionStorage.setItem("openId",data.openId)
+    //   sessionStorage.setItem("userId",data.data.user.id)
+    //   // sessionStorage.setItem("gene_user_type",data.data.user.type)
+    //   sessionStorage.setItem("gene_user_type",1)
+    //   dispatch({
+    //     type: `GET_OPENID_SUCCESS`,
+    //     data:data.data,
+    //     status: 'succ'
+    //   })
+    // }else{
+    //
+    //
+    // }
+    // console.log('', '')
+    console.log('data',data)
+    sessionStorage.setItem("openId",data.openId)
+    sessionStorage.setItem("headImgUrl", data.headImgUrl)
+    console.log("headImgUrl", data.headImgUrl)
+    sessionStorage.setItem("nickname", data.nickname)
   })
-}
 
+}
 export const saveuserinfo = (query) => (dispatch) => {
   axiosRequest({
     dispatch: dispatch,
     request_name: 'SAVE_USER_INFO',
-    request_api: `http://jianai-zhibo.sagacityidea.cn/weixin/live/live-action.jhtml`,
+    request_api: `${aurl}/weixin/live/live-action.jhtml`,
     request_param: query,
     request_type: 'POST'
   })
 }
+
 /**
  * @description 患者相关 GET /api/doctor/mypatient
  */

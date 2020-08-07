@@ -34,6 +34,7 @@
     "html-webpack-plugin": "2.29.0",
     "jest": "20.0.4",
     "jquery": "^3.4.1",
+    "jsonp": "^0.2.1",
     "md5": "^2.2.1",
     "moment": "^2.18.1",
     "object-assign": "4.1.1",
@@ -130,10 +131,13 @@
     "node-sass": "^4.5.3",
     "sass-loader": "^6.0.6"
   },
-  "proxy": {
-    "/app": {
-      "target": "http://jiyin-test.sagacityidea.cn/gene-api/api",
-      "changeOrigin": true
+  "proxy":{
+    "/weixin/live/live-action.jhtml":{
+      "target":"http://jianai-zhibo.sagacityidea.cn",
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/weixin/live/live-action.jhtml": ""
+      }
     }
   }
 }

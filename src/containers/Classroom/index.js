@@ -6,13 +6,14 @@ import { withRouter } from 'react-router';
 import { Form } from 'antd';
 import { } from 'antd-mobile';
 import TypeBnt from '../../components/TypeBnt'
-import TextContent from '../../components/TextContent'
+import TxtContent from '../../components/TxtContent'
 import SearchBar from '../../components/SearchBar'
 import ceshi from '../../sources/ceshi.jpeg'
 import './index.scss';
 import * as actions from './../../actions';
 import 'antd-mobile/dist/antd-mobile.css';
 import './index.scss'
+import Axios from '../../actions/jsonp'
 const FormItem = Form.Item;
 
 /* Populated by react-webpack-redux:reducer */
@@ -46,18 +47,41 @@ class Login extends React.Component {
     }
     componentWillMount(){
         const {actions} = this.props
+
+
         // actions.mainList({})
         actions.newsPage2({
 
         })
-        actions.userInfo({})
+        actions.userInfotoken({})
+
         actions.wxuserinfo({
             openid:sessionStorage.getItem('openId')
         })
+        // actions.saveuserinfo({
+        //     openId:sessionStorage.getItem('openId'),
+        //     nickname:sessionStorage.getItem('nickname'),
+        //     headImgUrl:sessionStorage.getItem('headImgUrl'),
+        //     userId:sessionStorage.getItem('userId')
+        // })
+        // const openId=sessionStorage.getItem('openId')
+        // const nickname=sessionStorage.getItem('nickname')
+        // const headImgUrl=sessionStorage.getItem('headImgUrl')
+        // console.log(headImgUrl)
+        // const userId=sessionStorage.getItem('userId')
+        // Axios.jsonp({url:`http://jianai-zhibo.sagacityidea.cn/weixin/live/live-action.jhtml?openId=${openId}&nickname=${nickname}&headImgUrl=${headImgUrl}&userId=${userId}`}).then((res)=>{
+        //     console.log(res)
+        // }).catch((err)=>{
+        //     console.log(err)
+        // })
     }
     componentDidMount(){
-       
+
     }
+    componentWillUnmount() {
+
+    }
+
     search = () => {
         const {actions} = this.props
         this.setState({
@@ -91,16 +115,53 @@ class Login extends React.Component {
     shareParent(id){
         this.props.history.push(`/shareParent/${id}`)
     }
-    clicked(param,event){
+    // clicked(param,event){
+    //     const {actions} = this.props
+    //     actions.saveuserinfo({
+    //         openId:sessionStorage.getItem('openId'),
+    //         nickname:sessionStorage.getItem('nickname'),
+    //         headImgUrl:sessionStorage.getItem('headImgUrl'),
+    //         userId:sessionStorage.getItem('userId')
+    //     })
+    //     window.location.href='http://jianai-zhibo.sagacityidea.cn/weixin/live/live-action.jhtml'
+    //     console.log(event.target.value) //按钮
+    // }
+    goNextStep(packageId){
         const {actions} = this.props
-        actions.saveuserinfo({
-            openId:sessionStorage.getItem('openId'),
-            nickname:sessionStorage.getItem('nickname'),
-            headImgUrl:sessionStorage.getItem('headImgUrl'),
-            userId:sessionStorage.getItem('userId')
-        })
-        window.location.href='http://jianai-zhibo.sagacityidea.cn/weixin/live/live-action.jhtml'
-        console.log(event.target.value) //按钮
+        // if(localStorage.getItem('token')) {
+
+        //         console.log(packageId)
+        //         this.props.history.push(`/orderConfirm/${packageId}`)
+
+        // } sessionStorage.getItem('fcodeToken') if(!localStorage.getItem('token'))
+        if(sessionStorage.getItem('fcodeToken')){
+            sessionStorage.setItem("callbackUrl",`/classroom`)
+            this.props.history.replace('/login')
+            sessionStorage.removeItem('fcodeToken')
+            console.log(!localStorage.getItem('token'))
+        }else{
+            // this.props.history.push(`/orderConfirm/${packageId}`)
+            window.location.href='http://jianai-zhibo.sagacityidea.cn/weixin/live/live-action.jhtml'
+            sessionStorage.removeItem('scodeToken')
+            console.log(!localStorage.getItem('token'))
+            const openId=sessionStorage.getItem('openId')
+            const nickname=sessionStorage.getItem('nickname')
+            const headImgUrl=sessionStorage.getItem('headImgUrl')
+            console.log(headImgUrl)
+            const userId=sessionStorage.getItem('userId')
+            Axios.jsonp({url:`http://jianai-zhibo.sagacityidea.cn/weixin/live/live-action.jhtml?openId=${openId}&nickname=${nickname}&headImgUrl=${headImgUrl}&userId=${userId}`}).then((res)=>{
+                console.log(res)
+            }).catch((err)=>{
+                console.log(err)
+            })
+            // actions.saveuserinfo({
+            //     openId:sessionStorage.getItem('openId'),
+            //     nickname:sessionStorage.getItem('nickname'),
+            //     headImgUrl:sessionStorage.getItem('headImgUrl'),
+            //     userId:sessionStorage.getItem('userId')
+            // })
+        }
+
     }
   render() {
     const {search,showSelect,content,hide} = this.state
@@ -123,21 +184,23 @@ class Login extends React.Component {
                                 {/*return <TypeBnt key={index} onClick={this.changeBnt.bind(this,item.id)}  selectBnt={this.state.typeBnt==item.id} name={item.dictName}/>*/}
                             {/*})*/}
                         {/*}*/}
-                        <TypeBnt key={'3'} onClick={this.changeBnt.bind(this,'1290621406860464129')}  selectBnt={this.state.typeBnt=='1290621406860464129'} name={'肿瘤百科'}/>
-                        <TypeBnt key={'4'} onClick={this.changeBnt.bind(this,'1290621470819405826')}  selectBnt={this.state.typeBnt=='1290621470819405826'} name={'医生讲堂'}/>
-                        <span className={this.state.selectBnt?'type_bnt_row_select':'type_bnt_row'} onClick={(event)=>this.clicked(sessionStorage.getItem('openId'),event)}>医生直播</span>
+                        <TypeBnt key={'3'} onClick={this.changeBnt.bind(this,'1290621406860464129')}  selectBnt={this.state.typeBnt=='1290621406860464129'} name={'肺享新知'}/>
+                        <TypeBnt key={'4'} onClick={this.changeBnt.bind(this,'1290621470819405826')}  selectBnt={this.state.typeBnt=='1290621470819405826'} name={'肺凡医声'}/>
+                        {/*<span className={this.state.selectBnt?'type_bnt_row_select':'type_bnt_row'} onClick={(event)=>this.clicked(sessionStorage.getItem('openId'),event)}>医生直播</span>*/}
+                        <span className={this.state.selectBnt?'type_bnt_row_select':'type_bnt_row'} onClick={this.goNextStep.bind(this,sessionStorage.getItem('openId'))}>肺常视角</span>
                     </div>:null
                 }
                 
                 <div className="content">
                 {
                         _content.map((item,index)=>{
-                            return <TextContent 
+                            return <TxtContent
                                         onClick={this.goDetail.bind(this,item.id)}
                                         key={index} 
                                         src={item.img[0]&&item.img[0].fileUrl||""} 
-                                        contentName={item.title} 
-                                        // contentPresent={item.introduction}
+                                        contentName={item.title}
+                                        contentPresent={item.createDate.slice(0,10)}
+                                        contentNum={item.num}
                                         shareBnt = {this.shareParent.bind(this,item.id)}
                                     />
                         })

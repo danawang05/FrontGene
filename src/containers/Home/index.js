@@ -311,9 +311,9 @@ class Home extends React.Component {
                         </div>
                         <div className="displays">
                             {/*<HomeBnt src={pat4} badge={this.props.msgNumber.msgNumber?true:0} onClick={this.goNextPage.bind(this,3)} name="报告咨询"/>*/}
-                            {/*<HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,8)} src={pat9} name="检爱课堂"/>*/}
-                            <HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,5)} src={pat9} name="检爱课堂"/>
-                            <HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,5)} src={pat8} name="检爱门诊"/>
+                            <HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,8)} src={pat9} name="检爱医讯"/>
+                            {/*<HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,5)} src={pat9} name="检爱医讯"/>*/}
+                            <HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,5)} src={pat8} name="e问医答"/>
                             <HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,5)} src={pat6} name="更多"/>
                         </div>
                     </div>
@@ -353,7 +353,8 @@ class Home extends React.Component {
                                         key={index} 
                                         src={item.img[0]&&item.img[0].fileUrl||""} 
                                         contentName={item.title} 
-                                        // contentPresent={item.introduction}
+                                        // contentPresent={item.createDate.slice(0,10)}
+                                        // contentNum={item.num}
                                         shareBnt = {this.shareParent.bind(this,item.id)}
                                     />
                         })

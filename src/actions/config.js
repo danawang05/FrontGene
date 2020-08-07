@@ -4,6 +4,7 @@ if(process.env.NODE_ENV =='development'){
         imgUrl:'http://jianai.sagacityidea.cn/',                  //正式
         urlNoApi:"http://jianai.sagacityidea.cn/gene-api/",      //正式
         url:'http://jianai.sagacityidea.cn/gene-api/api',        //正式
+        aurl:'http://jianai-zhibo.sagacityidea.cn',
         // imgUrl:'http://jiyin-test.sagacityidea.cn/',                //测试
         // urlNoApi:"http://jiyin-test.sagacityidea.cn/gene-api/",     //测试
         // url:'http://jiyin-test.sagacityidea.cn/gene-api/api',       //测试
@@ -35,6 +36,7 @@ if(process.env.NODE_ENV =='development'){
         imgUrl:'http://jianai.sagacityidea.cn/',                  //正式
         urlNoApi:"http://jianai.sagacityidea.cn/gene-api/",      //正式
         url:'http://jianai.sagacityidea.cn/gene-api/api',        //正式
+        aurl:'http://jianai-zhibo.sagacityidea.cn',
         // imgUrl:'http://jiyin-test.sagacityidea.cn/',                //测试
         // urlNoApi:"http://jiyin-test.sagacityidea.cn/gene-api/",     //测试
         // url:'http://jiyin-test.sagacityidea.cn/gene-api/api',       //测试
@@ -49,7 +51,7 @@ if(process.env.NODE_ENV =='development'){
         appId:'wxc772f9ac9691f3c1' ,  //正式
 
         // mchId:'1523120921',//商户id
-        //reUrl:'https%3a%2f%2fopen.weixin.qq.com%2fconnect%2foauth2%2fauthorize%3fappid%3dwxc772f9ac9691f3c1%26redirect_uri%3dhttp%3a%2f%2fjianai.sagacityidea.cn%2fgeneapi%2f%2523%2fmain%26response_type%3dcode%26scope%3dsnsapi_userinfo%23wechat_redirect',        //正式
+        reUrl:'https%3a%2f%2fopen.weixin.qq.com%2fconnect%2foauth2%2fauthorize%3fappid%3dwxc772f9ac9691f3c1%26redirect_uri%3dhttp%3a%2f%2fjianai.sagacityidea.cn%2fgeneapi%2f%2523%2fmain%26response_type%3dcode%26scope%3dsnsapi_userinfo%23wechat_redirect',        //正式
         //reUrl:'https%3a%2f%2fopen.weixin.qq.com%2fconnect%2foauth2%2fauthorize%3fappid%3dwx786fe6708aaf5cb1%26redirect_uri%3dhttp%3a%2f%2fjiyin-test.sagacityidea.cn%2fgeneapi%2f%2523%2fmain%26response_type%3dcode%26scope%3dsnsapi_userinfo%23wechat_redirect',  //测试
          //reUrl:'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe6b63dd863a509e2&redirect_uri=http%3a%2f%2fgene.wisdomcare.com.cn%2fgeneapi&response_type=code&scope=snsapi_userinfo#wechat_redirect', 
         //appId:'wx58c5e50c20f0be39',   //临时
