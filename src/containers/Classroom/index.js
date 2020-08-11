@@ -141,7 +141,8 @@ class Login extends React.Component {
             console.log(!localStorage.getItem('token'))
         }else{
             // this.props.history.push(`/orderConfirm/${packageId}`)
-            window.location.href='http://jianai-zhibo.sagacityidea.cn/weixin/live/live-action.jhtml'
+            //window.location.href='http://jianai-zhibo.sagacityidea.cn/weixin/live/live-action.jhtml'
+
             sessionStorage.removeItem('scodeToken')
             console.log(!localStorage.getItem('token'))
             const openId=sessionStorage.getItem('openId')
@@ -149,11 +150,12 @@ class Login extends React.Component {
             const headImgUrl=sessionStorage.getItem('headImgUrl')
             console.log(headImgUrl)
             const userId=sessionStorage.getItem('userId')
-            Axios.jsonp({url:`http://jianai-zhibo.sagacityidea.cn/weixin/live/live-action.jhtml?openId=${openId}&nickname=${nickname}&headImgUrl=${headImgUrl}&userId=${userId}`}).then((res)=>{
-                console.log(res)
-            }).catch((err)=>{
-                console.log(err)
-            })
+            // Axios.jsonp({url:`http://jianai-zhibo.sagacityidea.cn/weixin/live/live-action.jhtml?openId=${openId}&nickname=${nickname}&headImgUrl=${headImgUrl}&userId=${userId}`}).then((res)=>{
+            //     console.log(res)
+            // }).catch((err)=>{
+            //     console.log(err)
+            // })
+            window.location.href=`http://jianai-zhibo.sagacityidea.cn/weixin/live/live-action.jhtml?openId=${openId}&nickname=${nickname}&headImgUrl=${headImgUrl}&userId=${userId}`
             // actions.saveuserinfo({
             //     openId:sessionStorage.getItem('openId'),
             //     nickname:sessionStorage.getItem('nickname'),

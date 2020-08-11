@@ -86,8 +86,9 @@ export const getOpnid = (query) => (dispatch) => {
   axios.get(`${url}/login/${query.code}`).then(({ data }) => {
     if (data.code == 8001) {
       console.log(data.data.openId)
-      sessionStorage.setItem("openId", data.data.openId)
 
+      sessionStorage.setItem("openId", data.data.openId)
+      localStorage.setItem("openId", data.data.openId)
       dispatch({
         type: `GET_OPENID_FAILED`,
         openId: data.data.openId,
@@ -103,7 +104,48 @@ export const getOpnid = (query) => (dispatch) => {
     if(data.code==successCode){
       // sessionStorage.setItem("token",data.data.token)
       // sessionStorage.setItem("openId",data.data.user.wxOpenId)
+      // if(sessionStorage.setItem("openId",data.openId)== null || sessionStorage.setItem("openId",data.openId)== undefined){
+      //
+      //   axios.get(`${url}/login/${query.code}`).then(({ data }) => {
+      //     if (data.code == 8001) {
+      //       console.log(data.data.openId)
+      //       sessionStorage.setItem("openId", data.data.openId)
+      //
+      //       dispatch({
+      //         type: `GET_OPENID_FAILED`,
+      //         openId: data.data.openId,
+      //         status: 'failed'
+      //       })
+      //     } else {
+      //       dispatch({
+      //         type: `GET_OPENID_FAILED`,
+      //         msg: data.msg,
+      //         status: 'failed'
+      //       })
+      //     }
+      //     if(data.code==successCode){
+      //       // sessionStorage.setItem("token",data.data.token)
+      //       // sessionStorage.setItem("openId",data.data.user.wxOpenId)
+      //       sessionStorage.setItem("openId",data.openId)
+      //       sessionStorage.setItem("userId",data.data.user.id)
+      //       // sessionStorage.setItem("gene_user_type",data.data.user.type)
+      //       sessionStorage.setItem("gene_user_type",1)
+      //       dispatch({
+      //         type: `GET_OPENID_SUCCESS`,
+      //         data:data.data,
+      //         status: 'succ'
+      //       })
+      //     }else{
+      //
+      //
+      //     }
+      //     console.log('', '')
+      //   })
+      //
+      //
+      // }
       sessionStorage.setItem("openId",data.openId)
+      localStorage.setItem("openId", data.openId)
       sessionStorage.setItem("userId",data.data.user.id)
       // sessionStorage.setItem("gene_user_type",data.data.user.type)
       sessionStorage.setItem("gene_user_type",1)
@@ -1119,7 +1161,7 @@ export const saveOrder = (query) => (dispatch) => {
 
     let trade_type = 'JSAPI'//交易类型
     let nonce_str = Math.random().toString(36).slice(2) //随机字符串
-    let openid = sessionStorage.getItem('openId')  //用户openid 当JSAPI时必传递
+    let openid = sessionStorage.getItem('openId') || localStorage.getItem('openId') //用户openid 当JSAPI时必传递
     // let openid='o1SiC56E34qGifxdR1jqYMxFNUnI'
     let notify_url = `${url}/gene/geneorder/wxIsPay` //通知地址
     let sign_type = "MD5"
