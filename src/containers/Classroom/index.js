@@ -6,6 +6,7 @@ import { withRouter } from 'react-router';
 import { Form } from 'antd';
 import { } from 'antd-mobile';
 import TypeBnt from '../../components/TypeBnt'
+import TypeButton from '../../components/TypeButton'
 import TxtContent from '../../components/TxtContent'
 import SearchBar from '../../components/SearchBar'
 import ceshi from '../../sources/ceshi.jpeg'
@@ -126,6 +127,19 @@ class Login extends React.Component {
     //     window.location.href='http://jianai-zhibo.sagacityidea.cn/weixin/live/live-action.jhtml'
     //     console.log(event.target.value) //按钮
     // }
+    goNextStepPage(index){
+        if(index== 0){
+
+        }
+        if(index==1){
+            window.location.href = 'http://m.mijian360.com/Static/Weex/course_video/entry.html?url_type=5&_wx_path=https://apis.mijian360.com/Static/Weex/course_video/entry.js&course_id=12&is_menu=1&state=16'
+
+        }
+        if(index==2){
+
+        }
+
+    }
     goNextStep(packageId){
         const {actions} = this.props
         // if(localStorage.getItem('token')) {
@@ -180,16 +194,17 @@ class Login extends React.Component {
       <div className="science_row">
                 {/*<SearchBar searchBnt = {this.search} onChange={this.changeSearch.bind(this,'search')} value={search} backgroundColor="#ffffff" placeholder="输入关键字检索" />*/}
                 {
-                    !hide?<div className="type_bnt displays" style={{marginTop:'0',height:"1.8rem"}}>
+                    !hide?<div className="type_bnt displays" style={{marginTop:'0',height:"1.8rem",background:'rgb(24,164,232)',marginBottom:'0.2rem'}}>
                         {/*{*/}
                             {/*_fenye.map((item,index)=>{*/}
                                 {/*return <TypeBnt key={index} onClick={this.changeBnt.bind(this,item.id)}  selectBnt={this.state.typeBnt==item.id} name={item.dictName}/>*/}
                             {/*})*/}
                         {/*}*/}
-                        <TypeBnt key={'3'} onClick={this.changeBnt.bind(this,'1290621406860464129')}  selectBnt={this.state.typeBnt=='1290621406860464129'} name={'肺享新知'}/>
-                        <TypeBnt key={'4'} onClick={this.changeBnt.bind(this,'1290621470819405826')}  selectBnt={this.state.typeBnt=='1290621470819405826'} name={'肺凡医声'}/>
+                        <TypeButton key={'3'} className={'type_bnt_row_select'} onClick={this.changeBnt.bind(this,'1290621406860464129')}  selectBnt={this.state.typeBnt=='1290621406860464129'} name={'检爱百科'}/>
+                        {/*<TypeBnt key={'4'} onClick={this.changeBnt.bind(this,'1290621470819405826')}  selectBnt={this.state.typeBnt=='1290621470819405826'} name={'肺凡医声'}/>*/}
+                        <span className={this.state.selectBnt?'type_bnt_row_select':'type_bnt_row'} onClick={this.goNextStepPage.bind(this,1)}>医师讲堂</span>
                         {/*<span className={this.state.selectBnt?'type_bnt_row_select':'type_bnt_row'} onClick={(event)=>this.clicked(sessionStorage.getItem('openId'),event)}>医生直播</span>*/}
-                        <span className={this.state.selectBnt?'type_bnt_row_select':'type_bnt_row'} onClick={this.goNextStep.bind(this,sessionStorage.getItem('openId'))}>肺常视角</span>
+                        <span className={this.state.selectBnt?'type_bnt_row_select':'type_bnt_row'} onClick={this.goNextStep.bind(this,sessionStorage.getItem('openId'))}>医生直播</span>
                     </div>:null
                 }
                 

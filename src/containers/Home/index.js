@@ -152,8 +152,9 @@ class Home extends React.Component {
           }
           if(index==5){
             
-             Toast.offline('该功能正在开发中',2)
-            //this.props.history.push('/doctorReg')
+             // Toast.offline('该功能正在开发中',2)
+            //this.props.history.push('/doctorReg') http://live.mijian360.com/watch/1216432
+              window.location.href = 'http://live.mijian360.com/watch/1216432'
           }
           if(index==6){
             
