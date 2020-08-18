@@ -6,14 +6,19 @@
     padding: 0 .6rem;
     border-radius: .5rem
 }
-.type_bnt_row_select{
-    margin: 0 .4rem;
+.type_bnt_row_selecttt{
+    //margin: 0 .4rem;
     height: 1rem;
     line-height: 1rem;
-    background: #ffcb5c;
-    color: #fff;
+    background: #dbf0f0;
+    color: #0d9d97;
     padding: 0 .6rem;
-    border-radius: .5rem;
+    //border-radius: .5rem;
+    width: 33%;
+    float:left;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    text-align: center;
     -webkit-animation: showTypeBnt .5s linear ;
     -moz-animation: showTypeBnt .5s linear ;
     -o-animation: showTypeBnt .5s linear ;

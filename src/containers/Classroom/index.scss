@@ -4,7 +4,29 @@
   line-height: 1rem;
   background: #f2f2f2;
   padding: 0 .6rem;
-  border-radius: .5rem
+  //border-radius: .5rem;
+  width: 30%;
+}
+.type_bnt_rowtwo{
+  display: inline-block;
+  height: 1rem;
+  line-height: 1rem;
+  background: #0d9d97;
+  color: #dbf0f0;
+  padding: 0 .6rem;
+  width: 33%;
+  text-align: center;
+}
+.type_bnt_rowthree{
+  display: inline-block;
+  height: 1rem;
+  line-height: 1rem;
+  background: #0d9d97;
+  color: #dbf0f0;
+  padding: 0 .6rem;
+  width: 33%;
+  border-top-right-radius: 15px;
+  text-align: center;
 }
 .type_bnt_row_select2{
   margin: 0 .4rem;
@@ -18,4 +40,13 @@
   -moz-animation: showTypeBnt .5s linear ;
   -o-animation: showTypeBnt .5s linear ;
   animation: showTypeBnt .5s linear ;
+}
+.type_bntt{
+  margin: 0.3rem 0;
+  height: 1rem;
+  line-height: 1rem;
+  background-color: #0d9d97;
+  //color: #dbf0f0;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
 }

@@ -194,17 +194,17 @@ class Login extends React.Component {
       <div className="science_row">
                 {/*<SearchBar searchBnt = {this.search} onChange={this.changeSearch.bind(this,'search')} value={search} backgroundColor="#ffffff" placeholder="输入关键字检索" />*/}
                 {
-                    !hide?<div className="type_bnt displays" style={{marginTop:'0',height:"1.8rem",background:'rgb(24,164,232)',marginBottom:'0.2rem'}}>
+                    !hide?<div className="type_bntt">
                         {/*{*/}
                             {/*_fenye.map((item,index)=>{*/}
                                 {/*return <TypeBnt key={index} onClick={this.changeBnt.bind(this,item.id)}  selectBnt={this.state.typeBnt==item.id} name={item.dictName}/>*/}
                             {/*})*/}
                         {/*}*/}
-                        <TypeButton key={'3'} className={'type_bnt_row_select'} onClick={this.changeBnt.bind(this,'1290621406860464129')}  selectBnt={this.state.typeBnt=='1290621406860464129'} name={'检爱百科'}/>
+                        <TypeButton key={'3'} className={'type_bnt_row_selecttt'} onClick={this.changeBnt.bind(this,'1290621406860464129')}  selectBnt={this.state.typeBnt=='1290621406860464129'} name={'检爱百科'}/>
                         {/*<TypeBnt key={'4'} onClick={this.changeBnt.bind(this,'1290621470819405826')}  selectBnt={this.state.typeBnt=='1290621470819405826'} name={'肺凡医声'}/>*/}
-                        <span className={this.state.selectBnt?'type_bnt_row_select':'type_bnt_row'} onClick={this.goNextStepPage.bind(this,1)}>医师讲堂</span>
+                        <span className={'type_bnt_rowtwo'} onClick={this.goNextStepPage.bind(this,1)}>医师讲堂</span>
                         {/*<span className={this.state.selectBnt?'type_bnt_row_select':'type_bnt_row'} onClick={(event)=>this.clicked(sessionStorage.getItem('openId'),event)}>医生直播</span>*/}
-                        <span className={this.state.selectBnt?'type_bnt_row_select':'type_bnt_row'} onClick={this.goNextStep.bind(this,sessionStorage.getItem('openId'))}>医生直播</span>
+                        <span className={'type_bnt_rowthree'} onClick={this.goNextStep.bind(this,sessionStorage.getItem('openId'))}>医生直播</span>
                     </div>:null
                 }
                 
