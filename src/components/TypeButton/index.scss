@@ -37,13 +37,16 @@
     -o-animation: showTypeBntDoc .5s linear ;
     animation: showTypeBntDoc .5s linear ; 
 }
-@keyframes showTypeBntDoc {
-    from{ background: #f2f2f2;
-    }
-    to{background: #0067f4;}
-}
-@keyframes showTypeBnt {
-    from{ background: #f2f2f2;
-    }
-    to{background: #ffcb5c;}
-}
+//@keyframes showTypeBntDoc {
+//    from{ background: #f2f2f2;
+//    }
+//    to{background: #0067f4;}
+//}
+//@keyframes showTypeBnt {
+//    from{ background: #f2f2f2;
+//    }
+//    to{
+//        //background: #ffcb5c;
+//        background: transparent;
+//    }
+//}

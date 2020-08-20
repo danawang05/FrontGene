@@ -102,48 +102,7 @@ export const getOpnid = (query) => (dispatch) => {
       })
     }
     if(data.code==successCode){
-      // sessionStorage.setItem("token",data.data.token)
-      // sessionStorage.setItem("openId",data.data.user.wxOpenId)
-      // if(sessionStorage.setItem("openId",data.openId)== null || sessionStorage.setItem("openId",data.openId)== undefined){
-      //
-      //   axios.get(`${url}/login/${query.code}`).then(({ data }) => {
-      //     if (data.code == 8001) {
-      //       console.log(data.data.openId)
-      //       sessionStorage.setItem("openId", data.data.openId)
-      //
-      //       dispatch({
-      //         type: `GET_OPENID_FAILED`,
-      //         openId: data.data.openId,
-      //         status: 'failed'
-      //       })
-      //     } else {
-      //       dispatch({
-      //         type: `GET_OPENID_FAILED`,
-      //         msg: data.msg,
-      //         status: 'failed'
-      //       })
-      //     }
-      //     if(data.code==successCode){
-      //       // sessionStorage.setItem("token",data.data.token)
-      //       // sessionStorage.setItem("openId",data.data.user.wxOpenId)
-      //       sessionStorage.setItem("openId",data.openId)
-      //       sessionStorage.setItem("userId",data.data.user.id)
-      //       // sessionStorage.setItem("gene_user_type",data.data.user.type)
-      //       sessionStorage.setItem("gene_user_type",1)
-      //       dispatch({
-      //         type: `GET_OPENID_SUCCESS`,
-      //         data:data.data,
-      //         status: 'succ'
-      //       })
-      //     }else{
-      //
-      //
-      //     }
-      //     console.log('', '')
-      //   })
-      //
-      //
-      // }
+
       sessionStorage.setItem("openId",data.openId)
       localStorage.setItem("openId", data.openId)
       sessionStorage.setItem("userId",data.data.user.id)
