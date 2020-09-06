@@ -152,9 +152,9 @@ class Home extends React.Component {
           }
           if(index==5){
             
-             // Toast.offline('该功能正在开发中',2)
+             Toast.offline('该功能正在开发中',2)
             //this.props.history.push('/doctorReg') http://live.mijian360.com/watch/1216432
-              window.location.href = 'http://live.mijian360.com/watch/1216432'
+            //   window.location.href = 'http://live.mijian360.com/watch/1216432'
           }
           if(index==6){
             
@@ -167,6 +167,19 @@ class Home extends React.Component {
         if(index==8){
 
             this.props.history.push('/classroom')
+        }
+        if(index==9){
+            // if(sessionStorage.getItem('fcodeToken')){
+            //     sessionStorage.setItem("callbackUrl",'/OneClickOrderSpecialist')
+            //     this.props.history.replace('/login')
+            //     sessionStorage.removeItem('fcodeToken')
+            //     console.log(!localStorage.getItem('token'))
+            // }else{
+            //     this.props.history.push('//OneClickOrderSpecialist')
+            //     sessionStorage.removeItem('scodeToken')
+            //     console.log(!localStorage.getItem('token'))
+            // }
+             this.props.history.push('/OneClickOrderSpecialist')
         }
     }
     goNextPageDoc(index){
@@ -314,8 +327,8 @@ class Home extends React.Component {
                             {/*<HomeBnt src={pat4} badge={this.props.msgNumber.msgNumber?true:0} onClick={this.goNextPage.bind(this,3)} name="报告咨询"/>*/}
                             <HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,8)} src={pat9} name="检爱医讯"/>
                             {/*<HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,5)} src={pat9} name="检爱医讯"/>*/}
-                            <HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,5)} src={pat8} name="e问医答"/>
-                            <HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,5)} src={pat6} name="更多"/>
+                            <HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,9)} src={pat8} name="e问医答"/>
+                            <HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,5)} src={pat6} name="门诊预约"/>
                         </div>
                     </div>
                 }

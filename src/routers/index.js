@@ -8,6 +8,7 @@ import {
 import { withRouter } from 'react-router';
 import Beforemain from './../containers/Beforemain';
 import Agreement from './../containers/Agreement';
+import AgreementSpecialist from './../containers/AgreementSpecialist';
 import AgreementTwo from './../containers/AgreementTwo';
 import test from './../containers/test';
 import Login from './../containers/Login';
@@ -17,12 +18,15 @@ import Detail from './../containers/Detail'
 import PatientReg from './../containers/PatientReg'
 import showImg from './../containers/showImg'
 import OrderConfirm from './../containers/OrderConfirm'
+import OrderConfirmSpecialist from './../containers/OrderConfirmSpecialist'
 import OrderFinishPay from './../containers/OrderFinishPay'
+import OrderFinishPaySpecialist from './../containers/OrderFinishPaySpecialist'
 import Report from './../containers/Report'
 import Bill from './../containers/Bill'
 import OrderList from './../containers/OrderList'
 import ReportList from './../containers/ReportList'
 import OneClickOrder from './../containers/OneClickOrder'
+import OneClickOrderSpecialist from './../containers/OneClickOrderSpecialist'
 import Consultation from './../containers/Consultation'
 import myDoctor from './../containers/myDoctor'
 import chat from './../containers/Chat'
@@ -32,6 +36,7 @@ import doctorReg from './../containers/DoctorReg'
 import reportChat from './../containers/ReportChat'
 import myPatient from './../containers/MyPatient'
 import integral from './../containers/Integral'
+import DetailSpecialist from './../containers/DetailSpecialist'
 import DetailNews from './../containers/DetailNews'
 import ShareParent from './../containers/ShareParent'
 import DocShareText from './../containers/DocShareText'
@@ -55,13 +60,16 @@ const AppRouter = () => (
         <Route path="/main" exact component={Main}/>
         <Route path="/agreement" exact component={Agreement}/>
         <Route path="/agreementTwo" exact component={AgreementTwo}/>
+        <Route path="/agreementspecialist" exact component={AgreementSpecialist}/>
         <Route path="/oneClickOrder" exact component={OneClickOrder}/>
         {/*<Route path="/patientReg" exact component={PatientReg}/>*/}
         <Route path="/patientReg/:userId" exact component={PatientReg}/>
         <Route path="/patientDetail" exact component={patientDetail}/>
         <Route path="/orderConfirm/:packageId" exact component={OrderConfirm}/>
+        <Route path="/orderConfirmspecialist/:packageId" exact component={OrderConfirmSpecialist}/>
         <Route path="/orderFinishPay/:orderid/:types" exact component={OrderFinishPay}/>
         <Route path="/orderFinishPay/:orderid" exact component={OrderFinishPay}/>
+        <Route path="/orderFinishPayspecialist/:orderid" exact component={OrderFinishPaySpecialist}/>
         <Route path="/detail/:packageId" exact component={Detail}/>
         <Route path="/newsdetail/:newsId" exact component={DetailNews}/>
         <Route path="/showImg" exact component={showImg}/>
@@ -90,6 +98,8 @@ const AppRouter = () => (
         <Route path="/logisticsreport/:id" exact component={LogisticsReport}/>
         <Route path="/support" exact component={Support}/>
         <Route path="/classroom" exact component={Classroom}/>
+        <Route path="/detailspecialist/:packageId" exact component={DetailSpecialist}/>
+        <Route path="/OneClickOrderSpecialist" exact component={OneClickOrderSpecialist}/>
         <Route component={NoMatch}/>
       </Switch>
     </div>

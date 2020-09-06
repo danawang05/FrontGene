@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { addMsg, loginIM, onSendMsg, uploadPic, getHistoryMsg,logout } from './chat'
 import { wxPay } from './wxPay'
-
+import { doctorwxPay } from './doctorwxPay'
 // import { } from './../apis';
 // let mchId=''
 // const { url, appId ,mchId,urlNoApi} = require('./config.js')
@@ -718,6 +718,17 @@ export const genepackage = (query) => (dispatch) => {
     dispatch: dispatch,
     request_name: 'GENEPACK',
     request_api: `${url}/gene/genepackage/${query.id}`,
+
+    request_param: "",
+    request_type: 'GET'
+  })
+}
+export const genepackageSpecialist = (query) => (dispatch) => {
+  axiosRequest({
+    dispatch: dispatch,
+    request_name: 'GENEPACK_SPECIALIST',
+    // request_api: `${url}/gene/tdoctor/${query.id}`,
+    request_api: `http://jiyin-test.sagacityidea.cn/gene-api/api/gene/tdoctor/${query.id}`,
     request_param: "",
     request_type: 'GET'
   })
@@ -727,6 +738,17 @@ export const genepackPage = (query) => (dispatch) => {
     dispatch: dispatch,
     request_name: 'GET_GENEPACK',
     request_api: `${url}/gene/genepackage/alllist?page=${query.page}&limit=${query.limit}&company=${query.company}&geneType=${query.geneType}&type=${query.type}&cancerType=${query.cancerType}&name=${query.name}&orderBy=${query.orderBy}`,
+    request_param: "",
+    request_type: 'GET'
+  })
+}
+export const genepackPageSpecialist = (query) => (dispatch) => {
+  axiosRequest({
+    dispatch: dispatch,
+    request_name: 'GET_GENEPACK_SPECIALIST',
+    // request_api: `${url}/gene/tdoctor/page?page=${query.page}&limit=${query.limit}&company=${query.company}&geneType=${query.geneType}&type=${query.type}&cancerType=${query.cancerType}&name=${query.name}&orderBy=${query.orderBy}`,
+    // request_api: `${url}/gene/tdoctor/page`,
+    request_api: `http://jiyin-test.sagacityidea.cn/gene-api/api/gene/tdoctor/page`,
     request_param: "",
     request_type: 'GET'
   })
@@ -1210,7 +1232,98 @@ export const saveOrder = (query) => (dispatch) => {
     
   })
 }
+/**
+ * @description 确认门诊订单 POST api/gene/tdoctororder
+ */
+export const tdoctororder = (query) => (dispatch) => {
+  axiosRequest({
+    dispatch: dispatch,
+    request_name: 'TDOCTORORDER_ORDER',
+    request_api: 'http://jiyin-test.sagacityidea.cn/gene-api/api/gene/tdoctororder',
+    request_param: query,
+    request_type: 'POST'
+  }, function ({ data }) {
+    // api/gene/geneorder/isPay/{id}
+    console.log("=======",{ data })
+    console.log("=======",data)
+    if(!data){
+      return
+    }
+    // if(query.order.orderMoney == 0){
+    //
+    //   console.log("11111")
+    //   if(data){
+    //     axiosRequest({
+    //       dispatch: dispatch,
+    //       request_name: 'WX_PAY_NEW',
+    //       request_api: `${url}/gene/geneorder/isPay/${data.id}`,
+    //       request_param: "",
+    //       request_type: 'GET'
+    //     })
+    //   }
+    // }else{
+      console.log("22222")
+      console.log(data)
+      dispatch({
+        type: 'DOCTORWX_PAY',
+        status: 'pending'
+      })
+      let body, amount, out_trade_no
+      body = data.title || '门诊预约'
+      amount = parseInt(query.price * 100)
+      out_trade_no = data.id
 
+      let trade_type = 'JSAPI'//交易类型
+      let nonce_str = Math.random().toString(36).slice(2) //随机字符串
+      let openid = sessionStorage.getItem('openId') || localStorage.getItem('openId') //用户openid 当JSAPI时必传递
+      // let openid='o1SiC56E34qGifxdR1jqYMxFNUnI'
+      let notify_url = `${url}/gene/tdoctororder/wxIsDoctorPayOrder` //通知地址
+      let sign_type = "MD5"
+      let mch_id=sessionStorage.getItem('mchId')
+      let mch_Key=sessionStorage.getItem('mchKey')
+      let getIP = sessionStorage.getItem('getIp')
+      let weChatParams = {
+        appid:appId,
+        body,
+        mch_id,
+        mch_Key,
+        nonce_str,
+        notify_url,
+        openid,
+        sign_type,
+        total_fee:amount,
+        spbill_create_ip:getIP,
+        out_trade_no,
+        trade_type
+      }
+      doctorwxPay(weChatParams,function(callbackData){
+        console.log('-------', callbackData)
+        axios.post(`${url}/main/doctorwxPay`, { doctorwxPay: callbackData }).then(({ data }) => {
+          var parseString = require('xml2js').parseString;
+          var rexml = data.data
+          parseString(rexml, function (err, result) {
+            if (result.xml.return_code[0] == 'SUCCESS') {
+              dispatch({
+                type: 'DOCTORWX_PAY_SUCCESS',
+                data: result.xml.prepay_id[0],
+                status: 'succ'
+              });
+            } else {
+              dispatch({
+                type: 'DOCTORWX_PAY_FAILED',
+                msg: result.xml.return_msg[0],
+                status: 'failed',
+              });
+            }
+          });
+        })
+        console.log('-------', callbackData)
+      })
+    // }
+
+
+  })
+}
 
 /**
  * @description 医生收藏页

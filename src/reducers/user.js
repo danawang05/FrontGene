@@ -17,13 +17,18 @@ const initState = {
   sparePhoneState:'',
   getGenelistState:'',
   geneList:[],
+  getGenelistSpecialistState:'',
+  geneSpecialistList:[],
   mainListState:'',
   mainList:[],
   getListByPatient:'',
   listByPatient:[],
   geneDetailState:'',
+  geneDetailSpecialistState:'',
   geneDetail:{},
+  geneDetailSpecialist:{},
   saveOrderState:'',
+  tdoctororderState:'',
   orderListState:'',
   orderList:[],
   pubHomeTipsState:'',
@@ -59,7 +64,10 @@ const initState = {
   geneCompany:[],
   wxPay:{},
   wxPayState:'',
+  doctorwxPay:{},
+  doctorwxPayState:'',
   wxPayStateNew:'',
+  doctorwxPayStateNew:'',
   isShouCangList:'',
   shouCangArr:[],
   shoucangPackState:'',
@@ -144,6 +152,10 @@ export default function user (state = initState, action) {
     case 'GET_GENEPACK_SUCCESS':
     case 'GET_GENEPACK_FAILED':
           return Object.assign({}, state, { getGenelistState: action.status,geneList:action.data||[],  msg: action.msg || '' })
+    case 'GET_GENEPACK_SPECIALIST':
+    case 'GET_GENEPACK_SPECIALIST_SUCCESS':
+    case 'GET_GENEPACK_SPECIALIST_FAILED':
+      return Object.assign({}, state, { getGenelistSpecialistState: action.status,geneSpecialistList:action.data||[],  msg: action.msg || '' })
     case 'MAIN_LIST':
     case 'MAIN_LIST_SUCCESS':
     case 'MAIN_LIST_FAILED':
@@ -156,10 +168,18 @@ export default function user (state = initState, action) {
     case 'GENEPACK_SUCCESS':
     case 'GENEPACK_FAILED':
           return Object.assign({}, state, { geneDetailState: action.status,geneDetail:action.data||{},  msg: action.msg || '' })
+    case 'GENEPACK_SPECIALIST':
+    case 'GENEPACK_SPECIALIST_SUCCESS':
+    case 'GENEPACK_SPECIALIST_FAILED':
+      return Object.assign({}, state, { geneDetailSpecialistState: action.status,geneDetailSpecialist:action.data||{},  msg: action.msg || '' })
+    case 'TDOCTORORDER_ORDER':
+    case 'TDOCTORORDER_ORDER_SUCCESS':
+    case 'TDOCTORORDER_ORDER_FAILED':
+          return Object.assign({}, state, { tdoctororderState: action.status,  msg: action.msg || '' })
     case 'SAVE_ORDER':
     case 'SAVE_ORDER_SUCCESS':
     case 'SAVE_ORDER_FAILED':
-          return Object.assign({}, state, { saveOrderState: action.status,  msg: action.msg || '' })
+      return Object.assign({}, state, { saveOrderState: action.status,  msg: action.msg || '' })
     case 'ORDER_LIST':
     case 'ORDER_LIST_SUCCESS':
     case 'ORDER_LIST_FAILED':
@@ -240,10 +260,18 @@ export default function user (state = initState, action) {
     case 'WX_PAY_SUCCESS':
     case 'WX_PAY_FAILED':
           return Object.assign({}, state, { wxPayState: action.status,wxPay:action.data, msg: action.msg || '' })
+    case 'DOCTORWX_PAY':
+    case 'DOCTORWX_PAY_SUCCESS':
+    case 'DOCTORWX_PAY_FAILED':
+      return Object.assign({}, state, { doctorwxPayState: action.status,doctorwxPay:action.data, msg: action.msg || '' })
     case 'WX_PAY_NEW':
     case 'WX_PAY_NEW_SUCCESS':
     case 'WX_PAY_NEW_FAILED':
           return Object.assign({}, state, { wxPayStateNew: action.status,msg: action.msg || '' })
+    case 'DOCTORWX_PAY_NEW':
+    case 'DOCTORWX_PAY_NEW_SUCCESS':
+    case 'DOCTORWX_PAY_NEW_FAILED':
+      return Object.assign({}, state, { doctorwxPayStateNew: action.status,msg: action.msg || '' })
     case 'SHOU_CANG_LIST':
     case 'SHOU_CANG_LIST_SUCCESS':
     case 'SHOU_CANG_LIST_FAILED':

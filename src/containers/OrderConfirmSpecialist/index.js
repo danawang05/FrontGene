@@ -249,8 +249,7 @@ class Login extends React.Component {
   }
     
     //
-    console.log(this.props.saveOrderState)
-    console.log(nextprops.saveOrderState)
+
     if (this.props.saveOrderState != nextprops.saveOrderState && nextprops.saveOrderState == 'succ') {
       this.setState({
         animating: false
@@ -295,7 +294,6 @@ class Login extends React.Component {
         // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
         let nonceStr = Math.random().toString(36).slice(2) 
         let pack ="prepay_id="+nextprops.wxPay
-        console.log(pack)
         console.log(pack)
         let signType ='MD5'
         let timeStamp = new Date().getTime()
@@ -350,7 +348,6 @@ class Login extends React.Component {
     }
   }
   componentWillMount() {
-
     this.height = window.screen.height;
     if(this.props.geneDetail.code=='003' ||this.props.geneDetail.code=='005' ||this.props.geneDetail.code=='006'){
 
@@ -359,7 +356,6 @@ class Login extends React.Component {
         });
 
     }
-
     console.log('code',this.props.geneDetail.code)
     console.log('000',this.formatTime(this.state.form.Birthday))
     console.log('111',this.state.form.Birthday)
@@ -475,9 +471,6 @@ class Login extends React.Component {
     document.title = '电子申请单'
     const { match, actions } = this.props;
     const { params: { packageId,openId } } = match;
-    const { params: { userId } } = match;
-    const token = localStorage.getItem('token');
-
     this.checkLocalstorage()
     this.removeCookie('ysHospitalName')
     this.removeCookie('sampleType')
@@ -494,8 +487,8 @@ class Login extends React.Component {
       
         
          
-    }
-
+    }  
+      
     actions.findForPids({
       pid:[HOSP_NUMBER]
    })
@@ -577,19 +570,99 @@ class Login extends React.Component {
     const { actions } = this.props
     actions.userInfo({})
   }
-  surelogin() {
-    const {actions} = this.props
-    if(sessionStorage.getItem('fcodeToken')){
-      sessionStorage.setItem("callbackUrl",`/orderConfirm/${sessionStorage.getItem('packageId')}`)
-      this.props.history.replace('/login')
-      sessionStorage.removeItem('fcodeToken')
-      console.log(!localStorage.getItem('token'))
-    }else{
-      sessionStorage.removeItem('scodeToken')
-      console.log(!localStorage.getItem('token'))
-      return
-    }
-  }
+  // rules() {
+  //   // if (!this.state.samplingTime) {
+  //   //   Toast.fail('请选择取样时间', 2)
+  //   //   return false
+  //   // }
+  //   // if (!this.state.doctorId) {
+
+  //   //   Toast.fail('请绑定医生', 2)
+  //   //   return false
+  //   // }
+  //   // if (!this.state.samplingAddress) {
+  //   //   Toast.fail('请输入取样地址', 2)
+  //   //   return false
+  //   // }
+    
+  //   // if(!this.state.contacts){
+  //   //   Toast.fail('请选择取样联系人', 2)
+  //   //   return false
+  //   // }
+  //   // //新增属性
+  //   if (!this.state.name) {
+  //     Toast.fail('请输入受检人姓名', 2)
+  //     return false
+  //   }
+  //   // if (!this.state.gender) {
+  //   //   Toast.fail('请选择性别', 2)
+  //   //   return false
+  //   // }
+  //   if (!this.state.form.Birthday) {
+  //     Toast.fail('请选择出生日期', 2)
+  //     return false
+  //   }
+    
+  //   if (!this.checkIdNo(this.state.idNum).result) {
+  //     Toast.fail('身份证输入有误请重新输入', 2)
+  //     return false
+  //   }
+  //   // if (!this.state.idNum) {
+  //   //   Toast.fail('请输入身份证号', 2)
+  //   //   return false
+  //   // }
+  //   if (!this.state.doctor) {
+  //     Toast.fail('请输入医生姓名', 2)
+  //     return false
+  //   }
+  //   if (!this.state.department) {
+  //     Toast.fail('请输入科室', 2)
+  //     return false
+  //   }
+  //   if (!this.state.form.ysHospitalName) {
+  //     Toast.fail('请输入医院', 2)
+  //     return false
+  //   }
+  //   if (!this.state.department) {
+  //     Toast.fail('请输入科室', 2)
+  //     return false
+  //   }
+  //   if (!this.state.form.bloodSampleTime && !this.state.form.sampleTime) {
+  //     Toast.fail('请选择样本采样时间', 2)
+  //     return false
+  //   }
+  //   // if (!this.state.valuechuzhi) {
+  //   //   Toast.fail('请选择样是否为初治患者', 2)
+  //   //   return false
+  //   // }
+  //   // if (!this.state.resistance) {
+  //   //   Toast.fail('请选择治疗方案', 2)
+  //   //   return false
+  //   // }
+  //   if (!this.state.samplingUser) {
+  //     Toast.fail('请输入收件人姓名', 2)
+  //     return false
+  //   }
+  //   if (!this.state.samplingPhone) {
+  //     Toast.fail('请输入收件人电话', 2)
+  //     return false
+  //   }
+  //   // if (!this.state.samplingTime) {
+  //   //   Toast.fail('请选择取样时间', 2)
+  //   //   return false
+  //   // }
+  //   // if (!this.state.samplingAddress) {
+  //   //   Toast.fail('请输入取样地址', 2)
+  //   //   return false
+  //   // }
+    
+  //   // if(!this.state.contacts){
+  //   //   Toast.fail('请选择取样联系人', 2)
+  //   //   return false
+  //   // }
+    
+  //   return true
+  // }
   rulesone() {
     if (!this.state.name) {
       Toast.fail('请输入受检人姓名', 2)
@@ -2139,9 +2212,6 @@ subHosp = () => {
     switch (stepbnt) {
 
       case 2:
-        const { actions } = this.props
-        actions.userInfotoken({})
-
         if(!this.state.coupon){
 
           this.handelforceUpdate('block','none')
@@ -2176,7 +2246,6 @@ subHosp = () => {
         //   console.log("displaypaper",this.state.displaypaper)
         //   console.log("disappear",this.state.disappear)
         // }
-        this.surelogin()
         console.log("【优惠券清空价格】",this.state.price,this.state.coupon,this.state.conponPrice)
         if (!this.rulestwo()) {
           let newDateblood = new Date();

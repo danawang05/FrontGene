@@ -204,7 +204,7 @@ class Login extends React.Component {
                         {/*<TypeBnt key={'4'} onClick={this.changeBnt.bind(this,'1290621470819405826')}  selectBnt={this.state.typeBnt=='1290621470819405826'} name={'肺凡医声'}/>*/}
                         <span className={'type_bnt_rowtwo'} onClick={this.goNextStepPage.bind(this,1)}>医师讲堂</span>
                         {/*<span className={this.state.selectBnt?'type_bnt_row_select':'type_bnt_row'} onClick={(event)=>this.clicked(sessionStorage.getItem('openId'),event)}>医生直播</span>*/}
-                        <span className={'type_bnt_rowthree'} onClick={this.goNextStep.bind(this,sessionStorage.getItem('openId'))}>医生直播</span>
+                        <span className={'type_bnt_rowthree'} onClick={this.goNextStep.bind(this,sessionStorage.getItem('openId'))}>名医直播</span>
                     </div>:null
                 }
                 

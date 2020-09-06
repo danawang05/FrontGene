@@ -274,9 +274,9 @@ class Login extends React.Component {
       return
     }
     if (!sessionStorage.getItem('openId')) {
-          Toast.fail('微信登陆失败', 2)
-          return
-      }
+      Toast.fail('微信登陆失败', 2)
+      return
+    }
     if (!this.state.code) { 
       Toast.fail('请输入验证码', 2)
       return
