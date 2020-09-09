@@ -1089,6 +1089,18 @@ export const geneorderList = (query) => (dispatch) => {
     request_type: 'GET'
   })
 }
+
+export const geneorderListSpecialist = (query) => (dispatch) => {
+
+  axiosRequest({
+    dispatch: dispatch,
+    request_name: 'SPECIALISTORDER_LIST',
+    request_api: `${url}/gene/tdoctororder/list/${query.userId}`,
+    request_param: "",
+    request_type: 'GET'
+  })
+}
+
 export const geneorderdetail = (query) => (dispatch) => {
   axiosRequest({
     dispatch: dispatch,
@@ -1099,6 +1111,33 @@ export const geneorderdetail = (query) => (dispatch) => {
   })
 }
 
+export const tdoctorgeneorderdetail = (query) => (dispatch) => {
+  axiosRequest({
+    dispatch: dispatch,
+    request_name: 'TDOCTORORDER_DETAIL',
+    request_api: `${url}/gene/tdoctororder/${query.id}`,
+    request_param: "",
+    request_type: 'GET'
+  })
+}
+export const refundPrice = (query) => (dispatch) => {
+  axiosRequest({
+    dispatch: dispatch,
+    request_name: 'REFUNDPRICE_DETAIL',
+    request_api: `${url}/gene/tdoctororder/refundPrice/${query.id}`,
+    request_param: "",
+    request_type: 'GET'
+  })
+}
+export const wxRefund = (query) => (dispatch) => {
+  axiosRequest({
+    dispatch: dispatch,
+    request_name: 'WXREFUND_DETAIL',
+    request_api: `${url}/gene/tdoctororder/wxRefund/${query.id}`,
+    request_param: "",
+    request_type: 'GET'
+  })
+}
 /**
  * @description 确认订单 POST /api/gene/geneorder/saveOrder
  */

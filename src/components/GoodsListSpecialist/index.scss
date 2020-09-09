@@ -4,14 +4,14 @@
     padding: .4rem;
     background: #ffffff
 }
-.goodsList_img{
+.goodsListspecialist_img{
     height: 2.1rem;
     width: 2.1rem;
     border-radius: 3px;
     overflow: hidden;
     border-radius: 50%;
 }
-.goodsList_img img{
+.goodsListspecialist_img img{
     height: 100%;
     width: 100%
 }
@@ -20,8 +20,8 @@
     margin-left: .4rem;
     
 }
-.goodsList_content_name{
-    font-size: .45rem;
+.goodsListspecialist_content_name{
+    font-size: .55rem;
     color: #3d4049;
     min-height: .8rem;
     line-height: .8rem;
@@ -29,14 +29,14 @@
 }
 
 .goodsList_content_hospital{
-    font-size: .4rem;
+    font-size: .36rem;
     color: #68696b;
     min-height: .8rem;
     line-height: .6rem;
     text-align: left;
 }
 .goodsList_content_field{
-    font-size: .4rem;
+    font-size: .36rem;
     color: #3d4049;
     line-height: .6rem;
     text-align: left;
@@ -53,7 +53,7 @@
     border-radius: 1px;
     margin-left: .2rem
 }
-.money_content{
+.moneyspecialist_content{
     color: #fb5c66;
     text-align: right;
     flex: 1;

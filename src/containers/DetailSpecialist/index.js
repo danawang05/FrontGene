@@ -200,9 +200,9 @@ class Login extends React.Component {
                     {/*<div className="add_address">
                         送至<span className="add_address_select">{geneDetailSpecialist.contactsAddr||""}</span>
                 </div>*/}
-                    <div className="detail_message">
+                    <div className="detailspecialist_message">
                         {/*<div className="detail_message_bnt"> 套餐介绍 </div>*/}
-                        <div id="detail_message_text" className="detail_message_text">
+                        <div id="detail_message_text" className="detailspecialist_message_text">
                         </div>
                     </div>
 
@@ -227,7 +227,7 @@ class Login extends React.Component {
                                 <span>{geneDetailSpecialist.price}</span>
                             </p>
                             <div onClick={this.goAgree.bind(this,geneDetailSpecialist.id)} className="sub_button">
-                                门诊预约
+                                预约
                             </div>
                         </div>
                     }

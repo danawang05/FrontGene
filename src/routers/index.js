@@ -24,6 +24,7 @@ import OrderFinishPaySpecialist from './../containers/OrderFinishPaySpecialist'
 import Report from './../containers/Report'
 import Bill from './../containers/Bill'
 import OrderList from './../containers/OrderList'
+import OrderListSpecialist from './../containers/OrderListSpecialist'
 import ReportList from './../containers/ReportList'
 import OneClickOrder from './../containers/OneClickOrder'
 import OneClickOrderSpecialist from './../containers/OneClickOrderSpecialist'
@@ -46,6 +47,7 @@ import patientDetail from './../containers/patientDetail'
 import NoMatch from './../components/NoMatch';
 import DocFollowUp from '../containers/DocFollowUp';
 import Orderform from '../containers/Orderform'
+import OrderformSpecialist from '../containers/OrderformSpecialist'
 import Support from '../containers/Support'
 import Classroom from '../containers/Classroom'
 const AppRouter = () => (
@@ -70,6 +72,7 @@ const AppRouter = () => (
         <Route path="/orderFinishPay/:orderid/:types" exact component={OrderFinishPay}/>
         <Route path="/orderFinishPay/:orderid" exact component={OrderFinishPay}/>
         <Route path="/orderFinishPayspecialist/:orderid" exact component={OrderFinishPaySpecialist}/>
+        <Route path="/orderFinishPayspecialist/:orderid/:types" exact component={OrderFinishPaySpecialist}/>
         <Route path="/detail/:packageId" exact component={Detail}/>
         <Route path="/newsdetail/:newsId" exact component={DetailNews}/>
         <Route path="/showImg" exact component={showImg}/>
@@ -78,7 +81,9 @@ const AppRouter = () => (
         <Route path="/report" exact component={Report}/>
         <Route path="/report/:orderid" exact component={Report}/>
         <Route path="/orderform/:orderid" exact component={Orderform}/>
+        <Route path="/orderformSpecialist/:orderid" exact component={OrderformSpecialist}/>
         <Route path="/orderList" exact component={OrderList}/>
+        <Route path="/orderListSpecialist" exact component={OrderListSpecialist}/>
         <Route path="/reportList" exact component={ReportList}/>
         {/*<Route path="/consultation" exact component={Consultation}/>*/}
         {/*<Route path="/chat" exact component={chat}/>*/}

@@ -31,8 +31,16 @@ const initState = {
   tdoctororderState:'',
   orderListState:'',
   orderList:[],
+  SpecialistorderListState:'',
+  SpecialistorderList:[],
   pubHomeTipsState:'',
   homeTips:[],
+  tdoctorgetOrderDetailState:'',
+  tdoctororderDetail:{},
+  refundPriceState:'',
+  refundPrice:{},
+  wxRefundState:'',
+  wxRefund:{},
   getOrderDetailState:'',
   orderDetail:{},
   uploadState:'',
@@ -184,6 +192,10 @@ export default function user (state = initState, action) {
     case 'ORDER_LIST_SUCCESS':
     case 'ORDER_LIST_FAILED':
           return Object.assign({}, state, { orderListState: action.status,orderList:action.data||[],  msg: action.msg || '' })
+    case 'SPECIALISTORDER_LIST':
+    case 'SPECIALISTORDER_LIST_SUCCESS':
+    case 'SPECIALISTORDER_LIST_FAILED':
+      return Object.assign({}, state, { SpecialistorderListState: action.status,SpecialistorderList:action.data||[],  msg: action.msg || '' })
     case 'PUB_HOME_TIPS':
     case 'PUB_HOME_TIPS_SUCCESS':
     case 'PUB_HOME_TIPS_FAILED':
@@ -192,6 +204,18 @@ export default function user (state = initState, action) {
     case 'ORDER_DETAIL_SUCCESS':
     case 'ORDER_DETAIL_FAILED':
           return Object.assign({}, state, { getOrderDetailState: action.status,orderDetail:action.data||{},  msg: action.msg || '' })
+    case 'TDOCTORORDER_DETAIL':
+    case 'TDOCTORORDER_DETAIL_SUCCESS':
+    case 'TDOCTORORDER_DETAIL_FAILED':
+      return Object.assign({}, state, { tdoctorgetOrderDetailState: action.status,tdoctororderDetail:action.data||{},  msg: action.msg || '' })
+    case 'REFUNDPRICE_DETAIL':
+    case 'REFUNDPRICE_DETAIL_SUCCESS':
+    case 'REFUNDPRICE_DETAIL_FAILED':
+      return Object.assign({}, state, { refundPriceState: action.status,refundPrice:action.data||{},  msg: action.msg || '' })
+    case 'WXREFUND_DETAIL':
+    case 'WXREFUND_DETAIL_SUCCESS':
+    case 'WXREFUND_DETAIL_FAILED':
+      return Object.assign({}, state, { wxRefundState: action.status,wxRefund:action.data||{},  msg: action.msg || '' })
     case 'UPLOAD':
     case 'UPLOAD_SUCCESS':
     case 'UPLOAD_FAILED':

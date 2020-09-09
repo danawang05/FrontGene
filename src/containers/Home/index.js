@@ -39,6 +39,7 @@ import doc5 from '../../sources/yiyaoxiang.png'
 import doc6 from '../../sources/erweima.png'
 
 import {imgUrl} from '../../actions/config'
+import OrderListSpecialist from "../OrderListSpecialist";
 const FormItem = Form.Item;
 
 /* Populated by react-webpack-redux:reducer */
@@ -169,17 +170,20 @@ class Home extends React.Component {
             this.props.history.push('/classroom')
         }
         if(index==9){
-            // if(sessionStorage.getItem('fcodeToken')){
-            //     sessionStorage.setItem("callbackUrl",'/OneClickOrderSpecialist')
-            //     this.props.history.replace('/login')
-            //     sessionStorage.removeItem('fcodeToken')
-            //     console.log(!localStorage.getItem('token'))
-            // }else{
-            //     this.props.history.push('//OneClickOrderSpecialist')
-            //     sessionStorage.removeItem('scodeToken')
-            //     console.log(!localStorage.getItem('token'))
-            // }
+
              this.props.history.push('/OneClickOrderSpecialist')
+        }
+        if(index==10){
+            if(sessionStorage.getItem('fcodeToken')){
+                sessionStorage.setItem("callbackUrl",'/orderListSpecialist')
+                this.props.history.replace('/login')
+                sessionStorage.removeItem('fcodeToken')
+                console.log(!localStorage.getItem('token'))
+            }else{
+                this.props.history.push('/orderListSpecialist')
+                sessionStorage.removeItem('scodeToken')
+                console.log(!localStorage.getItem('token'))
+            }
         }
     }
     goNextPageDoc(index){
@@ -328,7 +332,7 @@ class Home extends React.Component {
                             <HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,8)} src={pat9} name="检爱医讯"/>
                             {/*<HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,5)} src={pat9} name="检爱医讯"/>*/}
                             <HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,9)} src={pat8} name="e问医答"/>
-                            <HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,5)} src={pat6} name="门诊预约"/>
+                            <HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,10)} src={pat6} name="门诊预约"/>
                         </div>
                     </div>
                 }

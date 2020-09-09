@@ -85,6 +85,8 @@ class oneClickOrder extends React.Component {
     //   limit: 9999,
     //   ...this.state.search
     // })
+    actions.userInfotoken({
+    })
     actions.genepackPageSpecialist({
       page: 1,
       limit: 9999,

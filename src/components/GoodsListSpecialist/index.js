@@ -14,7 +14,7 @@ export default class index extends Component {
 
             <div onClick={this.props.onClick} className="goodsList displays" style={{padding:this.props.padding?this.props.padding:'.4rem'}}>
                 {
-                    this.props.disPlayImg?null:<Badge text={this.props.isDoctor == '1'?"☆":''} corner><div className="goodsList_img">
+                    this.props.disPlayImg?null:<Badge text={this.props.isDoctor == '1'?"☆":''} corner><div className="goodsListspecialist_img">
                        <img src={this.props.src}/>
                         {/*<img src={pat10}/>*/}
                     </div>
@@ -22,9 +22,9 @@ export default class index extends Component {
                 }
                 
                 <div className="goodsList_content" style={{marginLeft:this.props.marginLeft?this.props.marginLeft:'.4rem'}} >
-                    <div className="goodsList_content_name displays">
+                    <div className="goodsListspecialist_content_name displays">
                         <span style={{wordBreak: 'break-word'}}>{this.props.name}</span>
-                        <span style={{wordBreak: 'break-word',marginLeft:'0.4rem',fontSize:'16px'}}>职称：{this.props.title}</span>
+                        <span style={{wordBreak: 'break-word',marginLeft:'0.4rem',fontSize:'0.36rem'}}>职称：{this.props.title}</span>
                         {/* 标签 */}
                         {
                             this.props.type=="1"?(this.props.redTab?<div className="youhui">{this.props.redTab}</div>:null):null
@@ -36,7 +36,7 @@ export default class index extends Component {
                     </div>
                     <div className="goodsList_content_field displays">
                         <span style={{wordBreak: 'break-word'}}>科室：{this.props.department}</span>
-                        <span className="money_content">
+                        <span className="moneyspecialist_content">
                             <span className="money_content_icon">¥</span>
                             <span>{this.props.money}</span>
                         </span>
