@@ -1,0 +1,48 @@
+.left_orderList{
+    min-height: 2rem;
+    flex:1
+}
+.middle_orderList{
+    min-height: 2rem;
+    width: 56%;
+}
+.left_orderList_text{
+    font-size: .4rem;
+    // font-weight: 400
+}
+.left_orderList_msg{
+    color: #acacac;
+    font-size: .3rem
+}
+.right_bnt input{
+    position: absolute;
+    right: 0;
+    height: 1rem;
+    width: 100%;
+    opacity: 0;
+}
+.text_use{
+    line-height: 1rem;
+    color: #ffcb5c;
+    text-align: center;
+    font-size: .35rem;
+    padding: 0 .5rem;
+    margin-top: .5rem;
+}
+.right_button{
+    height: 1rem;
+    line-height: 1rem;
+    padding: 0 .5rem;
+    margin-top: .5rem;
+    border: 1px solid #ffeeab;
+    border-radius: .6rem;
+    color: #ffcb5c;
+    text-align: center;
+    font-size: .35rem;
+    background: #fffdef;
+    position: relative;
+}
+.right_button_icon{
+    margin-right: .1rem;
+    font-size: .37rem
+}

@@ -48,6 +48,8 @@ import NoMatch from './../components/NoMatch';
 import DocFollowUp from '../containers/DocFollowUp';
 import Orderform from '../containers/Orderform'
 import OrderformSpecialist from '../containers/OrderformSpecialist'
+import OrderformSpecialistInfo from '../containers/OrderformSpecialistInfo'
+import DetailSpecialistAdver from '../containers/DetailSpecialistAdver'
 import Support from '../containers/Support'
 import Classroom from '../containers/Classroom'
 const AppRouter = () => (
@@ -82,6 +84,7 @@ const AppRouter = () => (
         <Route path="/report/:orderid" exact component={Report}/>
         <Route path="/orderform/:orderid" exact component={Orderform}/>
         <Route path="/orderformSpecialist/:orderid" exact component={OrderformSpecialist}/>
+        <Route path="/orderformSpecialistinfo/:orderid" exact component={OrderformSpecialistInfo}/>
         <Route path="/orderList" exact component={OrderList}/>
         <Route path="/orderListSpecialist" exact component={OrderListSpecialist}/>
         <Route path="/reportList" exact component={ReportList}/>
@@ -104,6 +107,7 @@ const AppRouter = () => (
         <Route path="/support" exact component={Support}/>
         <Route path="/classroom" exact component={Classroom}/>
         <Route path="/detailspecialist/:packageId" exact component={DetailSpecialist}/>
+        <Route path="/detailspecialistadver" exact component={DetailSpecialistAdver}/>
         <Route path="/OneClickOrderSpecialist" exact component={OneClickOrderSpecialist}/>
         <Route component={NoMatch}/>
       </Switch>

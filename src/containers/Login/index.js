@@ -30,7 +30,7 @@ class Login extends React.Component {
     }
   }
   componentWillReceiveProps(nextprops) {
-    
+
     if (this.props.getCodestate != nextprops.getCodestate && nextprops.getCodestate == 'failed') {
       console.log(this)
       Toast.fail(nextprops.msg, 2)
@@ -51,7 +51,7 @@ class Login extends React.Component {
     //     }else{
     //       this.props.history.push('/main')
     //     }
-        
+
     //     return
     //   }
     //   if(nextprops.user.entity.id){
@@ -106,10 +106,10 @@ class Login extends React.Component {
       // }
     //     // this.props.history.replace(`/orderConfirm/${this.state.packageId}`)
     //       // this.props.history.push('/detail')
-        
+
     //     //this.props.history.push(`/detail/${id}`)
     //     // this.props.history.replace('/patientReg'+(this.state.userId?`/${this.state.userId}`:''))
-      
+
       // if (this.state.type == 0) {
       //   if(!!sessionStorage.getItem('packageid')){
       //     this.props.history.replace(`/orderConfirm/${sessionStorage.getItem('packageid')}`)
@@ -119,8 +119,8 @@ class Login extends React.Component {
       // }
         // this.props.history.replace('/doctorReg')
         // this.props.history.replace(`/orderConfirm/${this.state.packageId}`)
-      
-    
+
+
     // if (this.props.loginState != nextprops.loginState && nextprops.loginState == 'failed') {
     //   this.setState({
     //     animating: false
@@ -230,14 +230,14 @@ class Login extends React.Component {
       }else{
         actions.getUserInfoNotUseTMI()
       }
-     
+
       // sessionStorage.setItem('gene_user_type', this.state.type)
     }else{
       // actions.userInfo()
 
     }
-    
-    
+
+
   }
   getDetail = () =>{
     const {actions} = this.props
@@ -260,7 +260,7 @@ class Login extends React.Component {
       clearInterval(timeInter)
     }
   }
- 
+
   changeLoginBnt(bnt) {
     this.setState({
       type: bnt
@@ -277,7 +277,7 @@ class Login extends React.Component {
       Toast.fail('微信登陆失败', 2)
       return
     }
-    if (!this.state.code) { 
+    if (!this.state.code) {
       Toast.fail('请输入验证码', 2)
       return
     }
@@ -296,8 +296,8 @@ class Login extends React.Component {
     })
     actions.newLogin(params)
     // actions.login(params)
-    
-    
+
+
   }
   startTime() {
     this.stopTimer()

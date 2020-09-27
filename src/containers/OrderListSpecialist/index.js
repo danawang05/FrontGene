@@ -221,15 +221,15 @@ class Login extends React.Component {
                 payStatus={
                   (() => {
                         switch (item.payStatus) {
-                          case '0':
+                          case 0:
                             return '未支付'
-                          case '1':
+                          case 1:
                             return '已支付'
-                          case '2':
+                          case 2:
                             return '支付失败'
-                          case '3':
+                          case 3:
                             return '退款'
-                          case '4':
+                          case 4:
                             return '检测中'
                           default:
                             return '未支付'
@@ -240,7 +240,7 @@ class Login extends React.Component {
 
                 // time={item.payTime ? item.payTime : (new Date(window.isIOS ? item.createrTime.replace(/-/g, "/") : item.createrTime) < newDate ? <span style={{ color: 'red' }}>订单已失效</span> : '待付费')}
                 //time={item.payTime ? item.payTime : (new Date(window.isIOS ? item.createrTime: item.createrTime) < newDate ? <span style={{ color: 'red' }}>订单已失效</span> : '待付费')}
-                payStatus={item.payStatus}
+                // payStatus={item.payStatus}
                 company={item.geneCompany}
                 money={item.price}
                 creatertime={item.createrTime}

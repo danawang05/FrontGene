@@ -24,6 +24,7 @@ import 'antd-mobile/dist/antd-mobile.css';
 import {appId} from './../../actions/config';
 import locale from 'antd/es/date-picker/locale/zh_CN';
 const FormItem = Form.Item;
+let timeInter = "";
 let WXKEY=sessionStorage.getItem('mchKey');
 
 /* Populated by react-webpack-redux:reducer */
@@ -32,7 +33,7 @@ class Login extends React.Component {
     super(props)
     this.height = 0
     this.state = {
-      
+      time: 10,
       checked: false,//多选初始化
       stepbnt:1,//拆分页面
       volunteerList:[],
@@ -184,8 +185,8 @@ class Login extends React.Component {
       var u = navigator.userAgent, app = navigator.appVersion;
       var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
       var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-     
-      
+
+
       if(user.entity&&user.entity.Birthday){
           if (isAndroid) {
             user.entity.Birthday = new Date(user.entity.Birthday)
@@ -216,7 +217,7 @@ class Login extends React.Component {
       console.log( user.entity)
       this.setState(Object.assign(this.state.form, user.entity))
   }
-    
+
     if(user.entity&&user.entity.sampleTime){
       if (isAndroid) {
         user.entity.sampleTime = new Date(user.entity.sampleTime)
@@ -247,7 +248,7 @@ class Login extends React.Component {
           })
       }
   }
-    
+
     //
     console.log(this.props.saveOrderState)
     console.log(nextprops.saveOrderState)
@@ -255,8 +256,10 @@ class Login extends React.Component {
       this.setState({
         animating: false
       })
+
       Toast.success('提交成功，正在打开微信支付', 2)
       // this.props.history.goBack()
+      this.startTime()
     }
     if (this.props.saveOrderState != nextprops.saveOrderState && nextprops.saveOrderState == 'failed') {
       this.setState({
@@ -293,7 +296,7 @@ class Login extends React.Component {
       let _this = this
       window.wx.ready(function(){
         // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
-        let nonceStr = Math.random().toString(36).slice(2) 
+        let nonceStr = Math.random().toString(36).slice(2)
         let pack ="prepay_id="+nextprops.wxPay
         console.log(pack)
         console.log(pack)
@@ -308,7 +311,7 @@ class Login extends React.Component {
         }
         let paySign = _this.getSign(params)
         console.log(paySign)
-        
+
           window.wx.chooseWXPay({
             timestamp: timeStamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
             nonceStr: nonceStr, // 支付签名随机串，不长于 32 位
@@ -338,10 +341,10 @@ class Login extends React.Component {
       })
      let newArrTwo = [
        newArr[0].concat([{label:'客服专员1',value:newArr[0].length}])
-     ] 
+     ]
      let volunteerListTwo = volunteerList.concat([{username:'客服专员1',mobile:'13681505892',showName:'客服专员1'}])
- 
-      
+
+
       this.setState({
         volunteerList:volunteerListTwo,
         volunteer:newArrTwo
@@ -491,9 +494,9 @@ class Login extends React.Component {
       //   //doctor:this.localStorage.getItem('doctor')
       //   this.state.doctor
       // })
-      
-        
-         
+
+
+
     }
 
     actions.findForPids({
@@ -502,7 +505,7 @@ class Login extends React.Component {
    actions.getProvince({})
         if (localStorage.getItem('token')) {
             this.getUserInfo()
-             
+
   }
     if (!this.props.geneDetail.id) {
       this.props.history.push(`/detail/${packageId}`)
@@ -529,12 +532,40 @@ class Login extends React.Component {
   })
   window.wx.ready(function(){
     window.wx.hideMenuItems({
-      menuList: ['menuItem:share:appMessage','menuItem:share:timeline','menuItem:favorite','menuItem:share:QZone','menuItem:openWithSafari','menuItem:copyUrl'] 
+      menuList: ['menuItem:share:appMessage','menuItem:share:timeline','menuItem:favorite','menuItem:share:QZone','menuItem:openWithSafari','menuItem:copyUrl']
     });
   });
   }
   componentDidMount() {
 
+  }
+  componentWillUnmount() {
+    if (timeInter) {
+      clearInterval(timeInter)
+    }
+  }
+  startTime() {
+    this.stopTimer()
+    timeInter = setInterval(() => {
+      if (this.state.time === 1) {
+        this.stopTimer();
+        this.setState({
+          time: 10,
+          getCode: true
+        })
+      } else {
+        let times = parseInt(this.state.time) - 1
+        this.setState({
+          time: times,
+          timeMsg: times
+        })
+      }
+    }, 1000);
+  }
+  stopTimer() {
+    if (timeInter) {
+      clearInterval(timeInter);
+    }
   }
 
   phone(phone) {
@@ -558,9 +589,9 @@ class Login extends React.Component {
     }
     string += `&key=${WXKEY}`
     var crypto = require('crypto');
-    var md5 = crypto.createHash('md5'); 
-    md5.update(string); 
-    let str = md5.digest('hex'); 
+    var md5 = crypto.createHash('md5');
+    md5.update(string);
+    let str = md5.digest('hex');
     console.log('WXKEY',WXKEY);
     return str.toUpperCase()
 }
@@ -619,7 +650,7 @@ class Login extends React.Component {
       Toast.fail('请输入医生姓名', 2)
       return false
     }
-    
+
     if (this.state.coupon) {
       if(this.state.isUse==false){
         Toast.fail('请点击右侧按钮使用优惠券', 3)
@@ -680,8 +711,8 @@ class Login extends React.Component {
       Toast.fail('请选择您的病理诊断', 2)
       return false
     }
-    
-    
+
+
     if (!this.state.valuechuzhi) {
       Toast.fail('请选择是否接受过靶向治疗', 2)
       return false
@@ -691,7 +722,7 @@ class Login extends React.Component {
     //   return false
     // }
     // if(this.state.valuechuzhi=='1'){
-      
+
     //   if(!sessionStorage.getItem('drug')){
     //     Toast.fail('请选择治疗方案', 2)
     //     return false
@@ -705,16 +736,16 @@ class Login extends React.Component {
       if(!this.state.resistance) {
         Toast.fail('请选择是否耐药', 2)
         return false
-       } 
+       }
     }
-    
+
     // if(this.state.checkeddrug3){
     //   if(!this.state.resistance) {
     //   Toast.fail('请选择是否耐药', 2)
     //   return false
-    //  } 
+    //  }
     // }
-    
+
     return true
   }
   rulesthree() {
@@ -761,7 +792,7 @@ class Login extends React.Component {
       Toast.fail('请正确输入11位纸质报告收件人电话', 2)
       return false
     }
-    
+
     //if ((!(this.state.paperAddr) || !(this.state.form.billProvince+this.state.form.billCity+this.state.form.billRegion))&& (!localStorage.getItem('addr3') ||!(this.state.paperAddr))) {
       if ((!(this.state.form.billProvince+this.state.form.billCity+this.state.form.billRegion) || !(this.state.paperAddr))&& ((!reg2.test(this.state.form.billProvince+this.state.form.billCity+this.state.form.billRegion))|| !(this.state.paperAddr))){
       Toast.fail('请输入纸质报告收件人地址', 2)
@@ -770,7 +801,7 @@ class Login extends React.Component {
    }
     return true
   }
-  
+
   checkIdNo = (value) => {
     const p = /^[1-9]\d{5}(18|19|20)\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
     const q = /^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}$/;
@@ -859,7 +890,7 @@ class Login extends React.Component {
     // if (!this.rules()) {
     //   return
     // }
-    
+
     this.setState({
       animating: true,
       text: '正在提交...'
@@ -877,7 +908,7 @@ class Login extends React.Component {
     //       phone:this.state.phone,             //'电话'
     //       doctor:this.state.doctor,            //'医生姓名'
     //       hospital:this.state.form.ysHospitalName,          //'医院名'
-    //       //department:JSON.stringify(this.state.form.department), 
+    //       //department:JSON.stringify(this.state.form.department),
     //        department:this.state.form.department[0],        //'科室'
     //       sampleType:this.state.valuetype,
     //       bloodNum:this.state.bloodNum,          //'血液数量（管）'
@@ -894,7 +925,7 @@ class Login extends React.Component {
     //       //diagnosticTime:this.formatTime(this.state.form.diagnosticTime).indexOf('0NaN')=='-1'?this.formatTime(this.state.form.diagnosticTime):'',   //'其他癌名称'
     //       diagnosticTime:this.formatTime(this.state.form.diagnosticTime).indexOf('0NaN')=='-1'?this.formatTime(this.state.form.diagnosticTime):(this.formatTime(this.getCookie('diagnosticTime'))?this.formatTime(this.getCookie('diagnosticTime')):''),
     //       //diagnosticTime:toString(this.formatTime(this.state.form.diagnosticTime)).indexOf('NaN-0NaN-0NaN 0NaN:0NaN:0NaN')==='-1'?'':this.formatTime(this.state.form.diagnosticTime) ,    //'确诊时间'    //'确诊时间'
-    //       // drug:this.state.drug,   
+    //       // drug:this.state.drug,
     //       drug:this.getCookie('drug')?this.getCookie('drug'):this.state.drug,           //'0：化疗；1：放疗；2：靶向治疗；3：免疫治疗‘
     //       otherDrugName:this.state.otherDrugName,     //'其他药名称'
     //       initial:this.state.valuechuzhi,           //'是否是初始患者0：否；1：是'
@@ -904,32 +935,32 @@ class Login extends React.Component {
     //       //paperAddr:this.getCookie('addr3')?this.getCookie('addr3')this.state.form.billProvince+this.state.form.billCity+this.state.form.billRegion+this.state.paperAddr,    //'纸质报告接受地址',
     //       paperAddr:this.getCookie('addr3')?this.getCookie('addr3')+this.state.paperAddr:this.getCookie('addr1')+this.state.paperAddr,    //'纸质报告接受地址',
     //       samplingTime:this.formatTime(this.state.form.samplingTime).indexOf('0NaN')=='-1'? this.formatTime(this.state.form.samplingTime):(this.formatTime(this.getCookie('samplingTime')).indexOf('0NaN')=='-1'?this.formatTime(this.getCookie('samplingTime')):''),
-    //       //samplingTime:this.formatTime(this.state.form.samplingTime)?this.formatTime(this.state.form.samplingTime):this.formatTime(this.getCookie('bloodSampleTime')),    //'取样时间', 
+    //       //samplingTime:this.formatTime(this.state.form.samplingTime)?this.formatTime(this.state.form.samplingTime):this.formatTime(this.getCookie('bloodSampleTime')),    //'取样时间',
     //       samplingUser:this.state.samplingUser,      //'取样联系人',
     //       samplingPhone:this.state.samplingPhone,      //'取样电话',
     //       samplingAddress:this.getCookie('addr2')?this.getCookie('addr2')+this.state.addressdetail:this.getCookie('addr1')+this.state.addressdetail,
     //       //samplingAddress:(this.state.form.hzProvince+this.state.form.hzCity+this.state.form.hzRegion+this.state.addressdetail).indexOf('0NaN')=='-1'?this.state.form.hzProvince+this.state.form.hzCity+this.state.form.hzRegion+this.state.addressdetail:'',    //'取样地址',
     //       hospId:this.state.form.ysHospital,      //'医院名称',
-          
+
     //     },
     //     order:{
     //       number:this.props.geneDetail.code,      //'套餐号',
-    //       title:this.props.geneDetail.title,      //'订单标题', 
+    //       title:this.props.geneDetail.title,      //'订单标题',
     //       doctorId:'',   //'医生Id',
     //       patientId:'',    //'购买人id',
     //       prepayId:'',      //'prepay_id',
     //       patientName:'',      //'购买人姓名',
     //       barcodeNumber:'',      //'条形码号',
-          
+
     //       coupon:this.state.coupon,            //'优惠券',
     //       statu:'',           //'0'  '订单状态0:已下单 1:已支付 2:检测完成',
     //       isPaper:'',       //'0'  '是否使用纸质报告',
-          
+
     //       overInvoice:'' ,   //'0'  '发票是否已开具',
     //       logisticsType:'',     //'物流运输方式',
     //       logisticsCode:'',      //'物流单号',
-    //       testingCompanyEmail:'',   
-          
+    //       testingCompanyEmail:'',
+
     //       deptId:'',            //'0'  '创建者dept_id',
     //       creator:'',          //'创建人Id',
     //       updater:'',          //'更新人',
@@ -941,7 +972,7 @@ class Login extends React.Component {
     //       orderMoney:this.state.conponPrice,  //'订单金额',
     //       geneCompany:this.props.geneDetail.testingCompany,      //'检测公司',
     //       isUploadReport:'',  //'0'  '是否上传了检测报告',
-          
+
     //       samplingBeizhu:'',      //'取样备注',
     //       geneFormId:'',    //'电子申请单ID',
     //       geneCompanyId:'',    //'检测公司ID',
@@ -956,14 +987,14 @@ class Login extends React.Component {
     //       packageCode:this.props.geneDetail.code,      //'套餐代码'
     //       name:this.state.name,              //'受检人姓名'
     //       gender:this.state.gender,            //'性别0女，1男'
-    //       birthday:this.formatTime(this.state.form.Birthday).indexOf('0NaN')=='-1'? this.formatTime(this.state.form.Birthday):(this.formatTime(this.getCookie('Birthday')).indexOf('0NaN')=='-1'?this.formatTime(this.getCookie('Birthday')):''), 
+    //       birthday:this.formatTime(this.state.form.Birthday).indexOf('0NaN')=='-1'? this.formatTime(this.state.form.Birthday):(this.formatTime(this.getCookie('Birthday')).indexOf('0NaN')=='-1'?this.formatTime(this.getCookie('Birthday')):''),
     //       //birthday:this.formatTime(this.state.form.Birthday)? this.formatTime(this.state.form.Birthday):this.getCookie('Birthday'),          //'年龄'
     //       idNum:this.state.idNum,             //'身份证号'
     //       phone:this.state.phone,             //'电话'
     //       doctor:this.state.doctor,            //'医生姓名'
     //       hospital:this.state.form.ysHospitalName,          //'医院名'
     //       //department:JSON.stringify(this.state.form.department),        //'科室'
-    //       department:this.state.form.department[0], 
+    //       department:this.state.form.department[0],
     //       sampleType:this.state.valuetype,    //血液，组织类型
     //       // bloodNum:this.state.bloodNum,          //'血液数量（管）'
     //       // bloodSampleTime:this.state.form.bloodSampleTime==''?this.formatTime(this.state.form.bloodSampleTime):'',   //'血液采样时间'
@@ -982,7 +1013,7 @@ class Login extends React.Component {
     //       // diagnosticTime:toString(this.formatTime(this.state.form.diagnosticTime)).indexOf('NaN-0NaN-0NaN 0NaN:0NaN:0NaN')==='-1'?'':this.formatTime(this.state.form.diagnosticTime),
     //       //diagnosticTime:this.formatTime(this.state.form.diagnosticTime),    //'确诊时间'
     //       // drug:this.state.drug,
-    //       drug:this.getCookie('drug')?this.getCookie('drug'):this.state.drug, 
+    //       drug:this.getCookie('drug')?this.getCookie('drug'):this.state.drug,
     //       //drug:sessionStorage.getItem('drug'),           //'0：化疗；1：放疗；2：靶向治疗；3：免疫治疗‘
     //       otherDrugName:this.state.otherDrugName,     //'其他药名称'
     //       initial:this.state.valuechuzhi,           //'是否是初始患者0：否；1：是'
@@ -992,7 +1023,7 @@ class Login extends React.Component {
     //       paperAddr:this.getCookie('addr3')?this.getCookie('addr3')+this.state.paperAddr:this.getCookie('addr1')+this.state.paperAddr,    //'纸质报告接受地址',
     //       //paperAddr:this.state.form.billProvince+this.state.form.billCity+this.state.form.billRegion+this.state.paperAddr,    //'纸质报告接受地址',
     //       samplingTime:this.formatTime(this.state.form.samplingTime).indexOf('0NaN')=='-1'? this.formatTime(this.state.form.samplingTime):(this.formatTime(this.getCookie('samplingTime')).indexOf('0NaN')=='-1'?this.formatTime(this.getCookie('samplingTime')):''),
-    //       //samplingTime:this.formatTime(this.state.form.samplingTime)?this.formatTime(this.state.form.samplingTime):this.formatTime(this.getCookie('bloodSampleTime')),    //'取样时间', 
+    //       //samplingTime:this.formatTime(this.state.form.samplingTime)?this.formatTime(this.state.form.samplingTime):this.formatTime(this.getCookie('bloodSampleTime')),    //'取样时间',
     //       samplingUser:this.state.samplingUser,      //'取样联系人',
     //       samplingPhone:this.state.samplingPhone,      //'取样电话',
     //       samplingAddress:this.getCookie('addr2')?this.getCookie('addr2')+this.state.addressdetail:this.getCookie('addr1')+this.state.addressdetail,
@@ -1011,13 +1042,13 @@ class Login extends React.Component {
     //       //samplingTime:this.formatTime(this.state.form.samplingTime),    //'取样时间',
     //       coupon:this.state.coupon,            //'优惠券',
     //       statu:'',           //'0'  '订单状态0:已下单 1:已支付 2:检测完成',
-    //       isPaper:'',  
+    //       isPaper:'',
     //       // hospitalId: this.state.hospitalId,     //'0'  '是否使用纸质报告',
     //       //hospId:this.state.hospId,      //'医院名称',
     //       overInvoice:'' ,   //'0'  '发票是否已开具',
     //       logisticsType:'',     //'物流运输方式',
     //       logisticsCode:'',      //'物流单号',
-    //       testingCompanyEmail:'',    
+    //       testingCompanyEmail:'',
     //       samplingUser:this.state.samplingUser,      //'取样联系人',
     //       samplingPhone:this.state.samplingPhone,      //'取样电话',
     //       //samplingAddress:this.state.form.hzProvince+this.state.form.hzCity+this.state.form.hzRegion+this.state.addressdetail,    //'取样地址',
@@ -1033,9 +1064,9 @@ class Login extends React.Component {
     //       orderMoney:this.state.conponPrice,  //'订单金额',
     //       geneCompany:this.props.geneDetail.testingCompany,      //'检测公司',
     //       isUploadReport:'',  //'0'  '是否上传了检测报告',
-          
+
     //       samplingBeizhu:'',      //'取样备注',
-          
+
     //       geneFormId:'',    //'电子申请单ID',
     //       geneCompanyId:'',    //'检测公司ID',
     //       paperWaybillNo:'',      //'纸质报告运单号',
@@ -1043,7 +1074,7 @@ class Login extends React.Component {
     //     }
     //   })
     // }
-    
+
     if(this.state.sampleType=='1'){
       actions.saveOrder({
         form:{
@@ -1060,7 +1091,7 @@ class Login extends React.Component {
           phone:this.state.phone,             //'电话'
           doctor:this.state.doctor,            //'医生姓名'
           hospital:this.state.form.ysHospitalName,          //'医院名'
-          //department:JSON.stringify(this.state.form.department), 
+          //department:JSON.stringify(this.state.form.department),
           department:this.state.form.department[0],        //'科室'
           // sampleType:this.state.valuetype,
           sampleType:this.state.sampleType,
@@ -1084,7 +1115,7 @@ class Login extends React.Component {
           //diagnosticTime:this.formatTime(this.state.form.diagnosticTime).indexOf('0NaN')=='-1'?this.formatTime(this.state.form.diagnosticTime):'',   //'其他癌名称'
           //diagnosticTime:this.formatTime(this.state.form.diagnosticTime).indexOf('0NaN')=='-1'?this.formatTime(this.state.form.diagnosticTime):(this.formatTime(localStorage.getItem('diagnosticTime')).indexOf('0NaN')=='-1'?this.formatTime(localStorage.getItem('diagnosticTime')):''),
           //diagnosticTime:toString(this.formatTime(this.state.form.diagnosticTime)).indexOf('NaN-0NaN-0NaN 0NaN:0NaN:0NaN')==='-1'?'':this.formatTime(this.state.form.diagnosticTime) ,    //'确诊时间'    //'确诊时间'
-          drug:(this.state.drug).toString(),   
+          drug:(this.state.drug).toString(),
           //drug:this.getCookie('drug')?this.getCookie('drug'):this.state.drug,           //'0：化疗；1：放疗；2：靶向治疗；3：免疫治疗‘
           otherDrugName:this.state.otherDrugName,     //'其他药名称'
           initial:this.state.valuechuzhi,           //'是否是初始患者0：否；1：是'
@@ -1094,17 +1125,17 @@ class Login extends React.Component {
           paperAddr:this.state.displaypaper=='block'?((this.state.form.billProvince+this.state.form.billCity+this.state.form.billRegion+this.state.paperAddr).indexOf('0NaN')=='-1'?this.state.form.billProvince+this.state.form.billCity+this.state.form.billRegion+this.state.paperAddr:''):'',
           //paperUser:this.state.paperUser,       //'纸质报告收件人',
           //paperPhone:this.state.paperPhone,      //'纸质报告收件检点',
-          
+
           //paperAddr:this.getCookie('addr3')?this.getCookie('addr3')this.state.form.billProvince+this.state.form.billCity+this.state.form.billRegion+this.state.paperAddr,    //'纸质报告接受地址',
           //paperAddr:localStorage.getItem('addr3')?localStorage.getItem('addr3')+this.state.paperAddr:localStorage.getItem('addr1')+this.state.paperAddr,    //'纸质报告接受地址',
           //paperAddr:this.state.displaypaper=='block'?((this.state.form.billProvince+this.state.form.billCity+this.state.form.billRegion+this.state.paperAddr).indexOf('0NaN')=='-1'?this.state.form.billProvince+this.state.form.billCity+this.state.form.billRegion+this.state.paperAddr:''):'',
           samplingAddress:(this.state.form.hzProvince+this.state.form.hzCity+this.state.form.hzRegion+this.state.addressdetail).indexOf('0NaN')=='-1'?this.state.form.hzProvince+this.state.form.hzCity+this.state.form.hzRegion+this.state.addressdetail:'',    //'取样地址',
           samplingTime:this.formatTime(this.state.form.samplingTime).indexOf('0NaN')=='-1'? this.formatTime(this.state.form.samplingTime):(this.formatTime(localStorage.getItem('samplingTime')).indexOf('0NaN')=='-1'?this.formatTime(localStorage.getItem('samplingTime')):''),
-          //samplingTime:this.formatTime(this.state.form.samplingTime)?this.formatTime(this.state.form.samplingTime):this.formatTime(this.getCookie('bloodSampleTime')),    //'取样时间', 
+          //samplingTime:this.formatTime(this.state.form.samplingTime)?this.formatTime(this.state.form.samplingTime):this.formatTime(this.getCookie('bloodSampleTime')),    //'取样时间',
           samplingUser:this.state.samplingUser,      //'取样联系人',
           samplingPhone:this.state.samplingPhone,      //'取样电话',
           //samplingAddress:localStorage.getItem('addr2')?localStorage.getItem('addr2')+this.state.addressdetail:localStorage.getItem('addr1')+this.state.addressdetail,
-          
+
           hospId:this.state.form.ysHospital,      //'医院名称',
           pickupStartTime:(localStorage.getItem('wuliu').slice(0,5)).toString(),
           pickupEndTime:(localStorage.getItem('wuliu').slice(6,11)).toString(),
@@ -1113,22 +1144,22 @@ class Login extends React.Component {
         },
         order:{
           number:this.props.geneDetail.code,      //'套餐号',
-          title:this.props.geneDetail.title,      //'订单标题', 
+          title:this.props.geneDetail.title,      //'订单标题',
           doctorId:'',   //'医生Id',
           patientId:'',    //'购买人id',
           prepayId:'',      //'prepay_id',
           patientName:'',      //'购买人姓名',
           barcodeNumber:'',      //'条形码号',
-          
+
           coupon:this.state.coupon,            //'优惠券',
           statu:'',           //'0'  '订单状态0:已下单 1:已支付 2:检测完成',
           isPaper:'',       //'0'  '是否使用纸质报告',
-          
+
           overInvoice:'' ,   //'0'  '发票是否已开具',
           logisticsType:'',     //'物流运输方式',
           logisticsCode:'',      //'物流单号',
-          testingCompanyEmail:'',   
-          
+          testingCompanyEmail:'',
+
           deptId:'',            //'0'  '创建者dept_id',
           creator:'',          //'创建人Id',
           updater:'',          //'更新人',
@@ -1140,7 +1171,7 @@ class Login extends React.Component {
           orderMoney:this.state.coupon? this.state.conponPrice:this.state.price,  //'订单金额',
           geneCompany:this.props.geneDetail.testingCompany,      //'检测公司',
           isUploadReport:'',  //'0'  '是否上传了检测报告',
-          
+
           samplingBeizhu:'',      //'取样备注',
           geneFormId:'',    //'电子申请单ID',
           geneCompanyId:'',    //'检测公司ID',
@@ -1167,7 +1198,7 @@ class Login extends React.Component {
           doctor:this.state.doctor,            //'医生姓名'
           hospital:this.state.form.ysHospitalName,          //'医院名'
           //department:JSON.stringify(this.state.form.department),        //'科室'
-          department:this.state.form.department[0], 
+          department:this.state.form.department[0],
           // sampleType:this.state.valuetype,    //血液，组织类型
           sampleType:this.state.sampleType,
           // bloodNum:this.state.bloodNum,          //'血液数量（管）'
@@ -1181,7 +1212,7 @@ class Login extends React.Component {
           addressee:this.state.valueback =='1'?this.state.addressee:'',         //'收件人'
           addressPhone:this.state.valueback =='1'?this.state.addressPhone:'',      // '收件人电话'
           address:this.state.valueback =='1'? this.state.form.lakuaiProvince+this.state.form.lakuaiCity+this.state.form.lakuaiRegion+this.state.address:'',
-          
+
           //address:localStorage.getItem('addr1')?localStorage.getItem('addr1')+this.state.address:this.state.form.lakuaiProvince+this.state.form.lakuaiCity+this.state.form.lakuaiRegion+this.state.address,
           //address:this.state.form.lakuaiProvince+this.state.form.lakuaiCity+this.state.form.lakuaiRegion+this.state.address,           //'收件人地址'
           //diagnosticCancer:this.state.diagnosticCancer,  //'0：肺癌；1：肺腺癌；2：肺鳞癌；3：肺大细胞癌；4：腺鳞混合型；5：其他'
@@ -1194,7 +1225,7 @@ class Login extends React.Component {
           // diagnosticTime:toString(this.formatTime(this.state.form.diagnosticTime)).indexOf('NaN-0NaN-0NaN 0NaN:0NaN:0NaN')==='-1'?'':this.formatTime(this.state.form.diagnosticTime),
           //diagnosticTime:this.formatTime(this.state.form.diagnosticTime),    //'确诊时间'
           drug:(this.state.drug).toString(),
-          //drug:this.getCookie('drug')?this.getCookie('drug'):this.state.drug, 
+          //drug:this.getCookie('drug')?this.getCookie('drug'):this.state.drug,
           //drug:sessionStorage.getItem('drug'),           //'0：化疗；1：放疗；2：靶向治疗；3：免疫治疗‘
           otherDrugName:this.state.otherDrugName,     //'其他药名称'
           initial:this.state.valuechuzhi,           //'是否是初始患者0：否；1：是'
@@ -1210,7 +1241,7 @@ class Login extends React.Component {
           //paperAddr:localStorage.getItem('addr3')?localStorage.getItem('addr3')+this.state.paperAddr:localStorage.getItem('addr1')+this.state.paperAddr,    //'纸质报告接受地址',
           //paperAddr:this.state.form.billProvince+this.state.form.billCity+this.state.form.billRegion+this.state.paperAddr,    //'纸质报告接受地址',
           samplingTime:this.formatTime(this.state.form.samplingTime).indexOf('0NaN')=='-1'? this.formatTime(this.state.form.samplingTime):(this.formatTime(localStorage.getItem('samplingTime')).indexOf('0NaN')=='-1'?this.formatTime(localStorage.getItem('samplingTime')):''),
-          //samplingTime:this.formatTime(this.state.form.samplingTime)?this.formatTime(this.state.form.samplingTime):this.formatTime(this.getCookie('bloodSampleTime')),    //'取样时间', 
+          //samplingTime:this.formatTime(this.state.form.samplingTime)?this.formatTime(this.state.form.samplingTime):this.formatTime(this.getCookie('bloodSampleTime')),    //'取样时间',
           samplingUser:this.state.samplingUser,      //'取样联系人',
           samplingPhone:this.state.samplingPhone,      //'取样电话',
           //samplingAddress:localStorage.getItem('addr2')?localStorage.getItem('addr2')+this.state.addressdetail:localStorage.getItem('addr1')+this.state.addressdetail,
@@ -1234,13 +1265,13 @@ class Login extends React.Component {
           //samplingTime:this.formatTime(this.state.form.samplingTime),    //'取样时间',
           coupon:this.state.coupon,            //'优惠券',
           statu:'',           //'0'  '订单状态0:已下单 1:已支付 2:检测完成',
-          isPaper:'',  
+          isPaper:'',
           // hospitalId: this.state.hospitalId,     //'0'  '是否使用纸质报告',
           //hospId:this.state.hospId,      //'医院名称',
           overInvoice:'' ,   //'0'  '发票是否已开具',
           logisticsType:'',     //'物流运输方式',
           logisticsCode:'',      //'物流单号',
-          testingCompanyEmail:'',    
+          testingCompanyEmail:'',
           samplingUser:this.state.samplingUser,      //'取样联系人',
           samplingPhone:this.state.samplingPhone,      //'取样电话',
           //samplingAddress:this.state.form.hzProvince+this.state.form.hzCity+this.state.form.hzRegion+this.state.addressdetail,    //'取样地址',
@@ -1257,9 +1288,9 @@ class Login extends React.Component {
           orderMoney:this.state.coupon? this.state.conponPrice:this.state.price,
           geneCompany:this.props.geneDetail.testingCompany,      //'检测公司',
           isUploadReport:'',  //'0'  '是否上传了检测报告',
-          
+
           samplingBeizhu:'',      //'取样备注',
-          
+
           geneFormId:'',    //'电子申请单ID',
           geneCompanyId:'',    //'检测公司ID',
           paperWaybillNo:'',      //'纸质报告运单号',
@@ -1285,7 +1316,7 @@ class Login extends React.Component {
           doctor:this.state.doctor,            //'医生姓名'
           hospital:this.state.form.ysHospitalName,          //'医院名'
           //department:JSON.stringify(this.state.form.department),        //'科室'
-          department:this.state.form.department[0], 
+          department:this.state.form.department[0],
           // sampleType:this.state.valuetype,    //血液，组织类型
           sampleType:this.state.sampleType,
           // bloodNum:this.state.bloodNum,          //'血液数量（管）'
@@ -1309,7 +1340,7 @@ class Login extends React.Component {
           // diagnosticTime:toString(this.formatTime(this.state.form.diagnosticTime)).indexOf('NaN-0NaN-0NaN 0NaN:0NaN:0NaN')==='-1'?'':this.formatTime(this.state.form.diagnosticTime),
           //diagnosticTime:this.formatTime(this.state.form.diagnosticTime),    //'确诊时间'
           drug:(this.state.drug).toString(),
-          //drug:this.getCookie('drug')?this.getCookie('drug'):this.state.drug, 
+          //drug:this.getCookie('drug')?this.getCookie('drug'):this.state.drug,
           //drug:sessionStorage.getItem('drug'),           //'0：化疗；1：放疗；2：靶向治疗；3：免疫治疗‘
           otherDrugName:this.state.otherDrugName,     //'其他药名称'
           initial:this.state.valuechuzhi,           //'是否是初始患者0：否；1：是'
@@ -1325,7 +1356,7 @@ class Login extends React.Component {
           //paperAddr:localStorage.getItem('addr3')?localStorage.getItem('addr3')+this.state.paperAddr:localStorage.getItem('addr1')+this.state.paperAddr,    //'纸质报告接受地址',
           //paperAddr:this.state.form.billProvince+this.state.form.billCity+this.state.form.billRegion+this.state.paperAddr,    //'纸质报告接受地址',
           samplingTime:this.formatTime(this.state.form.samplingTime).indexOf('0NaN')=='-1'? this.formatTime(this.state.form.samplingTime):(this.formatTime(localStorage.getItem('samplingTime')).indexOf('0NaN')=='-1'?this.formatTime(localStorage.getItem('samplingTime')):''),
-          //samplingTime:this.formatTime(this.state.form.samplingTime)?this.formatTime(this.state.form.samplingTime):this.formatTime(this.getCookie('bloodSampleTime')),    //'取样时间', 
+          //samplingTime:this.formatTime(this.state.form.samplingTime)?this.formatTime(this.state.form.samplingTime):this.formatTime(this.getCookie('bloodSampleTime')),    //'取样时间',
           samplingUser:this.state.samplingUser,      //'取样联系人',
           samplingPhone:this.state.samplingPhone,      //'取样电话',
           //samplingAddress:localStorage.getItem('addr2')?localStorage.getItem('addr2')+this.state.addressdetail:localStorage.getItem('addr1')+this.state.addressdetail,
@@ -1349,13 +1380,13 @@ class Login extends React.Component {
           //samplingTime:this.formatTime(this.state.form.samplingTime),    //'取样时间',
           coupon:this.state.coupon,            //'优惠券',
           statu:'',           //'0'  '订单状态0:已下单 1:已支付 2:检测完成',
-          isPaper:'',  
+          isPaper:'',
           // hospitalId: this.state.hospitalId,     //'0'  '是否使用纸质报告',
           //hospId:this.state.hospId,      //'医院名称',
           overInvoice:'' ,   //'0'  '发票是否已开具',
           logisticsType:'',     //'物流运输方式',
           logisticsCode:'',      //'物流单号',
-          testingCompanyEmail:'',    
+          testingCompanyEmail:'',
           samplingUser:this.state.samplingUser,      //'取样联系人',
           samplingPhone:this.state.samplingPhone,      //'取样电话',
           //samplingAddress:this.state.form.hzProvince+this.state.form.hzCity+this.state.form.hzRegion+this.state.addressdetail,    //'取样地址',
@@ -1372,9 +1403,9 @@ class Login extends React.Component {
           orderMoney:this.state.coupon? this.state.conponPrice:this.state.price,
           geneCompany:this.props.geneDetail.testingCompany,      //'检测公司',
           isUploadReport:'',  //'0'  '是否上传了检测报告',
-          
+
           samplingBeizhu:'',      //'取样备注',
-          
+
           geneFormId:'',    //'电子申请单ID',
           geneCompanyId:'',    //'检测公司ID',
           paperWaybillNo:'',      //'纸质报告运单号',
@@ -1400,7 +1431,7 @@ class Login extends React.Component {
           doctor:this.state.doctor,            //'医生姓名'
           hospital:this.state.form.ysHospitalName,          //'医院名'
           //department:JSON.stringify(this.state.form.department),        //'科室'
-          department:this.state.form.department[0], 
+          department:this.state.form.department[0],
           // sampleType:this.state.valuetype,    //血液，组织类型
           sampleType:this.state.sampleType,
           // bloodNum:this.state.bloodNum,          //'血液数量（管）'
@@ -1425,7 +1456,7 @@ class Login extends React.Component {
           // diagnosticTime:toString(this.formatTime(this.state.form.diagnosticTime)).indexOf('NaN-0NaN-0NaN 0NaN:0NaN:0NaN')==='-1'?'':this.formatTime(this.state.form.diagnosticTime),
           //diagnosticTime:this.formatTime(this.state.form.diagnosticTime),    //'确诊时间'
           drug:(this.state.drug).toString(),
-          //drug:this.getCookie('drug')?this.getCookie('drug'):this.state.drug, 
+          //drug:this.getCookie('drug')?this.getCookie('drug'):this.state.drug,
           //drug:sessionStorage.getItem('drug'),           //'0：化疗；1：放疗；2：靶向治疗；3：免疫治疗‘
           otherDrugName:this.state.otherDrugName,     //'其他药名称'
           initial:this.state.valuechuzhi,           //'是否是初始患者0：否；1：是'
@@ -1439,7 +1470,7 @@ class Login extends React.Component {
           //paperAddr:localStorage.getItem('addr3')?localStorage.getItem('addr3')+this.state.paperAddr:localStorage.getItem('addr1')+this.state.paperAddr,    //'纸质报告接受地址',
           //paperAddr:this.state.form.billProvince+this.state.form.billCity+this.state.form.billRegion+this.state.paperAddr,    //'纸质报告接受地址',
           samplingTime:this.formatTime(this.state.form.samplingTime).indexOf('0NaN')=='-1'? this.formatTime(this.state.form.samplingTime):(this.formatTime(localStorage.getItem('samplingTime')).indexOf('0NaN')=='-1'?this.formatTime(localStorage.getItem('samplingTime')):''),
-          //samplingTime:this.formatTime(this.state.form.samplingTime)?this.formatTime(this.state.form.samplingTime):this.formatTime(this.getCookie('bloodSampleTime')),    //'取样时间', 
+          //samplingTime:this.formatTime(this.state.form.samplingTime)?this.formatTime(this.state.form.samplingTime):this.formatTime(this.getCookie('bloodSampleTime')),    //'取样时间',
           samplingUser:this.state.samplingUser,      //'取样联系人',
           samplingPhone:this.state.samplingPhone,      //'取样电话',
           //samplingAddress:localStorage.getItem('addr2')?localStorage.getItem('addr2')+this.state.addressdetail:localStorage.getItem('addr1')+this.state.addressdetail,
@@ -1463,13 +1494,13 @@ class Login extends React.Component {
           //samplingTime:this.formatTime(this.state.form.samplingTime),    //'取样时间',
           coupon:this.state.coupon,            //'优惠券',
           statu:'',           //'0'  '订单状态0:已下单 1:已支付 2:检测完成',
-          isPaper:'',  
+          isPaper:'',
           // hospitalId: this.state.hospitalId,     //'0'  '是否使用纸质报告',
           //hospId:this.state.hospId,      //'医院名称',
           overInvoice:'' ,   //'0'  '发票是否已开具',
           logisticsType:'',     //'物流运输方式',
           logisticsCode:'',      //'物流单号',
-          testingCompanyEmail:'',    
+          testingCompanyEmail:'',
           samplingUser:this.state.samplingUser,      //'取样联系人',
           samplingPhone:this.state.samplingPhone,      //'取样电话',
           //samplingAddress:this.state.form.hzProvince+this.state.form.hzCity+this.state.form.hzRegion+this.state.addressdetail,    //'取样地址',
@@ -1486,9 +1517,9 @@ class Login extends React.Component {
           orderMoney:this.state.coupon? this.state.conponPrice:this.state.price,
           geneCompany:this.props.geneDetail.testingCompany,      //'检测公司',
           isUploadReport:'',  //'0'  '是否上传了检测报告',
-          
+
           samplingBeizhu:'',      //'取样备注',
-          
+
           geneFormId:'',    //'电子申请单ID',
           geneCompanyId:'',    //'检测公司ID',
           paperWaybillNo:'',      //'纸质报告运单号',
@@ -1538,7 +1569,7 @@ class Login extends React.Component {
           // diagnosticTime:toString(this.formatTime(this.state.form.diagnosticTime)).indexOf('NaN-0NaN-0NaN 0NaN:0NaN:0NaN')==='-1'?'':this.formatTime(this.state.form.diagnosticTime),
           //diagnosticTime:this.formatTime(this.state.form.diagnosticTime),    //'确诊时间'
           drug:(this.state.drug).toString(),
-          //drug:this.getCookie('drug')?this.getCookie('drug'):this.state.drug, 
+          //drug:this.getCookie('drug')?this.getCookie('drug'):this.state.drug,
           //drug:sessionStorage.getItem('drug'),           //'0：化疗；1：放疗；2：靶向治疗；3：免疫治疗‘
           otherDrugName:this.state.otherDrugName,     //'其他药名称'
           initial:this.state.valuechuzhi,           //'是否是初始患者0：否；1：是'
@@ -1553,7 +1584,7 @@ class Login extends React.Component {
           //paperAddr:localStorage.getItem('addr3')?localStorage.getItem('addr3')+this.state.paperAddr:localStorage.getItem('addr1')+this.state.paperAddr,    //'纸质报告接受地址',
           //paperAddr:this.state.form.billProvince+this.state.form.billCity+this.state.form.billRegion+this.state.paperAddr,    //'纸质报告接受地址',
           samplingTime:this.formatTime(this.state.form.samplingTime).indexOf('0NaN')=='-1'? this.formatTime(this.state.form.samplingTime):(this.formatTime(localStorage.getItem('samplingTime')).indexOf('0NaN')=='-1'?this.formatTime(localStorage.getItem('samplingTime')):''),
-          //samplingTime:this.formatTime(this.state.form.samplingTime)?this.formatTime(this.state.form.samplingTime):this.formatTime(this.getCookie('bloodSampleTime')),    //'取样时间', 
+          //samplingTime:this.formatTime(this.state.form.samplingTime)?this.formatTime(this.state.form.samplingTime):this.formatTime(this.getCookie('bloodSampleTime')),    //'取样时间',
           samplingUser:this.state.samplingUser,      //'取样联系人',
           samplingPhone:this.state.samplingPhone,      //'取样电话',
           //samplingAddress:localStorage.getItem('addr2')?localStorage.getItem('addr2')+this.state.addressdetail:localStorage.getItem('addr1')+this.state.addressdetail,
@@ -1577,13 +1608,13 @@ class Login extends React.Component {
           //samplingTime:this.formatTime(this.state.form.samplingTime),    //'取样时间',
           coupon:this.state.coupon,            //'优惠券',
           statu:'',           //'0'  '订单状态0:已下单 1:已支付 2:检测完成',
-          isPaper:'',  
+          isPaper:'',
           // hospitalId: this.state.hospitalId,     //'0'  '是否使用纸质报告',
           //hospId:this.state.hospId,      //'医院名称',
           overInvoice:'' ,   //'0'  '发票是否已开具',
           logisticsType:'',     //'物流运输方式',
           logisticsCode:'',      //'物流单号',
-          testingCompanyEmail:'',    
+          testingCompanyEmail:'',
           samplingUser:this.state.samplingUser,      //'取样联系人',
           samplingPhone:this.state.samplingPhone,      //'取样电话',
           //samplingAddress:this.state.form.hzProvince+this.state.form.hzCity+this.state.form.hzRegion+this.state.addressdetail,    //'取样地址',
@@ -1600,9 +1631,9 @@ class Login extends React.Component {
           orderMoney:this.state.coupon? this.state.conponPrice:this.state.price,
           geneCompany:this.props.geneDetail.testingCompany,      //'检测公司',
           isUploadReport:'',  //'0'  '是否上传了检测报告',
-          
+
           samplingBeizhu:'',      //'取样备注',
-          
+
           geneFormId:'',    //'电子申请单ID',
           geneCompanyId:'',    //'检测公司ID',
           paperWaybillNo:'',      //'纸质报告运单号',
@@ -1668,7 +1699,7 @@ class Login extends React.Component {
     //     doctor:this.state.doctor,            //'医生姓名'
     //     hospital:this.state.form.ysHospitalName,          //'医院名'
     //     department:this.toString(this.state.form.department),        //'科室'
-        
+
     //     bloodNum:this.state.bloodNum,          //'血液数量（管）'
     //     bloodSampleTime:this.state.form.bloodSampleTime==''?this.formatTime(this.state.form.bloodSampleTime):'',   //'血液采样时间'
     //     sampleTime:this.state.form.sampleTime==''?this.formatTime(this.state.form.sampleTime):'',        //'组织采样时间'
@@ -1680,7 +1711,7 @@ class Login extends React.Component {
     //     diagnosticCancer:this.state.diagnosticCancer,  //'0：肺癌；1：肺腺癌；2：肺鳞癌；3：肺大细胞癌；4：腺鳞混合型；5：其他'
     //     otherCancerName:this.state.otherCancerName,   //'其他癌名称'
     //     diagnosticTime:this.state.form.diagnosticTime===null?this.formatTime(this.state.form.diagnosticTime):'',    //'确诊时间'
-    //     drug:this.state.drug,   
+    //     drug:this.state.drug,
     //     // drug:sessionStorage.getItem('drug'),           //'0：化疗；1：放疗；2：靶向治疗；3：免疫治疗‘
     //     otherDrugName:this.state.otherDrugName,     //'其他药名称'
     //     initial:this.state.valuechuzhi,           //'是否是初始患者0：否；1：是'
@@ -1694,16 +1725,16 @@ class Login extends React.Component {
     //     prepayId:'',      //'prepay_id',
     //     patientName:'',      //'购买人姓名',
     //     barcodeNumber:'',      //'条形码号',
-       
+
     //     coupon:this.state.coupon,            //'优惠券',
     //     statu:'',           //'0'  '订单状态0:已下单 1:已支付 2:检测完成',
     //     isPaper:'',       //'0'  '是否使用纸质报告',
-        
+
     //     overInvoice:'' ,   //'0'  '发票是否已开具',
     //     logisticsType:'',     //'物流运输方式',
     //     logisticsCode:'',      //'物流单号',
-    //     testingCompanyEmail:'',  
-    //     hospId:this.state.hospId,      //'医院ID',  
+    //     testingCompanyEmail:'',
+    //     hospId:this.state.hospId,      //'医院ID',
     //     samplingUser:this.state.samplingUser,      //'取样联系人',
     //     samplingPhone:this.state.samplingPhone,      //'取样电话',
     //     samplingAddress:this.state.form.hzProvince+this.state.form.hzCity+this.state.form.hzRegion+this.state.addressdetail,    //'取样地址',
@@ -1722,9 +1753,9 @@ class Login extends React.Component {
     //     orderMoney:this.state.conponPrice,  //'订单金额',
     //     geneCompany:this.props.geneDetail.testingCompany,      //'检测公司',
     //     isUploadReport:'',  //'0'  '是否上传了检测报告',
-        
+
     //     samplingBeizhu:'',      //'取样备注',
-        
+
     //     geneFormId:'',    //'电子申请单ID',
     //     geneCompanyId:'',    //'检测公司ID',
     //     paperWaybillNo:'',      //'纸质报告运单号',
@@ -1733,7 +1764,7 @@ class Login extends React.Component {
     // })
 
 
-      
+
   //       title: this.props.geneDetail.title,
   //       number: this.props.geneDetail.code,
   //       geneCompany:this.props.geneDetail.testingCompany,
@@ -1756,8 +1787,8 @@ class Login extends React.Component {
   //       stepbnt:this.state.stepbnt,
   //     //出生日期
   //     hzBirthday: "",
-      
-      
+
+
   //   form:{
   //     // hzBirthday: "",
   //     hzEmergency: "",//紧急联系电话
@@ -1771,8 +1802,8 @@ class Login extends React.Component {
   //     bloodSampleTime:"",
   //     sampleTime:""
   // },
-    
-    
+
+
     // actions.wechatPay()
 
     // this.props.history.push('/orderFinishPay')
@@ -1819,7 +1850,7 @@ getArea(areaList) {
                 label: itembill.name,
                 value: itembill.name ,
                 children: _thisbill.getAreabill(itembill.sons),
-                
+
             })
         })
     }
@@ -1852,7 +1883,7 @@ getArea(areaList) {
                 label: itemlakuai.name,
                 value: itemlakuai.name ,
                 children: _thislakuai.getArealakuai(itemlakuai.sons),
-                
+
             })
         })
     }
@@ -1907,7 +1938,7 @@ getArea(areaList) {
 selectHosp(item) {
     this.setState({
         hospId: item.id
-        
+
     })
 }
 subSelectDoctor(item) {
@@ -2064,7 +2095,7 @@ subHosp = () => {
   }
   onChangeRadio = e => {
     console.log('radio checked', e.target.value);
-    
+
     // this.setCookie("valuetype", e.target.value, 30);
     // this.setState({
     //   valuetype: e.target.value,
@@ -2119,7 +2150,7 @@ subHosp = () => {
       valuepaper: e.target.value,
     });
   };
-  
+
   onChangetest = e => {
     console.log('radio checked', e.target.value);
     // this.setCookie("valuetest", e.target.value, 30);
@@ -2193,10 +2224,10 @@ subHosp = () => {
         }
 
         break;
-      
-      
+
+
     }
-    
+
     this.setState(Object.assign(this.state, {stepbnt}))
 }
 wuliuchoose(){
@@ -2205,7 +2236,7 @@ wuliuchoose(){
   }else{
     if(this.formatTime(new Date()).slice(11,13)=='08' && (this.formatTime(new Date()).slice(14,16)<=40)){
       console.log(8);
-      return '8'; 
+      return '8';
     }else if(this.formatTime(new Date()).slice(11,13)=='08' && (this.formatTime(new Date()).slice(14,16)>40)){
       console.log(9);
       return '9';
@@ -2263,7 +2294,7 @@ wuliuchoose(){
       return '1';
     }
   }
-  
+
 }
 //病理诊断
 onChangebingli = e => {
@@ -2289,7 +2320,7 @@ onChangegender = e => {
   localStorage.setItem('gender',e.target.value)
   this.setState({
     gender: e.target.value,
-    
+
   });
 };
 
@@ -2357,7 +2388,7 @@ onBluraddress=(address,e)=>{
     addressdetail:sessionStorage.getItem('address'),
     paperAddr:sessionStorage.getItem('address')
   })
-  
+
 }
 onBluraddressee=(addressee,e)=>{
   // this.setCookie("addressee", addressee, 30);
@@ -2414,7 +2445,7 @@ onBlurpaperPhone=(paperPhone,e)=>{
   localStorage.setItem('paperPhone',this.state.paperPhone)
   //this.setCookie("paperPhone", paperPhone, 30);
   sessionStorage.setItem('paperPhone',this.state.paperPhone);
-  
+
 }
 
 
@@ -2556,7 +2587,7 @@ onChangeChecks=drug=>{
   console.log('checked = ',drug);
   this.setState({
     drug:drug,
-    
+
   });
   sessionStorage.setItem('drug',drug);
   localStorage.setItem('drug',drug);
@@ -2566,22 +2597,22 @@ onChangeChecks=drug=>{
 
 
 onChangedrug1 = e => {
- 
+
   this.setState({
    checkeddrug1: e.target.checked,
-    
+
   });
   console.log(this.checkeddrug1)
 };
 onChangedrug2 = e => {
-  
+
   this.setState({
     checkeddrug2: e.target.checked,
   });
   console.log(this.checkeddrug2)
 };
 onChangedrug3 = e => {
-  
+
   this.setState({
     checkeddrug3: e.target.checked,
   });
@@ -2589,13 +2620,13 @@ onChangedrug3 = e => {
   localStorage.setItem('checkeddrug3',e.target.checked)
 };
 onChangedrug4 = e => {
- 
+
   this.setState({
     checkeddrug4: e.target.checked,
   });
 };
 onChangedrug5 = e => {
-  
+
   this.setState({
     checkeddrug5: e.target.checked,
   });
@@ -2744,7 +2775,7 @@ autoFocusInst
         setting[HOSP_NUMBER] && setting[HOSP_NUMBER].map((v) => {
           select1[0].push({ label: v.dictName, value: v.dictName })
       })
-        
+
         let select2 = [[]]
         proList&&proList.map((v) => {
             select2[0].push({ label: v.name, value: v.id+"*"+ v.name })
@@ -2808,10 +2839,10 @@ autoFocusInst
               >
                   <SelectBox4 />
               </Picker>
-             
+
                   <GButton name="提交" onClick={this.subHosp} />
                   <Button style={{marginTop:'.8rem'}} type="warning" onClick={this.goBackH}>取消</Button>
-              
+
           </div> : <div>
                    <div className="close_icon" onClick={this.onOpenChange}><Icon type="close" /> </div>
                    <div className="Drawer_content">
@@ -2837,7 +2868,7 @@ autoFocusInst
    //let datesamplingTime = this.dateFormatByqy(this.state.form.samplingTime)
   //  console.log('quyang',this.state.form.samplingTime)
   //  let datesamplingTime = this.state.form.samplingTime && this.dateFormatByqy( this.state.form.samplingTime)
-  //  let newDatesamplingTime = new Date(datesamplingTime)    
+  //  let newDatesamplingTime = new Date(datesamplingTime)
   // //let newDatesamplingTime = new Date(this.state.form.samplingTime)
   // let oldDatesamplingTime = new Date(localStorage.getItem('samplingTime'))
   //   const CustomChildrensamplingTime = ({ extra, onClick, children }) => (
@@ -2865,7 +2896,7 @@ autoFocusInst
           </div>
       //   <span style={{ float: 'right', color: '#888' }}>{extra}</span>
     );
- 
+
   const SelectBoxqy =  ({ extra, onClick, children }) => (
     <Rinput className="marginTop4" value={(form.hzProvince+form.hzCity+form.hzRegion)?(form.hzProvince+form.hzCity+form.hzRegion):'请选择省市区'} onDivClick = {onClick} disabled={true} placeholder="请选择省市区" icon = "address"/>
 );
@@ -2881,7 +2912,7 @@ autoFocusInst
   //受检者生日
   // //let dateori = this.dateFormatByPhone(this.state.form.birthday)
   // let dateori = this.state.form.birthday && this.dateFormatByPhone( this.state.form.birthday)
-  // let newDate = new Date(dateori)             
+  // let newDate = new Date(dateori)
   // let oldDate = new Date(localStorage.getItem('Birthday'))
   // console.log('888',this.formatTime(newDate))
   // console.log('777',newDate)
@@ -2893,8 +2924,8 @@ autoFocusInst
   // console.log('000',oldDate.getMonth())
   // console.log('000',newDate.getDate())
   // console.log('000',oldDate.getDate())
-  //   const CustomChildrenbir = ({ extra, onClick, children}) => (      
-  //         <div className="year_select"  onClick={onClick}> 
+  //   const CustomChildrenbir = ({ extra, onClick, children}) => (
+  //         <div className="year_select"  onClick={onClick}>
   //             {/* <div className="year_select_one" style={{color:'#333'}}>{localStorage.getItem('Birthday')?(this.state.form.Birthday==''?newDate.getFullYear():oldDate.getFullYear()):'年'}</div> */}
   //             <div className="year_select_one" style={{color:'#333'}}>{localStorage.getItem('Birthday')?(dateori ? newDate.getFullYear():oldDate.getFullYear()):'年'}</div>
   //             {/* this.formatTime(this.state.form.Birthday).indexOf('0NaN')=='-1' */}
@@ -2906,7 +2937,7 @@ autoFocusInst
   //         </div>
   //     //   <span style={{ float: 'right', color: '#888' }}>{extra}</span>
   //   );
-  let newDate = new Date(this.state.form.Birthday)  
+  let newDate = new Date(this.state.form.Birthday)
   const CustomChildrenbir = ({ extra, onClick, children }) => (
     <div className="year_select"  onClick={onClick}>
         <div className="year_select_one" style={{color:'#333'}}>{this.state.form.Birthday?newDate.getFullYear():'年'}</div>
@@ -2914,15 +2945,15 @@ autoFocusInst
         <div className="year_select_one" style={{color:'#333'}}>{this.state.form.Birthday?(newDate.getMonth() + 1) > 9 ? (newDate.getMonth() + 1) : '0' + (newDate.getMonth() + 1):'月'}</div>
         <div className="year_select_line" >|</div>
         <div className="year_select_one" style={{color:'#333'}}>{this.state.form.Birthday?(newDate.getDate() > 9 ? newDate.getDate() : '0' + newDate.getDate()):'日'}</div>
-        
+
     </div>
 //   <span style={{ float: 'right', color: '#888' }}>{extra}</span>
 );
-    
+
     //血液取样时间
     //let dateblood = this.dateFormatByblood(this.state.form.sampleTime)
     // let dateblood = this.state.form.samleTime && this.dataFormatByblood( this.state.form.samleTime)
-    // let newDateblood = new Date(dateblood)  
+    // let newDateblood = new Date(dateblood)
      let newDateblood = new Date(this.state.form.sampleTime)
     //let oldDateblood = new Date(localStorage.getItem('sampleTime'))
     const CustomChildrenblood = ({ extra, onClick, children }) => (
@@ -2954,7 +2985,7 @@ autoFocusInst
     //样本取样时间
     //let datesample = this.dateFormatBysample(this.state.form.sampleTime)
     // let datesample = this.state.form.samleTime && this.dateFormatBysample( this.state.form.samleTime)
-    // let newDatesample = new Date(datesample)  
+    // let newDatesample = new Date(datesample)
     //let oldDatesample = new Date(localStorage.getItem('sampleTime'))
     // const CustomChildrensample = ({ extra, onClick, children }) => (
     //       <div className="year_select"  onClick={onClick}>
@@ -2968,63 +2999,63 @@ autoFocusInst
     // );
 
     let newDatesample = new Date(this.state.form.sampleTime)
-    
+
     const CustomChildrensample = ({ extra, onClick, children }) => (
       <div className="year_select"  onClick={onClick}>
           <div className="year_select_one" style={{color:'#333'}}>{this.state.form.sampleTime?newDatesample.getFullYear():'年'}</div>
           <div className="year_select_line" >|</div>
           <div className="year_select_one" style={{color:'#333'}}>{this.state.form.sampleTime?(newDatesample.getMonth() + 1) > 9 ? (newDatesample.getMonth() + 1) : '0' + (newDatesample.getMonth() + 1):'月'}</div>
-          
-          
+
+
       </div>
   //   <span style={{ float: 'right', color: '#888' }}>{extra}</span>
   );
- 
+
   //白片取样时间
   let newDatesamplebaipian = new Date(this.state.form.sampleTime)
-    
+
     const CustomChildrensamplebaipian = ({ extra, onClick, children }) => (
       <div className="year_select"  onClick={onClick}>
           <div className="year_select_one" style={{color:'#333'}}>{this.state.form.sampleTime?newDatesamplebaipian.getFullYear():'年'}</div>
           <div className="year_select_line" >|</div>
           <div className="year_select_one" style={{color:'#333'}}>{this.state.form.sampleTime?(newDatesamplebaipian.getMonth() + 1) > 9 ? (newDatesamplebaipian.getMonth() + 1) : '0' + (newDatesamplebaipian.getMonth() + 1):'月'}</div>
-          
-          
+
+
       </div>
   //   <span style={{ float: 'right', color: '#888' }}>{extra}</span>
   );
-  
+
   //蜡块取样时间
   let newDatesamplelakuai = new Date(this.state.form.sampleTime)
-    
+
     const CustomChildrensamplelakuai = ({ extra, onClick, children }) => (
       <div className="year_select"  onClick={onClick}>
           <div className="year_select_one" style={{color:'#333'}}>{this.state.form.sampleTime?newDatesamplelakuai.getFullYear():'年'}</div>
           <div className="year_select_line" >|</div>
           <div className="year_select_one" style={{color:'#333'}}>{this.state.form.sampleTime?(newDatesamplelakuai.getMonth() + 1) > 9 ? (newDatesamplelakuai.getMonth() + 1) : '0' + (newDatesamplelakuai.getMonth() + 1):'月'}</div>
-          
-          
+
+
       </div>
   //   <span style={{ float: 'right', color: '#888' }}>{extra}</span>
   );
 
   //蜡卷取样时间
   let newDatesamplelajuan = new Date(this.state.form.sampleTime)
-    
+
     const CustomChildrensamplelajuan = ({ extra, onClick, children }) => (
       <div className="year_select"  onClick={onClick}>
           <div className="year_select_one" style={{color:'#333'}}>{this.state.form.sampleTime?newDatesamplelajuan.getFullYear():'年'}</div>
           <div className="year_select_line" >|</div>
           <div className="year_select_one" style={{color:'#333'}}>{this.state.form.sampleTime?(newDatesamplelajuan.getMonth() + 1) > 9 ? (newDatesamplelajuan.getMonth() + 1) : '0' + (newDatesamplelajuan.getMonth() + 1):'月'}</div>
-          
-          
+
+
       </div>
   //   <span style={{ float: 'right', color: '#888' }}>{extra}</span>
   );
 
   //新鲜组织取样时间
   let newDatesamplexinxianzuzhi = new Date(this.state.form.sampleTime)
-    
+
     const CustomChildrensamplexinxianzuzhi = ({ extra, onClick, children }) => (
       <div className="year_select"  onClick={onClick}>
           <div className="year_select_one" style={{color:'#333'}}>{this.state.form.sampleTime?newDatesamplexinxianzuzhi.getFullYear():'年'}</div>
@@ -3032,7 +3063,7 @@ autoFocusInst
           <div className="year_select_one" style={{color:'#333'}}>{this.state.form.sampleTime?(newDatesamplexinxianzuzhi.getMonth() + 1) > 9 ? (newDatesamplexinxianzuzhi.getMonth() + 1) : '0' + (newDatesamplexinxianzuzhi.getMonth() + 1):'月'}</div>
           <div className="year_select_line" >|</div>
           <div className="year_select_one" style={{color:'#333'}}>{this.state.form.sampleTime?(newDatesamplexinxianzuzhi.getDate() > 9 ? newDatesamplexinxianzuzhi.getDate() : '0' + newDatesamplexinxianzuzhi.getDate()):'日'}</div>
-          
+
       </div>
   //   <span style={{ float: 'right', color: '#888' }}>{extra}</span>
   );
@@ -3041,7 +3072,7 @@ autoFocusInst
     //胸腹水取样时间
     //let datexiongfushui = this.dateFormatByxiongfushui(this.state.form.sampleTime)
     //let datexiongfushui = this.state.form.samleTime && this.dateFormatByxiongfushui( this.state.form.samleTime)
-    //let newDatexiongfushui = new Date(datexiongfushui)  
+    //let newDatexiongfushui = new Date(datexiongfushui)
     let newDatexiongfushui = new Date(this.state.form.sampleTime)
     const CustomChildrenxiongfushui = ({ extra, onClick, children }) => (
       <div className="year_select"  onClick={onClick}>
@@ -3050,7 +3081,7 @@ autoFocusInst
           <div className="year_select_one" style={{color:'#333'}}>{this.state.form.sampleTime?(newDatexiongfushui.getMonth() + 1) > 9 ? (newDatexiongfushui.getMonth() + 1) : '0' + (newDatexiongfushui.getMonth() + 1):'月'}</div>
           <div className="year_select_line" >|</div>
           <div className="year_select_one" style={{color:'#333'}}>{this.state.form.sampleTime?(newDatexiongfushui.getDate() > 9 ? newDatexiongfushui.getDate() : '0' + newDatexiongfushui.getDate()):'日'}</div>
-          
+
       </div>
   //   <span style={{ float: 'right', color: '#888' }}>{extra}</span>
   );
@@ -3058,7 +3089,7 @@ autoFocusInst
   //脑脊液取样时间
     //let datexiongfushui = this.dateFormatByxiongfushui(this.state.form.sampleTime)
     //let datexiongfushui = this.state.form.samleTime && this.dateFormatByxiongfushui( this.state.form.samleTime)
-    //let newDatexiongfushui = new Date(datexiongfushui)  
+    //let newDatexiongfushui = new Date(datexiongfushui)
     let newDatenaojiye = new Date(this.state.form.sampleTime)
     const CustomChildrennaojiye = ({ extra, onClick, children }) => (
       <div className="year_select"  onClick={onClick}>
@@ -3067,7 +3098,7 @@ autoFocusInst
           <div className="year_select_one" style={{color:'#333'}}>{this.state.form.sampleTime?(newDatenaojiye.getMonth() + 1) > 9 ? (newDatenaojiye.getMonth() + 1) : '0' + (newDatenaojiye.getMonth() + 1):'月'}</div>
           <div className="year_select_line" >|</div>
           <div className="year_select_one" style={{color:'#333'}}>{this.state.form.sampleTime?(newDatenaojiye.getDate() > 9 ? newDatenaojiye.getDate() : '0' + newDatenaojiye.getDate()):'日'}</div>
-          
+
       </div>
     );
 
@@ -3087,7 +3118,7 @@ autoFocusInst
     //其他取样时间
     //let dateother = this.dateFormatByother(this.state.form.sampleTime)
     // let dateother = this.state.form.samleTime && this.dateFormatByother( this.state.form.samleTime)
-    // let newDateother = new Date(dateother) 
+    // let newDateother = new Date(dateother)
     let newDateother = new Date(this.state.form.sampleTime)
     const CustomChildrenother = ({ extra, onClick, children }) => (
       <div className="year_select"  onClick={onClick}>
@@ -3096,7 +3127,7 @@ autoFocusInst
           <div className="year_select_one" style={{color:'#333'}}>{this.state.form.sampleTime?(newDateother.getMonth() + 1) > 9 ? (newDateother.getMonth() + 1) : '0' + (newDateother.getMonth() + 1):'月'}</div>
           <div className="year_select_line" >|</div>
           <div className="year_select_one" style={{color:'#333'}}>{this.state.form.sampleTime?(newDateother.getDate() > 9 ? newDateother.getDate() : '0' + newDateother.getDate()):'日'}</div>
-          
+
       </div>
   //   <span style={{ float: 'right', color: '#888' }}>{extra}</span>
   );
@@ -3116,15 +3147,15 @@ autoFocusInst
     //确诊时间
     //let datediagnosticTime = this.dateFormatBydiagnosticTime(this.state.form.diagnosticTime)
     //let datediagnosticTime = this.state.form.samleTime && this.dateFormatBydiagnosticTime( this.state.form.diagnosticTime)
-    //let newDatediagnosticTime = new Date(datediagnosticTime) 
+    //let newDatediagnosticTime = new Date(datediagnosticTime)
     let newDatediagnosticTime = new Date(this.state.form.diagnosticTime)
     const CustomChildrendiagnosticTime = ({ extra, onClick, children }) => (
       <div className="year_select"  onClick={onClick}>
           <div className="year_select_one" style={{color:'#333'}}>{this.state.form.diagnosticTime?newDatediagnosticTime.getFullYear():'年'}</div>
           <div className="year_select_line" >|</div>
           <div className="year_select_one" style={{color:'#333'}}>{this.state.form.diagnosticTime?(newDatediagnosticTime.getMonth() + 1) > 9 ? (newDatediagnosticTime.getMonth() + 1) : '0' + (newDatediagnosticTime.getMonth() + 1):'月'}</div>
-          
-          
+
+
       </div>
   //   <span style={{ float: 'right', color: '#888' }}>{extra}</span>
   );
@@ -3304,7 +3335,7 @@ const wuliu9 = [[
   },
   ]];
   const wuliu10 = [[
-    
+
     {
       label:'10时-11时',
       value:'10:00-11:00',
@@ -3343,7 +3374,7 @@ const wuliu9 = [[
     },
     ]];
     const wuliu11 = [[
-      
+
       {
         label:'11时-12时',
         value:'11:00-12:00',
@@ -3378,7 +3409,7 @@ const wuliu9 = [[
       },
       ]];
       const wuliu12 = [[
-        
+
         {
           label:'12时-13时',
           value:'12:00-13:00',
@@ -3409,7 +3440,7 @@ const wuliu9 = [[
         },
         ]];
         const wuliu13 = [[
-          
+
           {
             label:'13时-14时',
             value:'13:00-14:00',
@@ -3436,7 +3467,7 @@ const wuliu9 = [[
           },
           ]];
           const wuliu14 = [[
-            
+
             {
               label:'14时-15时',
               value:'14:00-15:00',
@@ -3459,7 +3490,7 @@ const wuliu9 = [[
             },
             ]];
             const wuliu15 = [[
-              
+
               {
                 label:'15时-16时',
                 value:'15:00-16:00',
@@ -3492,7 +3523,7 @@ const wuliu9 = [[
                 },
                 ]];
                 const wuliu17 = [[
-              
+
                   {
                     label:'17时-18时',
                     value:'17:00-18:00',
@@ -3503,7 +3534,7 @@ const wuliu9 = [[
                   },
                   ]];
                   const wuliu18 = [[
-              
+
                     {
                       label:'18时-19时',
                       value:'18:00-19:00',
@@ -4815,9 +4846,12 @@ keyWord={genes.yellowTab&&genes.yellowTab.split('-|-')||[]
             上一步
             </div>
           <div style={{ flex: '1' }}></div>
-          <div onClick={this.goNext.bind(this)} className="sub_button floatRight">
-            提交
-          </div>
+          {
+            this.state.time == 10 ? <div onClick={this.goNext.bind(this)} className="sub_button floatRight">提交</div> : <div className="sub_button floatRight">{this.state.time}</div>
+          }
+          {/*<div onClick={this.goNext.bind(this)} className="sub_button floatRight">*/}
+            {/*提交*/}
+          {/*</div>*/}
         </div>
         <ActivityIndicator
           toast
@@ -4831,7 +4865,7 @@ keyWord={genes.yellowTab&&genes.yellowTab.split('-|-')||[]
         </div>
 
     )
-  
+
     }
 }
 /* Populated by react-webpack-redux:reducer

@@ -687,7 +687,7 @@ export const genepackageSpecialist = (query) => (dispatch) => {
     dispatch: dispatch,
     request_name: 'GENEPACK_SPECIALIST',
     // request_api: `${url}/gene/tdoctor/${query.id}`,
-    request_api: `http://jiyin-test.sagacityidea.cn/gene-api/api/gene/tdoctor/${query.id}`,
+    request_api: `${url}/gene/tdoctor/${query.id}`,
     request_param: "",
     request_type: 'GET'
   })
@@ -707,7 +707,7 @@ export const genepackPageSpecialist = (query) => (dispatch) => {
     request_name: 'GET_GENEPACK_SPECIALIST',
     // request_api: `${url}/gene/tdoctor/page?page=${query.page}&limit=${query.limit}&company=${query.company}&geneType=${query.geneType}&type=${query.type}&cancerType=${query.cancerType}&name=${query.name}&orderBy=${query.orderBy}`,
     // request_api: `${url}/gene/tdoctor/page`,
-    request_api: `http://jiyin-test.sagacityidea.cn/gene-api/api/gene/tdoctor/page`,
+    request_api: `${url}/gene/tdoctor/page?page=${query.page}&limit=${query.limit}`,
     request_param: "",
     request_type: 'GET'
   })
@@ -1237,7 +1237,8 @@ export const tdoctororder = (query) => (dispatch) => {
   axiosRequest({
     dispatch: dispatch,
     request_name: 'TDOCTORORDER_ORDER',
-    request_api: 'http://jiyin-test.sagacityidea.cn/gene-api/api/gene/tdoctororder',
+    request_api: `${url}/gene/tdoctororder`,
+    // request_api: 'http://jiyin-test.sagacityidea.cn/gene-api/api/gene/tdoctororder',
     request_param: query,
     request_type: 'POST'
   }, function ({ data }) {
@@ -1267,7 +1268,7 @@ export const tdoctororder = (query) => (dispatch) => {
         status: 'pending'
       })
       let body, amount, out_trade_no
-      body = data.title || '门诊预约'
+      body = data.title || '咨询预约'
       amount = parseInt(query.price * 100)
       out_trade_no = data.id
 

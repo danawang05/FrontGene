@@ -323,6 +323,7 @@ class Login extends React.Component {
     if (!this.rules()) {
       return
     }
+
     this.setState({
       animating: true,
       text: '正在提交...'

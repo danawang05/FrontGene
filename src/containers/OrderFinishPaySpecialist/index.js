@@ -5,9 +5,11 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Form ,Icon} from 'antd';
 import {Toast } from 'antd-mobile';
-import { Steps, WingBlank, WhiteSpace } from 'antd-mobile';
+import { WingBlank, WhiteSpace } from 'antd-mobile';
+import { Steps } from 'antd';
 import './index.scss';
-import OrderListBnt from '../../components/OrderListBnt'
+import OrderListBntSpecialist from '../../components/OrderListBntSpecialist'
+import OrderListBntSpecialistRefund from '../../components/OrderListBntSpecialistRefund'
 import * as actions from './../../actions';
 import 'antd-mobile/dist/antd-mobile.css';
 import { Modal, List, Button} from 'antd-mobile';
@@ -108,14 +110,14 @@ class OrderFinishPay extends React.Component {
 
     nextPage(index){
         if(index==2){
-            this.props.history.push('/logistics/'+this.state.orderid)
+            this.props.history.push(`/orderformSpecialistinfo/${this.state.orderid}`)
         }
-        if(index==4){
-            this.props.history.push(`/bill/${this.state.orderid}`)
-        }
-        if(index==5){
-            this.props.history.push(`/report/${this.state.orderid}`)
-        }
+        // if(index==4){
+        //     this.props.history.push(`/bill/${this.state.orderid}`)
+        // }
+        // if(index==5){
+        //     this.props.history.push(`/report/${this.state.orderid}`)
+        // }
         if(index==6){
             const {actions} = this.props
             this.props.history.push(`/orderformSpecialist/${this.state.orderid}`)
@@ -214,19 +216,23 @@ class OrderFinishPay extends React.Component {
                     </div>
                 </div>
                 <div className="OrderFinishPay_row_title_msg">
-                    预约代码：{TEXTFORMAT(doctororderarr[0])}
+                    预约订单编号：{TEXTFORMAT(doctororderarr[0])}
                 </div>
           </div>
           <div className="OrderFinishPay_row_title" style={{'padding':'0 1rem'}}>
               <WingBlank size="lg">
                   <div className="sub-title" style={{'padding':'0.2rem','fontSize':'0.4rem'}}>预约进度</div>
                   <WhiteSpace size="lg" />
-                  <Steps current={doctororderarr[8]}>
+                  <Steps current={doctororderarr[9]}>
                       <Step title="预约"  description="已完成"/>
                       <Step title="付款"  description="已完成"/>
-                      <Step title="资料上传" description="资料上传"/>
-                      <Step title="资料接收" description="资料接收"/>
-                      <Step title="咨询时间" description="咨询时间"/>
+                      <Step title="资料上传" description="请将资料上传至jianaiexing@163.com邮箱"/>
+                      <Step title="资料接收" description={doctororderarr[9]=='3'?"资料接收":"资料已接收"}/>
+                      <Step title="咨询时间" description={doctororderarr[9]=='4'?<div style={{width:'130%',fontSize:'0.35rem'}}>
+                          <div>您的会议ID是:{doctororderarr[25]}</div>
+                          <div>您的咨询开始时间为:{doctororderarr[26]}</div>
+                          <div>您的咨询结束时间为:{doctororderarr[27]}</div>
+                      </div>:"待专家确认咨询时间后平台会致电与您沟通"}/>
                       <Step title="咨询结束" description="咨询结束"/>
                   </Steps>
               </WingBlank>
@@ -235,7 +241,7 @@ class OrderFinishPay extends React.Component {
           {
 
               doctororderarr[7] == '1'?<WingBlank>
-                  <OrderListBnt onClick={this.nextPage.bind(this,6)} icon="3" text="退款" msg="退款" bntText="申请退款"/>
+                  <OrderListBntSpecialistRefund onClick={this.nextPage.bind(this,6)} icon="3" text="退款" msg="退款"  tips="若因患者自身原因导致咨询终止,平台会根据进度扣除相应的费用。" bntText="申请退款"/>
                   {/*<OrderListBnt onClick={this.showModal('modal2')} icon="3" text="退款" msg="退款" bntText="退款"/>*/}
                   {/*<Modal*/}
                       {/*popup*/}
@@ -267,18 +273,19 @@ class OrderFinishPay extends React.Component {
               </div>
               </div>
           }
+          <OrderListBntSpecialist onClick={this.nextPage.bind(this,2)} icon="3" text="查询患者填写信息" msg="如信息有误请联系4007781581进行修改" bntText="查询信息"/>
           {/*<OrderListBnt onClick={this.nextPage.bind(this,6)} icon="3" text="退款" msg="退款" bntText="退款"/>*/}
           {/* {
               !SHOW_YANGBEN?<OrderListBnt type="file" accept="image/*" onChange={this.onChangeImg}  icon="1" text="拍照上传样本检测申请照片" msg="拍照上传样本照片、检测申请单的正面及反面照片" bntText="拍照上传"/>:
           } */}
           {/*<OrderListBnt onClick = {this.showYangben} icon="1" text="拍照上传样本检测申请照片" msg="拍照上传样本照片、检测申请单的正面及反面照片(备注：PDL1检测需要上传病理报告照片及EGFR、ALK基因检测报告照片)" bntText="拍照上传"/>*/}
           {/*<OrderListBnt isNotShow={order.barcodeNumber||codeSuccess} showText="已绑定" onClick = {this.ceshi} icon="2" text="扫描申请单条形码" msg="扫描物料包中的条形码进行订单绑定" bntText="去扫码"/>*/}
-          {/*<OrderListBnt onClick={this.nextPage.bind(this,2)} icon="3" text="查询患者填写信息" msg="查询患者填写信息" bntText="查询信息"/>*/}
+
            {/*<OrderListBnt onClick={this.nextPage.bind(this,6)} icon="6" text="查看电子申请单信息" msg="点击查看订单 不可修改信息 如信息有误 请拨打客服电话进行修改" bntText="订单信息"/>*/}
           {/*<OrderListBnt onClick={this.nextPage.bind(this,4)} icon="4" text="开具发票" msg="电子版发票，发票开具方为【聚身边（北京）科技有限公司】，发票内容为【咨询服务费】" bntText="开发票"/>*/}
           {/*<OrderListBnt onClick={this.nextPage.bind(this,5)} isNotShow={order.isPaper == '1'} showText="已填写" icon="5" text="纸质报告" msg="填写真实有效的纸质报告接收地址" bntText="纸质报告" />*/}
-          <div className="height2"></div>
-          <div className="height2 o_back">
+
+          <div className="height2">
                 <div className="back_bnt" onClick={()=>{if(this.state.types){this.props.history.goBack()}else{this.props.history.push('/orderListSpecialist')}}}><Icon type="rollback" />返回</div>
           </div>
       </div>

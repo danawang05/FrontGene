@@ -12,20 +12,20 @@ export default class OrderList extends Component {
             <div className="orderlist_one displays" onClick={this.props.onClick}>
                 <div className="flex1">
                     <div className="orderlist_one_name">
-                        {this.props.name}
+                        <Icon className="color_00e37a" type="safety-certificate" />{this.props.name}
                         
                     </div>
-                    <div className="orderlist_one_name_span">
-                            <Icon className="color_00e37a" type="safety-certificate" />付费时间：
-                            <span>{this.props.createrTime}</span>
-                    </div>
+                    {/*<div className="orderlist_one_name_span">*/}
+                            {/*<Icon className="color_00e37a" type="safety-certificate" />付费时间：*/}
+                            {/*<span>{this.props.createrTime}</span>*/}
+                    {/*</div>*/}
                     <div className="orderlist_one_msg displays">
                         <div className="orderlist_one_msg_text flex1">
                                 <div className="orderlist_one_msg_text_one">
                                     <div>医院：{this.props.hospital}</div>
                                     <div>科室：{this.props.department}</div>
-                                    <div>订单编号：{this.props.id}</div>
-                                    <div>支付状态：{this.props.payStatus}</div>
+                                    <div>预约订单编号：{this.props.id}</div>
+                                    <div>支付状态：<span style={{'color':'#333','font-weight':'900'}}>{this.props.payStatus}</span></div>
                                 </div>
                         </div>
                         <div className="orderlist_one_msg_money">

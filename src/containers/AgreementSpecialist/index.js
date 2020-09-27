@@ -175,31 +175,7 @@ class Login extends React.Component {
                 });
             });
         }
-        // if(this.props.getVolunteer!=nextprops.getVolunteer&&nextprops.getVolunteer=='succ'){
-        //     let newArr = [
-        //         []
-        //     ]
-        //     let volunteerList = nextprops.volunteer || []
-        //     console.log("this.props.geneDetail",this.props.geneDetail)
-        //     volunteerList = volunteerList.map(v=>({username:v.username,mobile:v.mobile,showName:v.zyCompany =='AZ'?'平台志愿者':v.username}))
-        //     nextprops.volunteer.map((item,index)=>{
-        //         newArr[0].push({
-        //             label:item.zyCompany =='AZ'?'平台志愿者':item.username,
-        //             value:index
-        //         })
-        //     })
-        //     let newArrTwo = [
-        //         newArr[0].concat([{label:'客服专员1',value:newArr[0].length}])
-        //     ]
-        //     let volunteerListTwo = volunteerList.concat([{username:'客服专员1',mobile:'13681505892',showName:'客服专员1'}])
-        //
-        //
-        //     this.setState({
-        //         volunteerList:volunteerListTwo,
-        //         volunteer:newArrTwo
-        //     })
-        //     console.log(newArrTwo,volunteerListTwo)
-        // }
+
     }
 //   componentWillMount() {
 //         document.title = "注册协议"
@@ -303,51 +279,54 @@ componentWillMount() {
         return str.toUpperCase();
 
     }
-  // goNextStep(packageId){
-  //       // if(localStorage.getItem('token')) {
-  //
-  //       //         console.log(packageId)
-  //       //         this.props.history.push(`/orderConfirm/${packageId}`)
-  //
-  //       // } sessionStorage.getItem('fcodeToken') if(!localStorage.getItem('token'))
-  //       if(sessionStorage.getItem('fcodeToken')){
-  //               sessionStorage.setItem("callbackUrl",`/orderConfirm/${packageId}`)
-  //               this.props.history.replace('/login')
-  //               sessionStorage.removeItem('fcodeToken')
-  //               console.log(!localStorage.getItem('token'))
-  //       }else{
-  //               this.props.history.push(`/orderConfirm/${packageId}`)
-  //               sessionStorage.removeItem('scodeToken')
-  //               console.log(!localStorage.getItem('token'))
-  //             }
-  //
-  //   }
+  goNextStep(packageId){
+        // if(localStorage.getItem('token')) {
+
+        //         console.log(packageId)
+        //         this.props.history.push(`/orderConfirm/${packageId}`)
+
+        // } sessionStorage.getItem('fcodeToken') if(!localStorage.getItem('token'))
+      const { match,actions} = this.props;
+      const { params: { userId } } = match;
+      if(sessionStorage.getItem('fcodeToken')){
+          sessionStorage.setItem("callbackUrl",`/orderConfirmspecialist/${sessionStorage.getItem('packageId')}`)
+          this.props.history.replace('/login')
+          sessionStorage.removeItem('fcodeToken')
+          console.log(!localStorage.getItem('token'))
+      }else{
+          this.props.history.push(`/orderConfirmspecialist/${sessionStorage.getItem('packageId')}`)
+          sessionStorage.removeItem('scodeToken')
+          console.log(!localStorage.getItem('token'))
+      }
+
+    }
   // goNext(packageId){
   //       console.log(packageId)
   //       this.props.history.push(`/orderConfirm/${packageId}`)
   //   }
-    goNext() {
-        alert('温馨提示：\n' +
-            '若因患者自身原因导致咨询终止，平台会根据进度扣除相应的费用\n' +
-            '（1）预约下单后未上传资料需扣除500元；\n' +
-            '（2）已上传资料专家未确认咨询时间，需扣除1000元；\n' +
-            '（2）专家已确认咨询时间，需扣除总咨询费用的50%。')
-        const {actions} = this.props
-        // if (!this.rules()) {
-        //   return
-        // }
-
-        this.setState({
-            animating: true,
-            text: '正在提交...'
-        })
-        actions.tdoctororder({
-
-            price:localStorage.getItem('price'),
-            userId:sessionStorage.getItem('userId'),
-            doctorId:sessionStorage.getItem('packageId')
-        })
-    }
+  //   goNext() {
+  //       alert('温馨提示：\n' +
+  //           '若因患者自身原因导致咨询终止\n
+    //           平台会根据进度扣除相应的费用\n' +
+  //           '（1）预约下单后未上传资料需扣除500元；\n' +
+  //           '（2）已上传资料专家未确认咨询时间，需扣除1000元；\n' +
+  //           '（2）专家已确认咨询时间，需扣除总咨询费用的50%。')
+  //       const {actions} = this.props
+  //       // if (!this.rules()) {
+  //       //   return
+  //       // }
+  //
+  //       this.setState({
+  //           animating: true,
+  //           text: '正在提交...'
+  //       })
+  //       actions.tdoctororder({
+  //
+  //           price:localStorage.getItem('price'),
+  //           userId:sessionStorage.getItem('userId'),
+  //           doctorId:sessionStorage.getItem('packageId')
+  //       })
+  //   }
   render() {
     let geneDetailSpecialist = this.props.geneDetailSpecialist||{}
     return (
@@ -374,8 +353,7 @@ componentWillMount() {
           </p>
           <p>用户：指经过检爱e行公众号登录成为使用检爱e行各项产品/服务的个人（以下简称您）。
           </p>
-        <p>服务:指注册用户通过检爱e行公众号向咨询医师获取医疗问题解答，医疗知识等;智
-爱呵护公众号向您提供信息以及获取第三方检验服务提供商和采样服务提供商(统称“服务 提供商”)的服务的途径。您可通过检爱e行公众号向服务提供商提交订单购买服务。
+        <p>服务:检爱e行公众号向您提供咨询服务的途径，可通过检爱e行公众号提交订单购买服务。。
 </p>
         <p>检爱e行管理规定:指包括本协议在内的，由用户签署，或由检爱e行在明显位置展示 的，具有规范用户行为作用的各类规定、提示、声明文件。检爱e行平台保留在任何时候自 行决定对服务及其相关功能、微信公众平台变更、升级的权利。</p>
         <p>检爱e行平台进一步保留在服务中开发新的模块、功能和软件或其它语种服务的权利。 上述所有新的模块、功能、软件服务的提供，除非检爱e行平台另有说明，否则仍适用本协 议。</p>
@@ -430,15 +408,14 @@ componentWillMount() {
         <p>6.3 检爱e行提供基因检测期间的各类完善的服务;</p>
         <p>6.4 检爱e行作为医患互通服务的平台，不对您发布的信息的来源和正确性负责，不参
 与医患交流，不对医患交流的结果承担任何责任;</p>
-        <p>6.5 对于您在检爱e行上的不当行为或其它任何检爱e行认为应当终止服务的情况，智
-爱呵护有权随时做出删除相关信息、终止服务提供等处理，而无需征得您的同意;</p>
+        <p>6.5 对于您在检爱e行上的不当行为或其它任何检爱e行认为应当终止服务的情况，检爱e行有权随时做出删除相关信息、终止服务提供等处理，而无需征得您的同意；</p>
         <p>6.6 检爱e行没有义务对所有用户的注册数据、所有的活动行为以及与之有关的其它事 项进行审查，但如存在下列情况，检爱e行有权根据不同情况选择保留或删除相关信息或继
 续、停止对该用户提供服务，并追究相关法律责任:</p>
         <p>1您或其它第三方通知检爱e行，认为某个具体用户、具体行为、具体事项可能存在重
 大问题;</p>
         <p>2您或其它第三方向检爱e行告知网络平台上有违法或不当行为的，检爱e行以普通非
 专业医疗人员的知识水平标准对相关内容进行判别，可以明显认为这些内容或行为具有违法 或不当性质的。</p>
-        <p>6.7 用户在检爱e行上如与其它用户产生纠纷，请求检爱e行从中予以调处，经智爱呵 护审核后，检爱e行有权向纠纷双方了解情况，并将所了解的情况互相通知对方;检爱e行 所作出的调处行为不具有法律效力，调处结果系由纠纷双方自愿作出，检爱e行仅协助提供 信息的沟通，不对调处结果承担相应法律责任。
+        <p>6.7 用户在检爱e行上如与其它用户产生纠纷，请求检爱e行从中予以调处，经检爱e行审核后，检爱e行有权向纠纷双方了解情况，并将所了解的情况互相通知对方；检爱e行所作出的调处行为不具有法律效力，调处结果系由纠纷双方自愿作出，检爱e行仅协助提供信息的沟通，不对调处结果承担相应法律责任。
 </p>
         <p>6.8 检爱e行有权对用户的注册数据及活动行为进行查阅，发现注册数据或活动行为中 存在任何问题或怀疑，均有权向用户发出询问及要求改正的通知或者直接作出删除等处理;</p>
         <p>6.9 经国家生效法律文书或行政处罚决定确认用户存在违法行为，或者检爱e行有足够 事实依据可以认定用户存在违法或违反检爱e行管理规定的行为的，检爱e行有权以合理方 式公布用户的违法行为;</p>
@@ -479,10 +456,10 @@ componentWillMount() {
         <p>九、免责声明:</p>
         <p>9.1 您使用检爱e行服务所存在的风险将完全由您自己承担;因其使用检爱e行服务而 产生的一切后果也由您自己承担，检爱e行对您不承担任何责任。</p>
         <p>9.2 您有权选择是否遵从医师作出的疾病诊断、治疗方案、用药意见等。</p>
-        <p>9.3 对于因不可抗力或检爱e行不能控制的原因造成的网络服务中断或其它缺陷，智爱 呵护不承担任何责任，但将尽力减少因此而给您造成的损失和影响。
+        <p>9.3 对于因不可抗力或检爱e行不能控制的原因造成的网络服务中断或其它缺陷，检爱e行不承担任何责任，但将尽力减少因此而给您造成的损失和影响。
 </p>
         <p>十、违约赔偿:</p>
-        <p>10.1 您同意保障和维护检爱e行及其他用户的利益，如因您违反有关法律、法规或智 爱呵护管理规定而给检爱e行或任何其他第三人造成损失，您同意承担由此造成的损害赔偿 责任。</p>
+        <p>10.1 您同意保障和维护检爱e行及其他用户的利益，如因您违反有关法律、法规或检爱e行管理规定而给检爱e行或任何其他第三人造成损失，您同意承担由此造成的损害赔偿责任。</p>
         <p>十一、服务条款修改:
 </p>
         <p>11.1 检爱e行有权根据服务情况变更、终止检爱e行管理规定的各项条款，检爱e行 将会通过适当方式向您提示修改内容。
@@ -503,8 +480,8 @@ componentWillMount() {
         <div className="height15"></div>
         </div>
         {/*<div  onClick={this.goNextStep.bind(this,geneDetail.id)} className="new_fooder_bnt ">*/}
-            <div onClick={this.goNext.bind(this)} className="new_fooder_bnt">
-          <GButton name="同意并支付" />
+            <div onClick={this.goNextStep.bind(this)} className="new_fooder_bnt">
+          <GButton name="同意" />
         </div>
       </div>
     );

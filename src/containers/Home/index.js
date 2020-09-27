@@ -63,7 +63,7 @@ class Home extends React.Component {
                     typeBnt:nextprops.mainList.fenlei[0].id
                 })
             }
-            
+
         }
         if(this.props.getNrePageState!=nextprops.getNrePageState&&nextprops.getNrePageState=='succ'){
             this.setState({
@@ -99,7 +99,7 @@ class Home extends React.Component {
             showSelect:true,
             typeBnt:index
         })
-        
+
     }
     goNextPage(index){
           if(index== 0){
@@ -124,7 +124,7 @@ class Home extends React.Component {
                   sessionStorage.removeItem('scodeToken')
                   console.log(!localStorage.getItem('token'))
               }
-            
+
           }
           if(index==2){
             // if(!localStorage.getItem('token')){
@@ -152,13 +152,13 @@ class Home extends React.Component {
             this.props.changePage('Polular')
           }
           if(index==5){
-            
+
              Toast.offline('该功能正在开发中',2)
             //this.props.history.push('/doctorReg') http://live.mijian360.com/watch/1216432
             //   window.location.href = 'http://live.mijian360.com/watch/1216432'
           }
           if(index==6){
-            
+
             window.location.href = 'http://h5.yihu365.com/page/index.jsp?sid=88000000014'
           }
         if(index==7){
@@ -171,7 +171,8 @@ class Home extends React.Component {
         }
         if(index==9){
 
-             this.props.history.push('/OneClickOrderSpecialist')
+             // this.props.history.push('/OneClickOrderSpecialist')
+            this.props.history.push('/detailspecialistadver')
         }
         if(index==10){
             if(sessionStorage.getItem('fcodeToken')){
@@ -204,13 +205,13 @@ class Home extends React.Component {
             this.props.changePage('Polular')
         }
         if(index==5){
-            
+
             Toast.offline('该功能正在开发中',2)
              //this.props.history.push('/login')
-            
+
         }
         if(index==6){
-            
+
             window.location.href = 'http://h5.yihu365.com/page/index.jsp?sid=88000000014'
           }
     }
@@ -241,7 +242,7 @@ class Home extends React.Component {
         }else{
             _content = this.state.content
         }
-       if(_reminder.length>0){ 
+       if(_reminder.length>0){
            let arr_reminder = []
            _reminder.map((i)=>{
             arr_reminder.push(i.content)
@@ -300,7 +301,7 @@ class Home extends React.Component {
                 {
                     _reminder.length>0?<Reminder src={tixing} msg={_reminder} />:null
                 }
-                
+
                 {
                     sessionStorage.getItem('gene_user_type')=='0'?<div>
                         <div className="home_bnt displays">
@@ -316,8 +317,8 @@ class Home extends React.Component {
                     </div>:<div>
                         <div className="home_bnt displays">
                             <HomeBnt src={pat1} onClick={this.goNextPage.bind(this,0)} name="检测套餐"/>
-                            <HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,1)} src={pat2} name="查看订单"/>
-                            <HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,2)} src={pat3} name="查看报告"/>
+                            <HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,1)} src={pat2} name="检测订单"/>
+                            <HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,2)} src={pat3} name="检测报告"/>
                         </div>
                         <div className="displays">
                             {/*<HomeBnt src={pat4} badge={this.props.msgNumber.msgNumber?true:0} onClick={this.goNextPage.bind(this,3)} name="报告咨询"/>*/}
@@ -332,7 +333,7 @@ class Home extends React.Component {
                             <HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,8)} src={pat9} name="检爱医讯"/>
                             {/*<HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,5)} src={pat9} name="检爱医讯"/>*/}
                             <HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,9)} src={pat8} name="e问医答"/>
-                            <HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,10)} src={pat6} name="门诊预约"/>
+                            <HomeBnt leftBorder={true} onClick={this.goNextPage.bind(this,10)} src={pat6} name="咨询订单"/>
                         </div>
                     </div>
                 }
@@ -350,7 +351,7 @@ class Home extends React.Component {
                         </div>
                     </div>
                 } */}
-                
+
                 <div className="type_bnt displays">
                     {/*{*/}
                         {/*_fenye.map((item,index)=>{*/}
@@ -366,11 +367,11 @@ class Home extends React.Component {
                 <div className="content">
                     {
                         _content.map((item,index)=>{
-                            return <TextContent 
+                            return <TextContent
                                         onClick={this.goDetail.bind(this,item.id)}
-                                        key={index} 
-                                        src={item.img[0]&&item.img[0].fileUrl||""} 
-                                        contentName={item.title} 
+                                        key={index}
+                                        src={item.img[0]&&item.img[0].fileUrl||""}
+                                        contentName={item.title}
                                         // contentPresent={item.createDate.slice(0,10)}
                                         // contentNum={item.num}
                                         shareBnt = {this.shareParent.bind(this,item.id)}

@@ -10,7 +10,9 @@ import './index.scss';
 import ceshi from '../../sources/ceshi.jpeg'
 import * as actions from './../../actions';
 import 'antd-mobile/dist/antd-mobile.css';
+import adver from '../../sources/advertisement.png'
 import {appId} from './../../actions/config';
+import pat9 from "../../sources/classroom.png";
 const FormItem = Form.Item;
 
 /* Populated by react-webpack-redux:reducer */
@@ -64,16 +66,16 @@ class Login extends React.Component {
         const { match,actions} = this.props;
         const { params: { packageId } } = match;
         const { params: { mchKey } } = match;
-        this.setState({
-            animating:true,
-            text:'获取详情...',
-            packageId:packageId,
-            mchKey:mchKey
-        })
+        // this.setState({
+        //     animating:true,
+        //     text:'获取详情...',
+        //     packageId:packageId,
+        //     mchKey:mchKey
+        // })
 
-        actions.genepackageSpecialist({
-            id:packageId
-        });
+        // actions.genepackageSpecialist({
+        //     id:packageId
+        // });
         // actions.isShouCang({
         //     packageId
         // });
@@ -153,7 +155,7 @@ class Login extends React.Component {
         //     console.log(!localStorage.getItem('token'))
         // }
 
-         this.props.history.push('/agreementspecialist')
+         this.props.history.push('/OneClickOrderSpecialist')
         // console.log(id)
         sessionStorage.setItem('packageId',id)
     }
@@ -191,8 +193,8 @@ class Login extends React.Component {
         })
     }
     render() {
-        const {isCollect} = this.props
-        let geneDetailSpecialist = this.props.geneDetailSpecialist||{}
+        // const {isCollect} = this.props
+        // let geneDetailSpecialist = this.props.geneDetailSpecialist||{}
         return (
             <div className="detail_row">
                 {/*<div className="detail_img">*/}
@@ -217,34 +219,36 @@ class Login extends React.Component {
                     <div className="detailspecialist_message">
                         {/*<div className="detail_message_bnt"> 套餐介绍 </div>*/}
                         <div id="detail_message_text" className="detailspecialist_message_text">
+                            <img src={adver} alt=""/>
                         </div>
                     </div>
 
                 </div>
                 <div className="height15"></div>
-                    {
-                        sessionStorage.getItem('gene_user_type')=='0'?<div className="fooder_bnt displays">
-                            <div className="flex1"></div>
-                            {
-                                isCollect?<div onClick={this.delCollect.bind(this,)} className="Collection">
-                                    取消收藏
-                                </div>:<div onClick={this.collect.bind(this,)} className="Collection">
-                                    收藏
-                                </div>
-                            }
-                            
-                            <div className="flex1"></div>
-                        </div>:<div className="fooder_bnt displays">
-                            
-                            <p className="fooder_bnt_money_content">
-                                <span className=" marginLeft1">¥</span>
-                                <span>{geneDetailSpecialist.price}</span>
-                            </p>
-                            <div onClick={this.goAgree.bind(this,geneDetailSpecialist.id)} className="sub_button">
-                                预约
-                            </div>
-                        </div>
-                    }
+                <div className="fooder_bnt displays">
+
+                    <p className="fooder_bnt_money_content">
+                        {/*<span className=" marginLeft1">¥</span>*/}
+                        {/*<span>{geneDetailSpecialist.price}</span>*/}
+                    </p>
+                    <div onClick={this.goAgree.bind(this)} className="sub_button">
+                        预约
+                    </div>
+                </div>
+                    {/*{*/}
+                        {/*sessionStorage.getItem('gene_user_type')=='0'?<div className="fooder_bnt displays">*/}
+                            {/*<div className="flex1"></div>*/}
+                            {/*{*/}
+                                {/*isCollect?<div onClick={this.delCollect.bind(this,)} className="Collection">*/}
+                                    {/*取消收藏*/}
+                                {/*</div>:<div onClick={this.collect.bind(this,)} className="Collection">*/}
+                                    {/*收藏*/}
+                                {/*</div>*/}
+                            {/*}*/}
+                            {/**/}
+                            {/*<div className="flex1"></div>*/}
+                        {/*</div>:*/}
+                    {/*}*/}
                     <ActivityIndicator
                         toast
                         size="large"
