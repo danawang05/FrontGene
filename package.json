@@ -45,7 +45,7 @@
     "qrcode.react": "^0.9.3",
     "react": "^15.6.1",
     "react-addons-css-transition-group": "^15.6.0",
-    "react-dev-utils": "^4.0.1",
+    "react-dev-utils": "^11.0.4",
     "react-dom": "^15.6.1",
     "react-markdown": "^2.5.0",
     "react-native": "^0.61.5",
